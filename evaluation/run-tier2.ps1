@@ -31,7 +31,9 @@ $yearSub = Get-ChildItem -LiteralPath $yearDir.FullName -Directory -ErrorAction 
 if (-not $yearSub) { Write-Error "未找到 $Year 年赛题目录"; exit 1 }
 
 $problemFile = Get-ChildItem -LiteralPath $yearSub.FullName -Recurse -File -ErrorAction SilentlyContinue |
-    Where-Object { $_.Name -like "${Problem}题.*" } | Select-Object -First 1
+    Where-Object { $_.Name -like "*${Problem}题*" -or $_.Name -like "*-${Problem}.*" -or
+                   $_.Name -like "*${Year}${Problem}*" -or $_.Name -like "*${Year}-${Problem}*" } |
+    Select-Object -First 1
 if (-not $problemFile) { Write-Error "未找到 ${Problem}题 文件（$($yearSub.FullName)）"; exit 1 }
 
 # ---- 建工作区 ----

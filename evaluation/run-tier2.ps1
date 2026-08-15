@@ -43,11 +43,13 @@ if (Test-Path -LiteralPath $Dest) { Remove-Item -LiteralPath $Dest -Recurse -For
 Copy-Item -LiteralPath $problemFile.FullName -Destination (Join-Path $Dest '0_赛题') -Force
 Write-Host "[题目] $($problemFile.Name) -> 0_赛题"
 
-# ---- 附件：同目录松散附件直接复制；题目为压缩包则解压 ----
+# ---- 附件：同目录松散附件直接复制（仅"附件/数据"类，排除他题文件与提交模板）；题目为压缩包则解压 ----
 $dataDest = Join-Path $Dest '1_数据'
 $srcDir = Split-Path -Parent $problemFile.FullName
 Get-ChildItem -LiteralPath $srcDir -File -ErrorAction SilentlyContinue |
-    Where-Object { $_.Name -ne $problemFile.Name -and $_.Name -notlike 'format*' } |
+    Where-Object { $_.Name -match '附件|数据|data|附件' -and
+                   $_.Name -notmatch '附件[A-Za-z]|结果|模板|示例|说明' -and
+                   $_.Name -ne $problemFile.Name -and $_.Name -notlike 'format*' } |
     ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination $dataDest -Force; Write-Host "[附件] $($_.Name) -> 1_数据" }
 $solved = $true
 $ext = $problemFile.Extension.ToLower()

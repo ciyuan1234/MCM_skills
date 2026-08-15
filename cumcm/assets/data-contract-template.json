@@ -1,0 +1,7 @@
+{
+  "_说明": "数据契约模板。Phase 1 处理完每个附件后，运行 make-data-contract.py 生成本文件（勿手写）。",
+  "_作用": "verify.py 用其中的 sha256 与统计量核对：代码是否真的读取了真实数据；论文数值是否可溯源。",
+  "generated_at": "",
+  "generator": "make-data-contract.py",
+  "files": []
+}

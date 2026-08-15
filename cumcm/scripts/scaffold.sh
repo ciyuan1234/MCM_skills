@@ -33,6 +33,14 @@ if [[ -f "$ASSETS_DIR/progress-log-template.md" ]]; then
   cp "$ASSETS_DIR/progress-log-template.md" "$DEST/进度日志.md"
   echo "[复制] progress-log-template.md -> 进度日志.md"
 fi
+if [[ -f "$ASSETS_DIR/data-contract-template.json" ]]; then
+  cp "$ASSETS_DIR/data-contract-template.json" "$DEST/1_数据/"
+  echo "[复制] data-contract-template.json -> 1_数据"
+fi
+if [[ -f "$ASSETS_DIR/plot-style.py" ]]; then
+  cp "$ASSETS_DIR/plot-style.py" "$DEST/3_图表/"
+  echo "[复制] plot-style.py -> 3_图表"
+fi
 
 echo ""
 echo "工作区已就绪: $DEST"

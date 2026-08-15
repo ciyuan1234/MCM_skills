@@ -1,8 +1,4 @@
-# 忽略文件
-*.tmp
-*.log
-*.aux
-*.out
-*.toc
-.DS_Store
-Thumbs.db
+# benchmark 运行产物（不入库）
+evaluation/runs/
+__pycache__/
+*.pyc

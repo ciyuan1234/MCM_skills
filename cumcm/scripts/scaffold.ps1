@@ -49,6 +49,16 @@ if (Test-Path -LiteralPath $log) {
     Copy-Item -LiteralPath $log -Destination (Join-Path $Dest '进度日志.md') -Force
     Write-Host "[复制] progress-log-template.md -> 进度日志.md"
 }
+$contract = Join-Path $AssetsDir 'data-contract-template.json'
+if (Test-Path -LiteralPath $contract) {
+    Copy-Item -LiteralPath $contract -Destination (Join-Path $Dest '1_数据') -Force
+    Write-Host "[复制] data-contract-template.json -> 1_数据"
+}
+$plotstyle = Join-Path $AssetsDir 'plot-style.py'
+if (Test-Path -LiteralPath $plotstyle) {
+    Copy-Item -LiteralPath $plotstyle -Destination (Join-Path $Dest '3_图表') -Force
+    Write-Host "[复制] plot-style.py -> 3_图表"
+}
 
 Write-Host ""
 Write-Host "工作区已就绪: $Dest"

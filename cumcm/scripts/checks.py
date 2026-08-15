@@ -183,7 +183,7 @@ def check_numbering(text, label, pattern, mode="md"):
     print(f"== 3. 编号连续性: {label} ==")
     # 编号检查只扫描正文（参考文献/附录中的数字与公式无关，先截断）
     body = re.split(r"参考文献", text)[0]
-    nums = [int(m) for m in re.findall(pattern, body)]
+    nums = [int(m) for m in re.findall(pattern, body, re.MULTILINE)]
     if not nums:
         report(WARN, f"未发现 {label} 编号")
         return

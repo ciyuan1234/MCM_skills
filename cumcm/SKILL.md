@@ -57,24 +57,29 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 
 ### Phase 3 论文写作（40-60h）
 1. **摘要优先**：按 `references/05-abstract-and-writing.md` 五要素写，
-   每个问题必须出现具体数值结果（900-1200 字）
+   每个问题必须出现具体数值结果（700-1300 字，摘要单独一页）
 2. 七章结构：问题重述 / 问题分析(必配总体思路图) / 模型假设 / 符号说明 /
    模型建立与求解(逐问"预处理→建模→求解→分析→检验") / 模型评价改进推广 / 参考文献
-3. 排版：Word 用 `assets/paper-template.md`，LaTeX 用 `assets/paper-template.tex`（xelatex 编译）
-4. 图表规范：图/表编号+题注+正文引用+图后结论；三线表；格式样例见 `assets/result-table-samples.md`
-5. 参考文献 GB/T 7714（见 `references/01-competition-format.md`），只列真文献。
+3. 排版：Word 用 `assets/paper-template.md`，LaTeX 用 `assets/paper-template.tex`（xelatex 编译）；
+   正文引用处必须标注 [x]（覆盖 ≥50% 文献）
+4. 图表规范：图/表编号+题注+正文引用+图后结论；**图题注在图下、表题注在表上**；三线表；
+   每处"图N"引用必须配有 `![图N …](3_图表/…)` 插图标签（否则 PDF 无图）；格式样例见 `assets/result-table-samples.md`
+5. 参考文献 GB/T 7714（见 `references/01-competition-format.md`），只列真文献；
+   附录必须含可运行源代码代码块（或完整代码清单）。
 
 ### Phase 4 检查与提交（60-72h）
 1. 运行 `python scripts/checks.py 4_论文/paper.md .` 自动检查
-   （结构/摘要/编号/参考文献/提交物），修复所有错误
+   （结构/摘要/编号/图题注/表题注/[x]引用/附录代码/参考文献/提交物），修复所有错误
 2. 运行 `python scripts/verify.py .` 溯源硬校验
    （数据契约/代码-数据绑定/图表三方一致/数值溯源/论文-代码对应），修复全部错误
-3. 逐条核对 `references/06-checklists.md`（格式/内容/一致性/查重/提交物）
-4. 数据与代码一致性：论文每个数值都能在运行结果中找到出处；支撑材料代码与论文引用一致
-5. 导出最终 PDF：`.\scripts\export-paper.ps1 -WorkDir .`
-   （Markdown/LaTeX → Word → PDF，Word COM 出稿）
-6. 用 `scripts/package.ps1`（或 .sh）打包支撑材料 zip
-7. 提醒用户截止前 30 分钟完成上传。
+3. 导出 docx/PDF 后运行 `python scripts/format-check.py .` 版面硬检查
+   （页边距 ≥2.5cm/页脚页码/首页摘要页/图题注/三线表/表题注/PDF ≤20MB），修复全部错误
+4. 逐条核对 `references/06-checklists.md`（格式/内容/一致性/查重/提交物）
+5. 数据与代码一致性：论文每个数值都能在运行结果中找到出处；支撑材料代码与论文引用一致
+6. 导出最终 PDF：`.\scripts\export-paper.ps1 -WorkDir .`
+   （Markdown/LaTeX → Word → PDF，Word COM 出稿；md2docx 自动设置页边距/页码/三线表）
+7. 用 `scripts/package.ps1`（或 .sh）打包支撑材料 zip
+8. 提醒用户截止前 30 分钟完成上传。
 
 ## 状态持久化协议（每阶段结束必做）
 
@@ -131,9 +136,10 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 
 - `scripts/scaffold.ps1` / `.sh`：一键创建比赛工作区（预置数据契约模板/绘图模板）
 - `scripts/make-data-contract.py`：Phase 1 生成数据契约（字段/统计量/sha256）
-- `scripts/checks.py` / `checks.ps1`：论文自动检查（结构/摘要/编号/参考文献/提交物）
+- `scripts/checks.py` / `checks.ps1`：论文自动检查（结构/摘要/编号/图表题注/引用标注/附录代码/参考文献/提交物）
 - `scripts/verify.py`：溯源硬校验（代码-数据绑定/图表三方一致/数值溯源），反 AI 幻觉核心
-- `scripts/export-paper.ps1`：论文导出 PDF（Markdown/LaTeX → Word COM）
+- `scripts/format-check.py`：docx/PDF 版面硬检查（页边距/页码/摘要页/图题注/三线表/表题注/PDF 大小）
+- `scripts/export-paper.ps1`：论文导出 PDF（Markdown/LaTeX → Word COM，自动页边距/页码/三线表）
 - `scripts/package.ps1` / `.sh`：支撑材料打包 zip
 
 ## 环境准备（开赛前 30 分钟核对）

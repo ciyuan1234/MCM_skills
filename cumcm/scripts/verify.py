@@ -280,7 +280,8 @@ def main():
             paper_text = read_text(paper)
         except Exception:
             paper_text = ""
-        code_names = re.findall(r"[\w\-]+\.(?:m|py|r)", paper_text)
+        paper_no_code = re.sub(r"```.*?```", "", paper_text, flags=re.S)  # 剔除代码块，防止标识符误报
+        code_names = re.findall(r"[\w\-]+\.(?:m(?!d\b)|py|r)\b", paper_no_code)
         code_names = sorted(set(code_names))
         if code_names:
             existing = {os.path.basename(s) for s in scripts}

@@ -24,6 +24,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHECKS = os.path.join(ROOT, "cumcm", "scripts", "checks.py")
 VERIFY = os.path.join(ROOT, "cumcm", "scripts", "verify.py")
+FORMAT_CHECK = os.path.join(ROOT, "cumcm", "scripts", "format-check.py")
 
 
 def run_tool(py_script, args, cwd=None):
@@ -49,15 +50,25 @@ def main():
     ap.add_argument("--trigger", type=float, default=5.0, help="人工触发分 0-5")
     args = ap.parse_args()
 
-    wd = args.workdir
+    wd = os.path.abspath(args.workdir)
     if not os.path.isdir(wd):
         print(f"[错误] 工作目录不存在: {wd}")
         sys.exit(2)
 
-    # ---------- 1. checks.py / verify.py ----------
+    # ---------- 1. checks.py / verify.py / format-check.py ----------
     paper_path = os.path.join(wd, "4_论文", "paper.md")
     checks_out = run_tool(CHECKS, [paper_path, wd], cwd=wd)
     verify_out = run_tool(VERIFY, [wd], cwd=wd)
+    fmt_json = os.path.join(wd, "4_论文", "format-check.json")
+    fmt_out = run_tool(FORMAT_CHECK, [wd, "-o", fmt_json], cwd=wd)
+    fmt_err = count(fmt_out, r"\[错误\]")
+    fmt_warn = count(fmt_out, r"\[警告\]")
+    fmt_info = {}
+    try:
+        with open(fmt_json, encoding="utf-8") as f:
+            fmt_info = json.load(f)
+    except Exception:
+        pass
     checks_err = count(checks_out, r"\[错误\]")
     checks_warn = count(checks_out, r"\[警告\]")
     verify_err = count(verify_out, r"\[错误\]")
@@ -105,9 +116,18 @@ def main():
     # ---------- 3. 打分 ----------
     correctness = max(0.0, 40 - 20 * checks_err - 20 * verify_err)
     warn_penalty = min(4.0, float(checks_warn + verify_warn))
+    # 版面合规分（format-check.py，docx 硬检查）: 页边距/页码/图题注/三线表/首页摘要
+    if fmt_err > 0:
+        fmt_score = 0.0
+    else:
+        fmt_score = (4.0 if fmt_info.get("margins_ok") else 1.0) \
+                    + (4.0 if fmt_info.get("page_number_ok") else 1.0) \
+                    + min(fmt_info.get("images", 0), 4) / 4.0 * 3.0 \
+                    + (2.0 if fmt_info.get("tables", 0) >= 1 else 0.0)
+    fmt_score = round(min(10.0, fmt_score), 1)
     quality = (chapters_found / 7.0 * 10
                + min(abstract_nums, 15) / 15.0 * 8
-               + (3 if abstract_len >= 500 else 1.5 if abstract_len >= 300 else 0)
+               + (3 if 700 <= abstract_len <= 1300 else 1.5 if 500 <= abstract_len <= 1500 else 0)
                + min(len(fig_files), 4) / 4.0 * 5
                + (2 if tables_max >= 6 else 1 if tables_max >= 4 else 0)
                + (2 if formulas_max >= 6 else 1 if formulas_max >= 4 else 0)
@@ -115,7 +135,8 @@ def main():
                + (1 if has_model_check else 0)
                + (1 if has_sensitivity else 0)
                + (3 if contract else 0)
-               + (2 if pdf else 0))
+               + (2 if pdf else 0)
+               + fmt_score)
     quality = round(min(35, quality) - warn_penalty, 1)
     process = (5 if progress_log else 0) + (5 if contract else 0) + (5 if dirs_ok else 0)
     efficiency = max(0.0, min(10, args.efficiency))
@@ -128,6 +149,7 @@ def main():
         "workdir": wd,
         "checks_errors": checks_err, "checks_warnings": checks_warn,
         "verify_errors": verify_err, "verify_warnings": verify_warn,
+        "format_errors": fmt_err, "format_warnings": fmt_warn, "format_score": fmt_score,
         "chapters_found": chapters_found, "abstract_nums": abstract_nums,
         "abstract_len": abstract_len, "tables_max": tables_max,
         "formulas_max": formulas_max, "refs": refs,
@@ -151,12 +173,15 @@ def main():
     print("== 自动评分报告 ==")
     print(f"  checks.py 错误 {checks_err} / 警告 {checks_warn}")
     print(f"  verify.py 错误 {verify_err} / 警告 {verify_warn}")
+    print(f"  format-check 错误 {fmt_err} / 警告 {fmt_warn} (版面分 {fmt_score}/10)")
     print(f"  章节 {chapters_found}/7 | 摘要数值 {abstract_nums} | 摘要字数 {abstract_len} | 图 {len(fig_files)}")
     print(f"  表 {tables_max} | 公式 {formulas_max} | 文献 {refs} | 模型检验 {has_model_check} | 灵敏度 {has_sensitivity}")
     print(f"  数据契约 {contract} | PDF {pdf} | 代码 {len(code_files)} | 输出文件 {len(out_files)} | 进度日志 {progress_log}")
     print(f"  得分: 正确性 {scores['correctness(40)']}/40  质量 {scores['quality(35)']}/35  流程 {scores['process(15)']}/15")
     print(f"  自动总分 {auto_total}/90  + 人工(效率{args.efficiency}/触发{args.trigger}) = {grand_total}/100(归一化)")
     verdict = "PASS(硬闸门通过)" if (checks_err == 0 and verify_err == 0) else "FAIL(存在错误，禁止发布)"
+    if checks_err == 0 and verify_err == 0 and fmt_err > 0:
+        verdict = "FAIL(版面格式错误，禁止发布)"
     print(f"  硬闸门: {verdict}")
 
     payload = {"metrics": metrics, "scores": scores, "hard_gate": verdict,
@@ -165,6 +190,8 @@ def main():
         with open(args.out, "w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
         print(f"[完成] 评分结果已写入: {args.out}")
+    if fmt_err > 0:
+        sys.exit(1)
     sys.exit(0)
 
 

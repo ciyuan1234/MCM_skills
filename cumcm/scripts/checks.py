@@ -123,12 +123,12 @@ def check_abstract(text):
         return
     pure = re.sub(r"\s", "", abstract)
     n = len(pure)
-    if n < 300 or n > 1800:
-        report(ERR, f"摘要字数 {n}，超出合理区间 300-1800 字")
-    elif n < 500 or n > 1500:
-        report(WARN, f"摘要字数 {n}，获奖论文通常 900-1200 字，建议压缩或扩充")
+    if n < 500 or n > 1500:
+        report(ERR, f"摘要字数 {n}，超出一页摘要容量（官方 HARD: 摘要单独一页且不超一页）")
+    elif n < 700 or n > 1300:
+        report(WARN, f"摘要字数 {n}，获奖论文通常 700-1300 字，建议扩充或压缩")
     else:
-        report(PASS, f"摘要字数 {n}，区间合理（获奖论文通常 900-1200 字）")
+        report(PASS, f"摘要字数 {n}，区间合理（获奖论文通常 700-1300 字）")
 
     kws = extract_keywords(text)
     if kws:
@@ -195,6 +195,113 @@ def check_numbering(text, label, pattern, mode="md"):
     else:
         report(PASS, f"{label} 编号连续 1-{max(uniq)}（共 {len(nums)} 处引用/题注）")
 
+
+# ---------- 3.5 图表题注（获奖论文惯例: 图题注在图下、表题注在表上） ----------
+
+def check_fig_captions(text):
+    print("== 3.5 图表题注 ==")
+    body = re.split(r"参考文献", text)[0]
+    tags = []
+    bad_alt = []
+    for m in re.finditer(r"!\[([^\]]*)\]\([^)]+\)", body):
+        alt = m.group(1).strip()
+        num = re.match(r"^图\s*(\d+)", alt)
+        if num:
+            tags.append(int(num.group(1)))
+        else:
+            bad_alt.append(alt[:20] or "(空题注)")
+    refs = [int(m) for m in re.findall(r"图\s*(\d+)", body)]
+    if not tags:
+        if refs:
+            report(ERR, f"正文出现 {len(refs)} 处'图N'引用但无任何 ![图N …](图片) 标签（引用必须配插图，否则 PDF 无图）")
+        else:
+            report(WARN, "正文未发现图片引用与图片标签")
+        return
+    max_tag = max(tags)
+    unref = [n for n in range(1, max_tag + 1) if n not in tags]
+    if unref:
+        report(ERR, f"图片标签编号不连续，缺少: {unref}")
+    else:
+        report(PASS, f"图片标签编号连续 1-{max_tag}（共 {len(tags)} 张图）")
+    if bad_alt:
+        report(WARN, f"{len(bad_alt)} 个图片标签题注未以'图N'开头（题注应写在 alt 中，如 ![图1 xxx](fig.png)）: {bad_alt[:2]}")
+    else:
+        report(PASS, "所有图片标签均以'图N'开头（docx 导出时自动生成图下题注）")
+    if refs:
+        missing = [n for n in set(refs) if n > max_tag]
+        if missing:
+            report(ERR, f"正文引用了未插图的编号: 图{missing}（有引用无图）")
+        else:
+            report(PASS, "正文'图N'引用均有对应图片标签")
+    order = sorted(range(len(tags)), key=lambda i: tags[i])
+    if order != list(range(len(tags))):
+        report(WARN, "图片标签出现顺序与编号不一致（docx 按出现顺序排版，建议图N 按编号顺序摆放）")
+    else:
+        report(PASS, "图片标签按编号顺序出现")
+
+
+def check_table_captions(text):
+    body = re.split(r"参考文献", text)[0]
+    lines = body.splitlines()
+    tbl_heads = []
+    for i, ln in enumerate(lines):
+        s = ln.strip()
+        if s.startswith("|") and i + 1 < len(lines) and re.match(r"^\s*\|?[\s:|-]+\|?\s*$", lines[i + 1].strip()):
+            tbl_heads.append(i)
+    if not tbl_heads:
+        report(WARN, "未发现 markdown 表格")
+        return
+    missing = []
+    for i in tbl_heads:
+        j = i - 1
+        while j >= 0 and not lines[j].strip():
+            j -= 1
+        # 符号说明节的表格惯例不编号，豁免
+        sec = "\n".join(lines[max(0, i - 15):i])
+        if re.search(r"(?m)^#{1,6}\s*[四4]、\s*符号说明|^#{1,6}\s*符号说明", sec):
+            continue
+        if j < 0 or not re.match(r"^表\s*\d+", lines[j].strip()):
+            missing.append(tbl_heads.index(i) + 1)
+    if missing:
+        report(WARN, f"{len(missing)} 张表格缺少'表N …'题注行（题注须在表格正上方）: 表序 {missing[:4]}")
+    else:
+        report(PASS, f"{len(tbl_heads)} 张表格均有'表N'题注行（表上）")
+
+
+# ---------- 3.6 正文引用标注与附录代码（官方 HARD） ----------
+
+def check_citations_appendix(text, workdir):
+    print("== 3.6 正文引用标注与附录代码 ==")
+    head = re.split(r"参考文献", text)[0]
+    cites = [int(m) for m in re.findall(r"\[(\d+)\]", head)]
+    m = re.search(r"参考文献(.*?)(附录|$)", text, re.S)
+    refs_n = 0
+    if m:
+        refs_n = len([ln for ln in m.group(1).splitlines()
+                      if ln.strip() and re.match(r"^[\[(（]?\d", ln.strip())])
+    if not cites:
+        report(ERR, "正文没有任何 [x] 引用标注（官方 HARD: 参考文献须在正文引用处标注 [x]）")
+    elif refs_n == 0:
+        report(WARN, "未解析到参考文献条目数，跳过覆盖率检查")
+    else:
+        covered = len(set(c for c in cites if c <= refs_n))
+        ratio = covered / refs_n
+        if ratio >= 0.5:
+            report(PASS, f"正文引用覆盖 {covered}/{refs_n} 条文献 ({ratio:.0%} >= 50%)")
+        else:
+            report(ERR, f"正文引用仅覆盖 {covered}/{refs_n} 条文献 ({ratio:.0%} < 50%)，官方要求引用处标 [x]")
+
+    app = re.search(r"(附录|附\s*录)(.*)$", text, re.S)
+    if not app:
+        report(WARN, "未找到附录章节（建议附录附完整可运行代码）")
+        return
+    content = app.group(2)
+    if "```" in content or "\\begin{lstlisting}" in content or "\\begin{verbatim}" in content:
+        report(PASS, "附录含代码块（官方 HARD: 附录须含完整可运行源代码）")
+    elif re.search(r"\.(py|m|r)\b", content, re.I):
+        report(WARN, "附录仅列出代码文件名清单（官方 HARD 要求附录含可运行完整代码，建议粘贴代码块）")
+    else:
+        report(ERR, "附录既无代码块也无代码文件清单（官方 HARD: 附录必须含完整可运行源代码）")
 
 # ---------- 4. 参考文献 ----------
 
@@ -275,6 +382,8 @@ def main():
     check_abstract(text)
     check_numbering(text, "图", r"图\s*(\d+)")
     check_numbering(text, "表", r"表\s*(\d+)")
+    check_fig_captions(text)
+    check_table_captions(text)
     # 公式编号: 优先识别 LaTeX/Markdown 的 \tag{N}；否则回退到"行内 $$...$$ 行尾 (N)"
     tags = re.findall(r"\\tag\{(\d+)\}", text)
     if tags:
@@ -282,6 +391,7 @@ def main():
     else:
         check_numbering(text, "公式", r"^[^$\n]*\((\d+)\)\s*$")
     check_references(text)
+    check_citations_appendix(text, workdir)
     check_submission(workdir)
 
     print()

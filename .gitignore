@@ -1,0 +1,8 @@
+# 忽略文件
+*.tmp
+*.log
+*.aux
+*.out
+*.toc
+.DS_Store
+Thumbs.db

@@ -27,12 +27,12 @@ $yearDir = Get-ChildItem -LiteralPath $Library -Directory -ErrorAction SilentlyC
     Where-Object { $_.Name -like '1.历年国赛赛题*' } | Select-Object -First 1
 if (-not $yearDir) { Write-Error "资料库中未找到 1.历年国赛赛题 目录: $Library"; exit 1 }
 $yearSub = Get-ChildItem -LiteralPath $yearDir.FullName -Directory -ErrorAction SilentlyContinue |
-    Where-Object { $_.Name -like "$Year年赛题*" } | Select-Object -First 1
+    Where-Object { $_.Name -like "${Year}年赛题*" } | Select-Object -First 1
 if (-not $yearSub) { Write-Error "未找到 $Year 年赛题目录"; exit 1 }
 
-$problemFile = Get-ChildItem -LiteralPath $yearSub.FullName -ErrorAction SilentlyContinue |
-    Where-Object { $_.Name -like "$Problem题.*" } | Select-Object -First 1
-if (-not $problemFile) { Write-Error "未找到 ${Problem}题 文件（$yearSub.FullName）"; exit 1 }
+$problemFile = Get-ChildItem -LiteralPath $yearSub.FullName -Recurse -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Name -like "${Problem}题.*" } | Select-Object -First 1
+if (-not $problemFile) { Write-Error "未找到 ${Problem}题 文件（$($yearSub.FullName)）"; exit 1 }
 
 # ---- 建工作区 ----
 if (-not $Dest) { $Dest = Join-Path $ScriptDir ("tier2_{0}{1}_{2:yyyyMMdd}" -f $Year, $Problem, (Get-Date)) }
@@ -43,30 +43,37 @@ if (Test-Path -LiteralPath $Dest) { Remove-Item -LiteralPath $Dest -Recurse -For
 Copy-Item -LiteralPath $problemFile.FullName -Destination (Join-Path $Dest '0_赛题') -Force
 Write-Host "[题目] $($problemFile.Name) -> 0_赛题"
 
-# ---- 解压附件 ----
-$ext = $problemFile.Extension.ToLower()
+# ---- 附件：同目录松散附件直接复制；题目为压缩包则解压 ----
 $dataDest = Join-Path $Dest '1_数据'
-$solved = $false
-if ($ext -eq '.zip') {
-    Expand-Archive -LiteralPath $problemFile.FullName -DestinationPath $dataDest -Force
-    $solved = $true
-} else {
-    $sevenZip = Get-Command 7z -ErrorAction SilentlyContinue
-    if ($sevenZip) {
-        & 7z x $problemFile.FullName -o"$dataDest" -y | Out-Null
+$srcDir = Split-Path -Parent $problemFile.FullName
+Get-ChildItem -LiteralPath $srcDir -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Name -ne $problemFile.Name -and $_.Name -notlike 'format*' } |
+    ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination $dataDest -Force; Write-Host "[附件] $($_.Name) -> 1_数据" }
+$solved = $true
+$ext = $problemFile.Extension.ToLower()
+if ($ext -in @('.zip', '.rar', '.7z')) {
+    $solved = $false
+    if ($ext -eq '.zip') {
+        Expand-Archive -LiteralPath $problemFile.FullName -DestinationPath $dataDest -Force
         $solved = $true
     } else {
-        foreach ($p in @('C:\Program Files\7-Zip\7z.exe', 'C:\Program Files (x86)\7-Zip\7z.exe')) {
-            if (Test-Path -LiteralPath $p) {
-                & $p x $problemFile.FullName "-o$dataDest" -y | Out-Null
-                $solved = $true
-                break
+        $sevenZip = Get-Command 7z -ErrorAction SilentlyContinue
+        if ($sevenZip) {
+            & 7z x $problemFile.FullName "-o$dataDest" -y | Out-Null
+            $solved = $true
+        } else {
+            foreach ($p in @('C:\Program Files\7-Zip\7z.exe', 'C:\Program Files (x86)\7-Zip\7z.exe')) {
+                if (Test-Path -LiteralPath $p) {
+                    & $p x $problemFile.FullName "-o$dataDest" -y | Out-Null
+                    $solved = $true
+                    break
+                }
             }
         }
+        if (-not $solved) {
+            Write-Warning "无法自动解压 $ext（需要 7-Zip）。请手动把附件解压到 $dataDest"
+        }
     }
-}
-if (-not $solved) {
-    Write-Warning "无法自动解压 $ext（需要 7-Zip）。请手动把附件解压到 $dataDest"
 }
 
 # ---- 盲测标记 ----

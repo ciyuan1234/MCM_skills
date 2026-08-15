@@ -127,6 +127,9 @@ opencode 会自动加载 `~/.claude/skills` 与 `~/.agents/skills`，无需额�
 
 ## CHANGELOG
 
+- **v1.2.5**（2026-08）：工具链收尾。`make-data-contract.py` 支持多 sheet xlsx（每个工作表独立统计 + 顶层合并，verify.py 向后兼容）；run-tier2 题目命名匹配扩展（`CUMCM2021-C.pdf` 等）；install.ps1 三工具安装验证通过。
+- **v1.2.4**（2026-08）：2021C 第三类题型（综合评价+LP优化）盲测通过；附件A/B 按官方模板填写脚本。
+- **v1.2.3**（2026-08）：评测体系升级——质量 35 扩容 + WARN 扣分 + 90 分制归一化 100；盲评闭环（blind-scores.md）；Tier1 夹具强化（基线 76.4→89.5）。
 - **v1.1.0**（2026-08）：防幻觉硬约束 + 工具链。
   新增 `make-data-contract.py`（数据契约）、`verify.py`（溯源硬校验：代码-数据绑定/
   图表三方一致/数值溯源）、`export-paper.ps1` + `md2docx.py`（论文导出 PDF，

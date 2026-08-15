@@ -128,33 +128,52 @@ def describe_xlsx(path):
     except ImportError:
         return {"note": "缺少 openpyxl，无法解析 xlsx（pip install openpyxl 后重试）"}
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-    ws = wb.active
-    rows = list(ws.iter_rows(values_only=True))
+
+    def describe_sheet(ws):
+        rows = list(ws.iter_rows(values_only=True))
+        if not rows:
+            return None
+        header = [str(c) if c is not None else "" for c in rows[0]]
+        stats = {}
+        categories = {}
+        ncols = len(header)
+        for c in range(ncols):
+            col_vals = [r[c] for r in rows[1:] if c < len(r) and r[c] is not None]
+            nums = [float(v) for v in col_vals if isinstance(v, (int, float))]
+            if nums and len(nums) == len(col_vals):
+                stats[header[c]] = {
+                    "count": len(nums),
+                    "sum": round(sum(nums), 4),
+                    "mean": round(sum(nums) / len(nums), 4),
+                    "max": round(max(nums), 4),
+                    "min": round(min(nums), 4),
+                }
+            else:
+                distinct = {str(v) for v in col_vals}
+                if (len(distinct) <= 100 and 1 < len(distinct) <= len(col_vals)
+                        and is_category_col(header[c], col_vals)):
+                    categories[header[c]] = len(distinct)
+        return {"rows": len(rows), "data_rows": len(rows) - 1, "cols": ncols,
+                "columns": header, "stats": stats, "categories": categories}
+
+    sheets = {}
+    active_title = wb.active.title
+    for ws in wb.worksheets:
+        d = describe_sheet(ws)
+        if d:
+            sheets[ws.title] = d
     wb.close()
-    if not rows:
+    if not sheets:
         return {"note": "工作表为空"}
-    header = [str(c) if c is not None else "" for c in rows[0]]
-    stats = {}
-    categories = {}
-    ncols = len(header)
-    for c in range(ncols):
-        col_vals = [r[c] for r in rows[1:] if c < len(r) and r[c] is not None]
-        nums = [float(v) for v in col_vals if isinstance(v, (int, float))]
-        if nums and len(nums) == len(col_vals):
-            stats[header[c]] = {
-                "count": len(nums),
-                "sum": round(sum(nums), 4),
-                "mean": round(sum(nums) / len(nums), 4),
-                "max": round(max(nums), 4),
-                "min": round(min(nums), 4),
-            }
-        else:
-            distinct = {str(v) for v in col_vals}
-            if (len(distinct) <= 100 and 1 < len(distinct) <= len(col_vals)
-                    and is_category_col(header[c], col_vals)):
-                categories[header[c]] = len(distinct)
-    return {"rows": len(rows), "data_rows": len(rows) - 1, "cols": ncols,
-            "columns": header, "stats": stats, "categories": categories}
+    # 顶层合并（兼容 verify.py 从文件条目顶层读取 stats/categories 的旧逻辑）
+    merged_stats, merged_cats = {}, {}
+    for d in sheets.values():
+        merged_stats.update(d.get("stats", {}))
+        merged_cats.update(d.get("categories", {}))
+    first = next(iter(sheets.values()))
+    return {"sheets": {k: v for k, v in sheets.items()}, "active_sheet": active_title,
+            "rows": first["rows"], "data_rows": first["data_rows"], "cols": first["cols"],
+            "columns": first["columns"], "stats": merged_stats, "categories": merged_cats}
 
 
 def main():

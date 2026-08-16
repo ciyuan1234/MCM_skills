@@ -1,153 +1,203 @@
-# MCM_skills — 全国大学生数学建模竞赛 AI 参赛技能包
+# CUMCM Skill Pack: AI 数学建模国赛全流程助手
 
-一套面向 **全国大学生数学建模竞赛（CUMCM）** 的高质量 AI 技能（skill），
-同时适用于 **Claude Code / OpenAI Codex / opencode** 三种编程代理工具。
+[![CUMCM](https://img.shields.io/badge/CUMCM-数学建模-blue)](#)
+[![AI Skill](https://img.shields.io/badge/AI-Skill-green)](#)
+[![Codex](https://img.shields.io/badge/OpenAI-Codex-black)](#)
+[![Claude Code](https://img.shields.io/badge/Claude-Code-orange)](#)
+[![opencode](https://img.shields.io/badge/opencode-supported-purple)](#)
+[![Platform](https://img.shields.io/badge/Windows%20%7C%20macOS%20%7C%20Linux-supported-lightgrey)](#)
 
-内容基于对历年赛题、历届获奖论文、官方格式规范、36 篇经验分享、
-32 种常规建模方法、28+ 份 MATLAB 现成代码、Python 建模教材的系统研读，
-把"老队伍的经验"固化成 AI 可以直接执行的工作流。
+一套面向 **全国大学生数学建模竞赛（CUMCM）** 的 AI 参赛 skill 包，覆盖从读题、数据探索、建模求解、论文写作、格式检查到支撑材料打包的完整 72 小时工作流。
 
-## 它能干什么
+它不是简单提示词合集，而是一个带 **论文模板、脚本工具、评测体系、反幻觉溯源约束、历年题型经验库** 的可安装技能包。
 
-- **读题选题**：提取题目四层结构，判断 A-E 题型，给出技术路线
-- **数据探索**：数据侧写、缺失值处理、相关性分析
-- **建模求解**：题型→模型映射、32 种方法、十大算法；复用本地现成代码（含 bug 修复版）
-- **论文写作**：摘要五要素、七章结构、图表规范、GB/T 7714 参考文献
-- **检查提交**：自动检查论文格式，打包支撑材料
+[English README](README_EN.md) · [2023C Demo](examples/2023C-workflow-demo.md) · [质量评估框架](EVALUATION.md)
 
-## 目录结构
+## 为什么值得 Star
 
-```
-MCM_skills/
-├── install.ps1 / install.sh   # 一键安装到三个工具
-├── EVALUATION.md               # 质量评估框架（判断改动是变好还是变坏）
-├── evaluation/                 # benchmark 提示词、评分表、运行器、样例数据
-├── cumcm/                     # skill 本体（安装目标就是它）
-│   ├── SKILL.md               # 编排层：启动协议 + 六阶段工作流 + 溯源红线
-│   ├── references/            # 深度知识（按需加载）
-│   │   ├── 01-competition-format.md   论文格式规范
-│   │   ├── 02-scoring-and-award.md    评阅标准 + 获奖论文解剖
-│   │   ├── 03-model-catalog.md        题型映射 + 32 法 + 十大算法
-│   │   ├── 04-code-library.md         MATLAB/Python 代码库 + 修复版
-│   │   ├── 05-abstract-and-writing.md 摘要与论文写作
-│   │   ├── 06-checklists.md           阶段清单 + 交卷核对
-│   │   ├── 07-local-resources.md      本地书籍/数据/网站/软件索引
-│   │   ├── 08-faq-and-pitfalls.md     常见坑速查
-│   │   ├── 09-timeline-and-team.md    72h 时间表 + 团队分工
-│   │   └── 10-constraints-and-tools.md 防幻觉约束 + 工具用法
-│   ├── scripts/
-│   │   ├── scaffold.ps1/.sh    一键创建比赛工作区（预置契约/绘图模板）
-│   │   ├── make-data-contract.py  数据契约生成（Phase 1 强制）
-│   │   ├── checks.py/.ps1      论文自动检查器
-│   │   ├── verify.py           溯源硬校验（反 AI 幻觉核心）
-│   │   ├── export-paper.ps1    论文导出 PDF（md/tex → Word COM）
-│   │   ├── md2docx.py          Markdown → docx 转换器
-│   │   └── package.ps1/.sh     支撑材料打包
-│   └── assets/
-│       ├── paper-template.md   论文模板（Word 路线）
-│       ├── paper-template.tex  论文模板（LaTeX 路线）
-│       ├── plot-style.py       绘图规范模板（必用）
-│       ├── data-contract-template.json  数据契约模板
-│       ├── result-table-samples.md  图表/三线表规范样例
-│       └── progress-log-template.md 进度日志模板
-└── examples/2023C-workflow-demo.md  全流程输出风格演示
+- **开赛能直接用**：一键创建比赛工作区，预置 `0_赛题`、`1_数据`、`2_代码`、`3_图表`、`4_论文`、`5_支撑材料`。
+- **覆盖国赛真实流程**：读题选题、数据契约、模型选择、代码求解、论文七章结构、交卷检查全部串起来。
+- **反 AI 幻觉**：论文数值必须能从数据文件和运行结果溯源，图表必须由代码生成，文献不得编造。
+- **有工程化验收**：`checks.py`、`verify.py`、`format-check.py`、`auto-score.py` 用来判断一次优化是变好还是变坏。
+- **适配主流 Agent**：支持 Claude Code、OpenAI Codex、opencode 的 skill 目录结构。
+
+## 30 秒看懂
+
+你对 AI 说：
+
+```text
+我拿到 2026 国赛 C 题了。请按 cumcm skill 建立工作区，读题，判断题型，给出每问建模路线。
 ```
 
-## 安装
+AI 应该输出：
 
-### 方式一：一键安装脚本
+```text
+题目四层结构：背景 / 问题1-N / 数据说明 / 结果要求
+题型判断：C 题，数据分析 + 预测 + 优化
+技术路线：数据侧写 -> 相关性分析 -> 预测模型 -> 优化模型 -> 灵敏度分析
+工作区：已创建 0_赛题、1_数据、2_代码、3_图表、4_论文、5_支撑材料
+下一步：读取附件并生成 1_数据/data_contract.json
+```
 
-Windows（PowerShell）：
+完整输出风格见：[examples/2023C-workflow-demo.md](examples/2023C-workflow-demo.md)。
+
+## 快速开始
+
+克隆项目：
+
+```powershell
+git clone https://github.com/ciyuan1234/MCM_skills.git
+cd MCM_skills
+```
+
+Windows 安装：
+
 ```powershell
 .\install.ps1
 ```
 
-macOS / Linux：
+macOS / Linux 安装：
+
 ```bash
+chmod +x install.sh
 ./install.sh
 ```
 
-脚本会把 `cumcm/` 复制到四个位置：
-- Claude Code：`~/.claude/skills/cumcm`
-- Codex (v1)：`~/.codex/skills/cumcm`
-- Codex / AGENTS 标准：`~/.agents/skills/cumcm`
-- opencode：`~/.config/opencode/skills/cumcm`
+安装后重启你的 Agent 工具，然后用自然语言触发：
 
-opencode 会自动加载 `~/.claude/skills` 与 `~/.agents/skills`，无需额外配置。
+```text
+建立数学建模比赛工作目录，并按 CUMCM 六阶段流程开始。
+```
 
-### 方式二：手动复制
+脚本会把 `cumcm/` 复制到这些位置：
 
-把 `cumcm/` 整个文件夹复制到对应工具的 skills 目录即可（同上表）。
-**安装/更新后请重启对应工具。**
+| 工具 | 安装目录 |
+|---|---|
+| Claude Code | `~/.claude/skills/cumcm` |
+| OpenAI Codex | `~/.codex/skills/cumcm` |
+| AGENTS 标准 | `~/.agents/skills/cumcm` |
+| opencode | `~/.config/opencode/skills/cumcm` |
 
-### 依赖：LaTeX（论文编译，可选但推荐）
+## 核心能力
 
-`export-paper.ps1` 优先走 **md2tex.py + xelatex** 路线（公式/表格/中文排版最佳），无 xelatex 时回退 Word 路线（需 Office + python-docx）。
+| 阶段 | 能力 | 产物 |
+|---|---|---|
+| Phase 0 | 读题、拆解任务、判断 A-E 题型 | 题目结构、技术路线、选题建议 |
+| Phase 1 | 数据侧写、缺失/异常/重复检查 | 数据质量报告、`data_contract.json` |
+| Phase 2 | 模型选择、代码求解、结果检验 | 可运行代码、结果表、图表 |
+| Phase 3 | 摘要、正文、图表、参考文献 | `paper.md` / `paper.tex` / `paper.docx` |
+| Phase 4 | 格式检查、溯源检查、导出 PDF | 检查报告、论文 PDF |
+| Phase 5 | 支撑材料整理与打包 | 提交 zip |
+
+## 目录结构
+
+```text
+MCM_skills/
+├── install.ps1 / install.sh       # 一键安装
+├── README.md / README_EN.md       # 中英文入口
+├── EVALUATION.md                  # 质量评估框架
+├── examples/                      # Demo 输出样例
+├── evaluation/                    # benchmark、评分表、获奖论文经验库
+└── cumcm/
+    ├── SKILL.md                   # skill 编排层
+    ├── references/                # 赛制、模型、写作、检查清单
+    ├── scripts/                   # 工作区、契约、检查、导出、打包工具
+    └── assets/                    # 论文模板、绘图模板、进度日志模板
+```
+
+## 常用命令
+
+创建比赛工作区：
+
+```powershell
+.\cumcm\scripts\scaffold.ps1 -WorkDir .\workspace
+```
+
+生成数据契约：
+
+```powershell
+python .\cumcm\scripts\make-data-contract.py .\workspace\1_数据 -o .\workspace\1_数据\data_contract.json
+```
+
+检查论文：
+
+```powershell
+python .\cumcm\scripts\checks.py .\workspace\4_论文\paper.md .\workspace
+python .\cumcm\scripts\verify.py .\workspace
+python .\cumcm\scripts\format-check.py .\workspace
+```
+
+导出论文并打包支撑材料：
+
+```powershell
+.\cumcm\scripts\export-paper.ps1 -WorkDir .\workspace -Force
+.\cumcm\scripts\package.ps1 -WorkDir .\workspace
+```
+
+## 推荐依赖
+
+- Python 3.8+
+- `numpy`、`scipy`、`pandas`、`matplotlib`、`sympy`、`scikit-learn`
+- 可选：MiKTeX / TeX Live，用于 `xelatex` 导出高质量 PDF
+- 可选：Microsoft Office，用于 Word COM 转 PDF
+
 Windows 安装 MiKTeX：
+
 ```powershell
 winget install MiKTeX.MiKTeX
 & "$env:LOCALAPPDATA\Programs\MiKTeX\miktex\bin\x64\initexmf.exe" --set-config-value "[MPM]AutoInstall=1"
 ```
-> AutoInstall=1 使首次编译自动安装缺失宏包（ctex 等）；无需管理员权限。
 
-## 使用
+## 防幻觉红线
 
-在任意工具中自然语言触发（skill 会自动被识别）：
+本项目把“不要编造”落成了可检查规则：
 
-- "我拿到 2026 国赛 A 题了，帮我读题并分析"
-- "建立比赛工作目录"
-- "帮我选模型并写代码解问题二"
-- "写论文摘要"
-- "检查论文格式"
-- "打包支撑材料"
+- 数据必须来自真实文件，Phase 1 必须生成 `1_数据/data_contract.json`。
+- 代码必须显式读取数据文件，禁止把关键数据硬编码进脚本。
+- 论文数值必须能在运行结果或数据契约中找到出处。
+- 图表必须由代码从数据生成，图例和对象数必须与数据一致。
+- 参考文献只列真实读过的资料。
+- 每个模型必须做误差、稳定性或灵敏度分析。
 
-开赛后建议：
-1. 先用 `scaffold.ps1` 建工作区
-2. 让 AI 读题 → 数据探索（**跑 `make-data-contract.py` 生成数据契约**）→ 建模求解
-3. 第 40 小时起进入写作，摘要优先；绘图一律套用 `plot-style.py` 模板
-4. 交卷前跑 `verify.py`（溯源硬校验）+ `checks.py` + 核对 `06-checklists.md`，
-   `export-paper.ps1` 导 PDF，`package.ps1` 打包支撑材料
+## 质量评估
 
-## 防 AI 幻觉（v1.1 核心能力）
+项目内置三层回归：
 
-"代码结果依据真实数据"、"图与数据一致（3 组画 3 条）"不再靠 AI 自觉，而是由工具拦截：
+| 层级 | 目标 | 工具 |
+|---|---|---|
+| Tier 0 | 工具自检 | scaffold / checks / verify / format-check / package |
+| Tier 1 | 小型端到端 fixture | `evaluation/run-tier1.ps1` + `auto-score.py` |
+| Tier 2 | 往届真题盲测 | `evaluation/run-tier2.ps1` + 盲评量表 |
 
-1. **数据契约**：Phase 1 生成 `1_数据/data_contract.json`（字段/统计量/文件指纹）
-2. **溯源校验**：`verify.py` 自动检查代码是否真的读数据、图与数据是否一致、数值有无出处
-3. **绘图模板**：`plot-style.py` 强制声明 `数据来源` 与 `对象数`
-4. **质量评估**：`EVALUATION.md` + `evaluation/` benchmark 判定每次改动是变好还是变坏
+详细规则见：[EVALUATION.md](EVALUATION.md)。
 
-## 关联本地资料库
+## 适合谁
 
-本 skill 深度引用本地资料库 `D:\全国大学生数学建模竞赛资料`（历年赛题、获奖论文、
-电子书籍、MATLAB 代码、数据集）。`references/04` 与 `references/07` 记录了
-具体到文件夹的检索索引。若资料库不在默认路径，告诉 AI 新路径即可。
+- 正在准备 CUMCM / 数学建模国赛的队伍
+- 数学建模社团、培训营、课程助教
+- 想把 AI Agent 用到严肃建模任务的人
+- 想研究“AI + 可验证工作流”的开发者
 
-**双模式（资料库缺失自动降级）**：
-- 资料库存在 → 正常模式：直接复用现成代码与数据集
-- 资料库被删除 → **自包含模式**：AI 用自身知识从零写代码（`04` 已内置 18 个核心算法
-  的从零实现要点表）、用 `07` 的网站清单联网取数据；工作流/防幻觉检查完全不受影响
+## 推荐 GitHub Topics
 
-## 使用建议（重要）
+如果你 fork 或二次开发，建议添加这些 topics，方便更多人搜到：
 
-- **红线**：AI 不得编造数据/文献/结果；论文数值必须来自真实运行。
-- **进度日志**：每阶段结束让 AI 写入 `进度日志.md`，换会话不丢进度。
-- **代码 bug**：目录 7 部分 MATLAB 代码有已知 bug，skill 内置了修复版说明
-  （见 `references/04-code-library.md`），请勿直接使用原 bug 版本。
+`cumcm` `mathematical-modeling` `ai-agent` `codex` `claude-code` `opencode` `skills` `latex` `python`
 
-## CHANGELOG
+## Roadmap
 
-- **v1.5.2**（2026-08-16）：导出链路稳健性优化。`export-paper.ps1` 增加 Python 发现与调用封装，自动尝试 `python`/`python3`/`py -3`，避免 WindowsApps 占位程序导致的模糊失败；修复 Markdown 直转 LaTeX 分支误用 `$xelatex.Source` 的问题；当 PDF 或 `paper.tex` 落后于 `paper.md`/`md2tex.py` 时自动重编译。`md2tex.py` 增强宽表排版（4 列及以上使用 `tabularx` 自动换行）、兼容 `**表N**` 题注写法，并保留 `$...$` 行内公式。
-- **v1.4.0**（2026-08-16）：**篇幅与创新性迭代 + LaTeX 编译路线**。① 安装 MiKTeX 并新增 `md2tex.py`（md→tex 转换器），`export-paper.ps1` 优先走 xelatex 编译（公式/表格/中文排版最佳），无 xelatex 时回退 Word 路线；② 正文页数**硬标准 ≥20 页**（format-check：<20 ERR / 20-25 PASS / 26-30 WARN / >30 ERR，依据 `evaluation/award-paper-baseline.md` 获奖论文基准 25-35 页）；③ 篇幅密度检查（公式编号 ≥10、图+表 ≥8）；④ 创新性引导：`03-model-catalog.md` §5.1 四步走（问题特异性 3 问 → 第二梯队方法库 → 组合创新三模式 → 三问自检），SKILL 强制"创新点定位"小节，`checks.py` 5.7 创新点软检查；⑤ 四工作区论文全部扩写至正文 20-25 页（16-21 表、12-14 编号公式），数值溯源 100%（368-582 个数值全可溯源）；⑥ 修复 2021C sensitivity.py 候选集 bug（Q2 31 家/Q3、Q4 全 402 家）与结果文件覆盖 bug；⑦ `make-requirements.py` 支持"附件X"（无扩展名）模式与模糊模板定位。
-- **v1.3.0**（2026-08）：**格式硬检查体系**。新增 `format-check.py`（docx 版面级检查：页边距 ≥2.5cm/页脚 PAGE 页码/首页摘要页/图题注/三线表/表题注/PDF ≤20MB）；`checks.py` 升级（摘要 700-1300 字档位、图片标签必须配插图、表题注须在表上、正文 [x] 引用覆盖 ≥50% 文献、附录须含代码块）；`md2docx.py` 升级（页边距 2.5cm、页脚居中页码、三线表、题注小一号、图片路径多基准解析、UTF-8 BOM 兼容）；`verify.py` 剔除代码块防标识符误报；`blind-rubric.md` 格式硬伤一票否决（写作质量上限 3/2 分）；`auto-score.py` 增加版面合规分（10 分）与 format 硬闸门；负样本验证 5 类硬伤全部被抓；2021C/2022C/2023C/Tier1 四工作区整改后全 0/0/0 通过（基线重评 97.1）。
-- **v1.2.5**（2026-08）：工具链收尾。`make-data-contract.py` 支持多 sheet xlsx（每个工作表独立统计 + 顶层合并，verify.py 向后兼容）；run-tier2 题目命名匹配扩展（`CUMCM2021-C.pdf` 等）；install.ps1 三工具安装验证通过。
-- **v1.2.4**（2026-08）：2021C 第三类题型（综合评价+LP优化）盲测通过；附件A/B 按官方模板填写脚本。
-- **v1.2.3**（2026-08）：评测体系升级——质量 35 扩容 + WARN 扣分 + 90 分制归一化 100；盲评闭环（blind-scores.md）；Tier1 夹具强化（基线 76.4→89.5）。
-- **v1.1.0**（2026-08）：防幻觉硬约束 + 工具链。
-  新增 `make-data-contract.py`（数据契约）、`verify.py`（溯源硬校验：代码-数据绑定/
-  图表三方一致/数值溯源）、`export-paper.ps1` + `md2docx.py`（论文导出 PDF，
-  Word COM 零 LaTeX 依赖）、`plot-style.py`（绘图模板）、
-  `references/10-constraints-and-tools.md`；红线升级为"数据·代码·图表三方溯源协议"；
-  新增 `EVALUATION.md` + `evaluation/`（benchmark 含 3 道反幻觉陷阱题 + 评分模板）。
-- **v1.0.0**（2026-08）：首个完整版本。六阶段工作流、9 个 references、
-  3 个脚本工具、双论文模板、示例演示。
+- [ ] 增加 README 截图或 GIF：展示从提示词到工作区和检查报告的过程
+- [ ] 增加 GitHub Actions：脚本语法检查和 Tier 1 冒烟测试
+- [ ] 增加 `LICENSE` 和贡献指南
+- [ ] 补充更多往届题的端到端公开 demo
+- [ ] 将中文资料库索引拆成可选扩展包
+
+## Changelog
+
+- **v1.5.2**（2026-08-16）：导出链路稳健性优化。`export-paper.ps1` 增加 Python 发现与调用封装，自动尝试 `python`/`python3`/`py -3`；修复 Markdown 直转 LaTeX 分支误用 `$xelatex.Source`；当 PDF 或 `paper.tex` 落后于 `paper.md`/`md2tex.py` 时自动重编译。`md2tex.py` 增强宽表排版、兼容 `**表N**` 题注写法，并保留 `$...$` 行内公式。
+- **v1.5.1**（2026-08-16）：2023C Q2 增加显式时序预测基线，补齐预测精度、论文数值链和支撑材料。
+- **v1.5.0**（2026-08-16）：沉淀 2023 年获奖论文经验库与评阅视角，强化差异化创新流程。
+- **v1.4.0**（2026-08-16）：新增 LaTeX 编译路线、正文页数硬标准、篇幅密度检查和创新点定位。
+- **v1.3.0**（2026-08）：上线格式硬检查体系，补充摘要、引用、附录、图表题注和负样本验证。
+- **v1.2.5**（2026-08）：工具链收尾，多 sheet 数据契约、安装验证和 Tier 2 命名匹配。
+- **v1.0.0**（2026-08）：首个完整版本。

@@ -32,12 +32,26 @@ if (-not $md -and -not $tex) {
 }
 
 # ---- LaTeX 路线 ----
+function Find-Xelatex {
+    $cmd = Get-Command xelatex -ErrorAction SilentlyContinue
+    if ($cmd) { return $cmd.Source }
+    $candidates = @(
+        (Join-Path $env:LOCALAPPDATA "Programs\MiKTeX\miktex\bin\x64\xelatex.exe"),
+        "C:\Program Files\MiKTeX\miktex\bin\x64\xelatex.exe",
+        (Join-Path $env:LOCALAPPDATA "Programs\MiKTeX\miktex\bin\x64\miktex-xelatex.exe")
+    )
+    foreach ($c in $candidates) {
+        if (Test-Path -LiteralPath $c) { return $c }
+    }
+    return $null
+}
+
 if ($tex) {
-    $xelatex = Get-Command xelatex -ErrorAction SilentlyContinue
+    $xelatex = Find-Xelatex
     if ($xelatex) {
         Push-Location $PaperDir
-        & xelatex -interaction=nonstopmode $tex.Name | Out-Null
-        & xelatex -interaction=nonstopmode $tex.Name | Out-Null
+        & $xelatex -interaction=nonstopmode $tex.Name | Out-Null
+        & $xelatex -interaction=nonstopmode $tex.Name | Out-Null
         Pop-Location
         $outPdf = [System.IO.Path]::ChangeExtension($tex.FullName, 'pdf')
         if (Test-Path -LiteralPath $outPdf) {
@@ -56,7 +70,7 @@ if ($tex) {
 
 # ---- Markdown -> LaTeX -> PDF 路线（公式排版最佳，xelatex + ctex） ----
 if ($md -and -not $tex) {
-    $xelatex = Get-Command xelatex -ErrorAction SilentlyContinue
+    $xelatex = Find-Xelatex
     if ($xelatex) {
         $md2tex = Join-Path $PSScriptRoot 'md2tex.py'
         if (Test-Path -LiteralPath $md2tex) {
@@ -64,8 +78,8 @@ if ($md -and -not $tex) {
             python $md2tex $md.FullName $texOut
             if ($LASTEXITCODE -eq 0) {
                 Push-Location $PaperDir
-                & xelatex -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
-                & xelatex -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
+                & $xelatex.Source -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
+                & $xelatex.Source -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
                 Pop-Location
                 $outPdf = [System.IO.Path]::ChangeExtension($texOut, 'pdf')
                 if (Test-Path -LiteralPath $outPdf) {

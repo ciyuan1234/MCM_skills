@@ -490,7 +490,7 @@ def check_innovation(text):
     if "创新点" in text or "创新" in text:
         report(PASS, "论文含创新点相关表述")
     else:
-        report(WARN, "论文无'创新点'表述——按 03-model-catalog.md §5.1 四步走补写（特异性3问→第二梯队方法→组合创新→自检）")
+        report(WARN, "论文无'创新点'表述——按 03-model-catalog.md §5.1 四步走补写（特异性3问→第二梯队方法→组合创新→自检；手法参照 evaluation/award-paper-experience.md §2 手法库）")
     if re.search(r"创新点定位|特异性|差异化", text):
         report(PASS, "含'创新点定位/特异性/差异化'小节或表述")
     else:
@@ -499,7 +499,7 @@ def check_innovation(text):
     if n_algorithm >= 3:
         report(PASS, f"差异化方法/检验关键词出现 {n_algorithm} 处（鲁棒/熵权/启发式/对比等）")
     else:
-        report(WARN, f"差异化方法/检验关键词仅 {n_algorithm} 处——建议引入第二梯队方法或双算法互验")
+        report(WARN, f"差异化方法/检验关键词仅 {n_algorithm} 处——建议引入第二梯队方法或双算法互验（参考 03-model-catalog.md §5.3 差异性自检，需≥2 处差异化维度）")
 
 
 def check_density(text):

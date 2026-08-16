@@ -1,0 +1,2534 @@
+
+===== 第1页 =====
+थҦ
+ᅋေ
+ྛ༅აౢ༡ሱಖ৵
+čNJྛOne-hotྐ༏οರ/ᇛ/ᄅ/୍
+ྐ༏đ༅ đ
+ѩোק
+ྛౢ༡b
+ੰaཧ൲
+༢đѩྐ༏bః
+၂đ໡ૌ൐Ⴈ ACFඔაࢳٳ֥
+ੰൈđ
+གྷֆ௖ཧਈӯགྷ֥҃ᅝбҵၳնٳ
+ཧ൲หᆘb ః೘đ ҐႨ༅ูսა
+༢đҐႨ FP-Growt༅ྟb
+ࡹܒඔ
+ླ౰ଆ྘֥
+ྟσđ໡ૌ༵ҐႨ LSTM ଆ྘Ӯ
+ྛყҩđ௜न R֞0.8קඔ႕
+໙ีđЧ໓൐Ⴈ GBest-PSOمࣉڿႄೆ༵ဒᆩ്֤
+σ (੣ H)གྷ൬ၭႵૼཁิശđ b
+ੲa ѩၛֆ௖ཧਈაཧ൲Ցඔູ၇
+ऌҐႨ VIKORࡎਔ 40ଢ
+໙ีđЧ໓࿊Ⴈ NSGA-IIمႄೆ༵ဒᆩ്a
+ҐႨ BG-RIщ઒ᇗCV൧
+ӆླ౰bቋᇔđᄝ ParetoਔቋႪᆴ,੣ Db๝ဢა၂Ϯ൬ၭ
+གྷචིၭิശb
+࿐ਵთཌྷ
+ׄၰbః၂đ൬
+ཨ
+ं
+ၩ჻b
+ՍğACFඔ FP-Growt༅ LSTM ଆ྘ VIKORࡎNSGA-
+IIم
+1
+===== 第2页 =====
+၂a ໙ีᇗඍ
+1 . 1ࣟ
+ླေ
+ૄರᄝ਱Ӥ 3:00 ᇀ 4:00ऌ৥
+Ⴍູᇗေb
+1 . 2 ีଢྐ༏
+•Ġ
+•ྛյᅼĠ
+•༢đ ᄝ4 ᄅᇀ 10Ġ
+•൶Ғᇕো;
+•൶Ғ௖োაֆ௖ྐ༏a 2020 ୍ 7 ᄅ 1 ರᇀ 2023 ୍ 6 ᄅ 30
+ੱb
+1 . 3໙ี
+໙ี၂༢Ġ
+ؽ༢đѩၛഅӑ০೎ቋնູ
+Ҧ੻Ġ
+໙ี೘ॖ൲௖ᇕđᄝડቀֆ௖ඔᄝ 27֞33ר
+ਈնႿ 2.5ԛ 7 ᄅ 1Ҧ੻Ġ
+໙ีඹࣉڿ
+ඪૼb
+ഡ
+•ᄯӮ႕ཙĠ
+•ರླ౰ਈᄯӮ႕ཙĠ
+•ླ౰Ġ
+•׮
+2
+===== 第3页 =====
+༅
+໙ีa ള༷
+ٚ
+໙ีb
+ඔ
+ห
+ྛԩ৘
+b
+3 . 1༅
+༢b ֌
+ཧ
+҃
+۱ࠫ
+ࢳ
+ࣉ
+൤ဒᆣb
+3 . 2༅
+༢Ġ ః
+֥ࡎק
+b ఃᇏླေ
+߂
+༢b
+3 . 3༅
+ྛቋն൬ၭ
+؟۱
+֥
+ཧਈაཧ൲Ցඔ
+b
+3 . 4༅
+֥֞
+ః෰ඔऌb
+3
+===== 第4页 =====
+ඪૼ
+ၩၬၩၬ
+Qi ௖ো iሹཧਈ Qij ௖ো i ᇏֆ௖ jཧਈ
+Pi ௖ো iࡎקPij ௖ো i ᇏֆ௖ jࡎק֥
+Li ௖ো iݻLij ௖ো i ᇏֆ௖ jݻ
+Bi ௖ো iਈ Bij ௖ো i ᇏֆ௖ jਈ
+Ci ௖ো iӮЧ Cij ௖ো i ᇏֆ௖ jӮЧ
+wi ௖ো iӮੱ wij ௖ো i ᇏֆ௖ jӮੱ
+MحT ሹӮЧ
+wi ௖ো iӮੱ wij ௖ো iࡎjӮੱ
+kᅼ२ੱ Dj؇
+Epྟ Ecྟ
+Evྟ EVྟ
+໴a ඔऌყԩ৘
+5 . 1ކ
+ൌ
+࿃ඔऌ
+༅აყҩb
+•৳a ೘
+ݖPythonࡗ۬čNJĎb
+4
+===== 第5页 =====
+• эਈԩ৘྽ਙa oཧ൲ো྘p
+յᅼཧ൲pone-hot щ઒োэਈb
+•ކ௖োਆᇕྙൔοರaᇛa
+ᄵೂ༯ğ
+(a)Ⴟರཧ൲ਈğ
+Qi =
+∑
+j
+Qij (1)
+ఃᇏ Okݼ,Ai іൕ௖ো iđQij іൕ௖ো i֥
+ֆ௖ jཧਈđQi іൕ௖ো iሹཧਈ
+(b)Ӯੱğ
+Xi =
+∑
+j Qij × xi
+Qi
+(2)
+ൔೂ༯ğ
+Ӯੱ =ࡎק− ӮЧ
+ӮЧ (3)
+5 . 2༅
+(a)ো
+թᄝૼཁҵၳđҰᄇཌྷ
+ູၛ༯೘োğ
+• ӈ୍ྟ൶ҒളӁ,b
+•ྟ൶ҒଽളӉაཧ൲b
+• ൈ਷ྟ൶Ғཧ൲b
+ᄵğ
+ᄵ 1฿ඔնႿ 300ູӈ୍ྟ൶ҒĠ
+ᄵ 2฿ඔཬႿ 15ູൈ਷ྟ൶ҒĠ
+ᄵ၂ԩ৘ਔ 30ԩ৘ਔ 70ࢫ࠱
+ྛ༅གྷೂ༯ྐ༏ğ
+*ݖ300đႋඋႿӈ୍ྟ൶ҒĠ
+*ഒđູ൶ҒĠ
+*൶Ғb
+ᄵğ
+ᄵ 3฿ඔनնႿ 20ູӈ୍ྟ൶ҒĠ
+ᄵ 4฿ඔनཬႿ 20ູൈ਷ྟ൶ҒĠ
+ᄵ 3ᄵ 4љԩ৘ਔ 46ֆ௖a12֥90 ᇕ൶Ғन
+ೂ༯ğ
+5
+===== 第6页 =====
+๭ 1ো྘൶Ғᅝб
+і 1ো྘൶Ғई২
+൶Ғো྘ ई২
+ӈ୍ྟ 30%׸
+ྟ 37%ွ
+ൈ਷ྟ 33%ႇaᐵᐧ
+đྟ൶Ғ
+ࢫ࠱֥གྷള
+ಒྟཐԾp đ
+གྷః 3֞4b
+(b)༅
+ࣉ
+ູਆᇕো྘ğ
+•োྏҒ (1)ྏҒ (2)љູ 2911kg ა 1882kg,࠹܋6 ᇕ
+•োğೂሬ౎ሰ (1) აሬ౎ሰ (2)љູ 279kg ა 13602kg,࠹܋13 ᇕ
+൪ቔਆᇕ
+ԩ৘b
+(c)༅
+đഒਈč5.39%ഒਈč5‰ֆႮ
+ࡎ
+đᄯӮ႕ཙb
+๭ 2༢
+ ๭ 3҃๭
+6
+===== 第7页 =====
+ೂ๭2,ྛ Fisherགྷ p ᆴཬႿ 0.05ܱܱ
+b
+5 . 3 ၳӈඔऌԩ৘
+ٳ
+Ӯੱູ 0.5ղ 200ק
+֥87ྛೂ༯ԩ৘ğ
+• 3σᄵඔᆴ
+• ྩᆞԩ৘০೎ੱնႿ 2੣ัԢ
+đ೷ಀ 16430҃๭ೂ๭3෮ൕb
+5 . 4ඔऌԩ৘
+ഒ
+܂
+ٳ
+ඔऌđྛॉ੮ b
+ྛೂ༯ԩ৘ğ
+•࠹܋5Ġ
+• ัԢཧ൲฿ඔཬႿ 10đཧ൲ਈཬႿ 3‰࠹܋48b
+ࢳ
+7
+===== 第8页 =====
+6 . 1ࢊ
+ܔ
+ğ
+(a)ࡗğ
+ઙ൶Ғ
+ֆ௖ა௖োӁ
+ቔႨb
+•ؓཧ൲ሹਈ႕ཙĠ
+• ఃՑđ؇҂๝ླ౰Ġ
+•đোੰb
+(b)ੰᆭཧ൲ğ
+ູ೘ᇕğਈഒгa
+ਬ೛ཧ൲҃౦ঃ
+ੰb
+(c)༢ğ
+aഠ
+႕ཙ
+đၹՎЧ໓ҐႨ༅႕ཙb
+6 . 2࣮
+ၛ༯೘
+༅ğ
+༅౴൝a ᇛ௹b
+קğЧ໓ҐႨඔčACFĎb
+ࢳٳੰđၹՎЧ໓
+ੰb
+6 . 2 . 1ඔ ACF৫
+ඔ ACFğ
+྽ਙ
+ཌྷ
+ྟbॖၛοᅶೂ༯҄ᇧҠቔğ
+1. ACFෘൔູğ
+ρk = Cov (Xt, Xt−k)
+V ar(Xt)
+8
+===== 第9页 =====
+ఃᇏđXtׄࡗtᆴđXt−k ൞ᄝ tުkᆴđCov іൕླྀ
+ҵđV arҵb
+2. ACFᇅᇅӮACFčlagĎ đ
+ᆴb
+3. ACF൤؍ࢨު0 ԩູ 1ׄࡗ
+ྟ൓ᇔ൞ 1ᄝ ACF ๭ᇏཁൕb
+– ೏ ACFྟଆൔb
+– ೏ ACFྟଆൔb
+– ೏ ACFྟb
+– ೏ ACFႿཁᇷྟᚐᆴđᄵ
+౴൝b
+ࢳٳ
+đ
+๙ӈіൕູğ
+Yt = Tt · St · Ct · Et
+ఃᇏ YtҩᆴđTtđQtđCtđEt іൕ
+ᄮၻb
+6 . 2 . 2ݔࢲࢳ
+a)ੰ
+౷ཌೂ๭4෮ൕđሹุཧਈᄝ 2021.2-2022.5૙ሑ
+෿đѩႿ 2023b
+๭ 4൶Ғሹཧਈ౷ཌ๭
+ ๭ 5ඔ๭
+9
+===== 第10页 =====
+๭ 6ࢳٳ
+ੰğ
+đ ၹՎၛᄅູቋཬֆ
+༢b
+ඔ ACF ๭đೂ๭5؍ࢨު0 ཌྷҵ 12ᄅԩ
+྽ਙο
+đೂ๭6གྷఃሹཧਈᄝࢫ؇ږ
+b
+ੰğ
+۽
+༢b
+ඔ ACF ๭đೂ๭7(a)؍ࢨު0 ཌྷҵ 7 ฿ԩሱ
+౦ঃ
+ೂ๭7(b)ູ 7 ฿đ༢ඔཌྷ
+ႆᆣ֥ᆴđᆴbᆃॖି൞
+ᄝ
+b
+10
+===== 第11页 =====
+(a)ඔ๭
+ (b)ࢳٳ
+๭ 7༅
+ੰğ
+ཧ൲ਈॖ
+ੰb
+ඔ ACF ๭đೂ๭8(a)؍ࢨު0 ཌྷҵ 13ྟ
+ੰb
+౦ঃೂ๭8(b)෮ൕ, ᄝഈ໶ 9ׄა༯໶ 17 ᇀ 19ׄđ ᆃॖି
+໾b
+(a)ඔ๭
+ (b)ࢳٳ
+๭ 8༅
+౴൝ğ
+ᄝ 2020.7 ᇀ 2023.7ॖି
+ࡗ
+౴൝đೂ๭9གྷ
+11
+===== 第12页 =====
+๭ 9ሹཧਈ౴൝๭
+2020ؿ,ࠌb
+(b)ੰ
+ԛᄝ 2020.7֞2023.7౷ཌೂ๭10෮ൕ
+๭ 10๭
+׮
+׮
+֥ྟđԢਔ
+೶Ғᒡᆅ௖൭
+ড়௖োֆ௖bླđླ౰
+ઙਈສສ
+նb
+(c)ੰ
+ൈ਷ྟ൶Ғሹཧਈᄝ 2020.7 ᇀ 2023.7э
+౷ཌđೂ๭11
+12
+===== 第13页 =====
+๭ 11োֆ௖ሹཧਈ౷ཌ๭
+࠱
+ެࠫ
+ᆺᄝ 0ੰğ
+1Ⴟ൶Ғ࿽,đሑ෿ቋି႕ཙሹุཧ൲ਈđ ၹ
+ູཌྷර;
+2ྟ൶Ғሑ
+෿đ҃;
+3 ൈ਷ྟ൶Ғކ
+đ҂ૼཁb
+6 . 3࣮
+6 . 3 . 1 ཧਈᅝб
+ཧਈ๭đ ೂ๭13གྷ൶Ғ
+đ భ 30%൶Ғֆ௖ሹཧ൲
+֞90%҃b
+նđোაൊႨऩ
+োđ౎োཧਈᅝбቋഒགྷఃކွো
+Ғোֆ
+႕ཙb
+ཬb༯๭෮ൕğ
+13
+===== 第14页 =====
+(a)ֆ௖ཧਈᅝб
+ (b)ֆ௖ཧਈᅝб
+๭ 12྘௖োֆ௖ཧਈᅝб
+๭ 13༅
+ ๭ 14໠๭
+6 . 3 . 2ੰ
+ູ೘ᇕྙൔđഒਈ
+ֆг
+໠๭๭đ ೂ๭14෮
+གྷᇏᄝ 0-20ᇏᄝ 0-0.7
+ູ 1bഅ௖ӯགྷԛਬ
+ཧ൲ଆൔđ ఃᇏ༷ಽ᳓ა
+гഒਈหᆘb
+6 . 4࣮
+ၹ
+ਆᇕ௖
+༢b
+14
+===== 第15页 =====
+6 . 4 . 1༅ଆ྘
+ဒ
+༢b
+ွোა౎োູ২ğ
+ഡH0 :ྟb
+ഡH1 :ྟb
+6 . 4 . 2 FP-Growth༅ଆ྘
+FP-growthႿApriori࿽
+ರॖ൲ֆ
+ॉ੮ਔཧਈၹ෍đପહᄵॖၛႨ FP-growthࡹ
+৫ऎุ҄ᇧೂ༯ğ
+•ࡹܒFP෱ૌթԥᄝ၂
+ஆ྽b
+•ࡹܒFP၂॒FP ඎb
+•b
+•຋ड FP ඎ:ࡱFPࡱ
+FPb
+•ᄵb
+6 . 4 . 3ݔࢲ࣮
+a)ğ
+ཧ൲ਈაሹཧ൲ਈቓொཌྷ
+ೂ๭15෮ൕğ
+๭ 15༅
+15
+===== 第16页 =====
+གྷ֥
+ྟሹཧਈӁള
+ᅝđҀ௖ொཟ
+b
+(b)ğ
+ਙ
+੣ FҳඔऌॖၛुԛնႿ 0.8նႿ 0.9đॖၛඪ
+ෛᆭཧ൲b
+і 2 FP-Growthݔࢲࢳ
+భཛཛ؇؇
+102900005115823.0) (102900005116257.0) 0.843 0.996
+(102900005116714.0, 102900005115823.0) (102900005116257.0) 0.837 0.996
+(102900005116899.0, 102900005115823.0) (102900005116257.0) 0.833 0.996
+ࢳ
+๭ 16ᇶุනਫ਼
+7 . 1࣮
+ӱ
+ંb
+đྟॖ
+ྟো྘bЧี෮ေ౰
+16
+===== 第17页 =====
+ྟğ
+Ep = dQ/Q
+dP /P
+໓ང [3]ݦ
+ྟ,Чྙൔೂ༯ğ
+ln Qi = αi +
+∑
+k
+eik ln Pk + ei ln x + εi (4)
+ఃᇏ qiཧ൲ਈđpkđ x = ∑
+i Qi × Pi ູ
+bαi ູӈਈҕඔđeikູ Epđeiྟb
+7 . 1 . 1 Double-logݔࢲࢳ
+ҐႨ spssproمOLSੂᇕ௖
+ཁᇷྟඣ௜ೂ༯і෮ൕğ
+і 3ݔࢲ݂߭
+lnQ1 lnQ2 lnQ3 lnQ4 lnQ5 lnQ6
+lnP1 -0.186*** -0.08*** -0.058*** 0.035*** -0.103*** -0.088***
+lnP2 0.044 -0.076*** -0.241*** -0.397*** -0.661*** -0.032
+lnP3 0.03** -0.217*** -0.221*** -0.074*** -0.108** -0.012
+lnP4 0.193*** 0 -0.075*** -0.168*** -0.072*** -0.07***
+lnP5 -0.007 -0.159*** -0.036** 0.139*** -0.43*** -0.272***
+lnP6 0.023 -0.433*** -0.078*** -0.142*** -0.042*** -0.381***
+PQ -0.032 0.956*** 0.678*** 0.605*** 1..441*** 0.951***
+F ཁᇷྟඣ௜ *** *** *** *** *** ***
+1a***a**љіൕ 1%đ5%ཁᇷྟඣ௜
+2a1 ᇀ 6োaൊႨऩ
+֥Fཁᇷྟ P ᆴन
+ູ 0.000Чડቀေ౰b๝ൈః VIF ಆ҆ཬႿ 10ᄯ
+ཌྟ໙ีb
+ྟनᄝ 1%ཁᇷྟඣ௜༯ཁᇷđ
+ࠣᄀ
+ੰb
+๝ൈো҂ཁᇷຓđ ః
+Ⴥ໴ᇕनູཁᇷđѩ౏नູᆞඔđඋႿᆞӈ௖bఃᇏ֥
+17
+===== 第18页 =====
+ྟཬႿ 1҂ૼཁđඋႿсླ௖ط֐
+ྟնႿ 1࿽උႿсླ௖b
+7 . 2 ໃট 7ק
+ཧਈa ௖
+b
+7 . 2 . 1ק
+ᅼ२
+ੱ k ູ 0.7b
+k =
+∑ Qյᅼ × Pᅼ२∑ Qյᅼ
+(5)
+ੱ Li:
+Li =
+∑
+j Qij × Li
+Qi
+(6)
+7 . 2 . 2྽ਙყҩ
+ᇛ௹ྟა౴൝
+྽ਙყҩଆ྘đ
+൮༵ҐႨ ARIMA֩གྷི
+ҵbၹՎЧ໓ҐႨ LSTMྛყҩb
+LSTMകğ
+LSTMࡗ
+ওູğ
+•༢Ġ
+•đႵ
+࿊ᄴྟ၌ອĠ
+•ྟğႮႿ LSTMཨാ
+ಸၞb
+࿊ᄴğ
+ᆰ
+đၹՎЧ໓ᇶေॉ੮ Rᆷѓđ๝ൈҕॉ MSEaRMSEa
+MAEb
+7 . 2 . 3 LSTMݔࢲ
+ࡹLSTMྛყҩđLSTM ଆ྘ҕඔೂ༯ğ
+18
+===== 第19页 =====
+і 4 LSTM ଆ྘ҕඔ
+ֆҪ LSTM ֆჭඔ 6༂ҵ
+ჭඔ 7ఖ Adamم
+սՑඔ 400 ဢЧ஻ਈ 1
+੣ B੣ Cb
+і 5 LSTMݔ
+ো ൊႨऩ
+Rٚ0.88 0.91 0.73 0.91 0.96 0.62
+MSE 0.10 0.27 1.47 0.27 0.35 0.82
+RMSE 0.32 0.52 1.21 0.52 0.59 0.91
+MAE 0.24 0.39 0.66 0.38 0.42 0.67
+ݔR֞0.6֞0.96࣍ࢤ1Ġ๝ൈ
+RMSE ა MAEb
+і 6 LSTMݔ
+ো ൊႨऩ
+R2 0.81 0.75 0.85 0.79 0.85 0.86
+MSE 1129.01 130.29 148.95 31.38 314.18 318.71
+RMSE 33.60 11.41 12.20 5.60 17.73 17.85
+MAE 23.92 8.84 8.80 4.18 12.74 12.21
+ݔR֞0.75 ၛഈĠ๝ൈ RMSE ა MAE֥
+b
+੣ Gğ
+19
+===== 第20页 =====
+๭ 17ွোყҩ
+7 . 3࣮
+႕
+႕ཙđ ၹՎॖၛಪູૄರཧ൲ਈა႔০न
+ؓࡼ7.1-ᇀ 7.7ॉ੮đ
+Ҧ੻b
+7 . 3 . 1ק
+Ⴎ Double-logؓ
+LSTM߄
+৫ၛ༯
+ཧਈ-ඔğ
+ln Q = ln Qყҩᆴ + Ep ln P
+Pყҩ
+(7)
+ކࢲLSTMؿ
+ླ౰
+ҕඔೂ༯෮ൕğ
+і 7ྟҕඔ
+ো
+-1.92 -0.26 -0.07 -0.029 -0.51 -0.03
+7 . 3 . 2৫
+थҦэਈğ
+ੂ
+20
+===== 第21页 =====
+थҦэਈູğ
+Ӯੱğwi, (1 ≤ i ≤ 6)
+ਈğBi, (1 ≤ i ≤ 6)
+(8)
+ູğ
+Pi = (1 + wi) × Ci (9)
+ࡱğ
+ğ
+Qi ≤ Bi (10)
+ඔğ
+حࣁMሹӮЧ T ູğ
+M =
+6∑
+i=1
+Qi × Li × Pi × k + Qi × (1 − Li) × Pi
+T =
+6∑
+i=1
+BI × Ci
+(11)
+ඔູğ
+f = M − T (12)
+ଆ྘
+max f = M − T (13)
+s.t.
+
+
+
+Bi, wi (1 ≤ i ≤ 6)
+Pi = (1 + wi) × Ci
+ln Q = ln Qყҩᆴ + Ep ln P
+Pყҩ
+Qi ≤ Bi
+M = ∑6
+i=1 kQiLiPi + (1 − Li)QiPi
+T = ∑6
+i=1 BI × Ci
+(14)
+7 . 3 . 3ࡹܒ
+Ч໓ҐႨ GBest PSObGBest PSO֥م
+ࣉڿ[2]ݖ
+अ҆ෆ෬ି৯Ġ ႄೆਔჿඏၹሰট॥ᇅ৬ሰ
+b
+21
+===== 第22页 =====
+ğ
+(a)ק30%đ70%ളӮ৬
+൬৻b
+(b) ູਔᄝ PSOđЧ໓ႄೆඔğ
+F =
+
+
+
+20 × (Qi − Bi), if Q i > B i
+0, if Q i ≤ Bi
+(15)
+ު
+ඔູğ
+f = −(M − T ) + F (16)
+7 . 4ݔࢲࢳ
+৬ሰಕ 7 ੽ 300֤֞7.1 ᇀ 7.7ೂ༯іğ
+і 8 ௾ರ൬ၭቋնᆴ
+ರ௹ 7.10 7.20 7.30 7.40 7.50 7.60 7.70
+൬ၭ 1810.02 1802.87 1745.22 1758.42 1790.44 1794.12 1799.79
+൬
+ೂ๭18֥ᇏᄝ 500 ᇀ 2000֥
+ֆ໊ଽЧ
+႕ཙđള
+౦ঃb
+ੂᄅ
+ऌ 2023౴൝
+৘๷ҩᄝჿᄝ 1000 ᇀ 1500ࡗҐႨ
+σनնႿ 1740 ჭđቋնॖղ 1810۱
+ݔb
+22
+===== 第23页 =====
+๭ 18 ള༷അӑૄರ൬ၭᅼཌ๭
+ೂ༯෮ൕđၛ 7.1੣ HĎ ğ
+і 9 7 ᄅ 1σ
+ো ൊႨऩ
+ਈčथҦĎ 189.81 23.37 24.56 33.38 103.91 55.13
+০೎ੱčथҦĎ 1.20 0.98 0.80 0.88 1.20 1.00
+۬ࡎ7.23 15.30 21.60 8.58 8.15 8.02
+ཧਈ 186.49 24.14 24.53 33.08 103.43 55.10
+ཧਈ
+ཬđ ᆃ࢈
+ሙಒྟ௖োᇏ౎োა
+҂ૼཁb
+23
+===== 第24页 =====
+ࢳ
+҂๝
+ཧ൲ֆ௖ሹඔაཋᇅᆀ
+അӑ൬ၭđ ၹՎЧ໙ླေྛყҩb Վ
+थҦэਈູ৖೛྘+ ৵࿃྘ č྘Ď đ ਆ
+b
+8 . 1 ໃট 1ק
+8 . 1 . 1ק
+ऌีଢေ౰đҕᅶ 2023 ୍ 6 ᄅ 24 ರᇀ 6 ᄅ 30ק7 ᄅ 1ࠊ
+ؓ6 ᄅ 24 ರᇀ 6 ᄅ 30֤֞48ֆ௖ᇕোđ ಀ
+Ԣ௾฿ଽֆ௖ሹཧਈཬႿ 2.5kgֆ௖đ࿊ԛ 45࿃ყҩაԩ৘b
+8 . 1 . 2ק
+֥45྽ਙ
+໭ૼཁ౴൝đ ౏
+ݖಃ௜नֆ
+௖ᄝ 7 ᄅ 1b
+ൔ 7৫ཧਈ-ݦࡎק
+౰ҕb
+8 . 1 . 3ק
+ޭ߶
+ֆ௖b ၹՎЧ໓ࠣ
+ֆ௖ཧ൲Ցඔb
+Ч໓ҐႨஆ྽čVIKORمٚğ
+24
+===== 第25页 =====
+VIKOR۷
+ູ D,ӱೂ༯෮ൕğ
+•ඔູ 1ए৖
+ಕุིႨ:Si =
+m∑
+j=1
+ωj
+( M ax(nj) − nij
+M ax(nj) − M in(nj)
+)
+ᆴ:Ri = max
+j=1
+(
+ωj( M ax(nj) − nij
+M ax(nj) − M in(nj) )
+)
+•ෘᅼᇏᆷѓᆴ
+Di = ν (Si − S∗)
+S− − S∗ + (1 − ν) (Ri − R∗)
+R− − R∗
+ఃᇏ, S ∗ = min
+1≤i≤m
+Si, S − = max
+1≤i≤m
+Si, R ∗ = min
+1≤i≤m
+Ri, R ∗ = max
+1≤i≤m
+Ri;
+ᆦӪҋਘb
+ऌ
+ֆ௖đྛथҦb
+8 . 2࣮
+8 . 2 . 1৫
+थҦэਈ
+֥40đၹՎᄝ
+ೆ 01ഡ jֆ
+ѓᆽູ zjӮੱູ wjਈູ Bjğ
+ѓᆽğzj, (zij ∈ [0, 1] 1 ≤ j ≤ 40)
+Ӯੱğwj, (1 ≤ j ≤ 40)
+ਈğBj, (1 ≤ j ≤ 40)
+(17)
+ࡱ
+ֆ௖ඔཋᇅᄝ 27 ᇀ 33ቋཬ
+ӧਙਈູ 2.5kgਈđၹՎჿඏ 1a2 ູğ
+27 ≤
+40∑
+j=1
+zj ≤ 33 (18)
+2.5 ≤ zj × Bj ≤ Qj (19)
+ଢѓ
+25
+===== 第26页 =====
+حࣁMሹӮЧ T ູğ
+M =
+40∑
+j=1
+Qj × Lj × Pj × k + Qj × (1 − Lj) × Pj
+T =
+40∑
+j=1
+BI × Cj
+(20)
+ඔ
+ູğ
+f1 = M − T
+f2 =
+∑40
+j=1 zj × DJ
+∑40
+j=1 Dj
+(21)
+ࢲ
+max f 1 = M − T (22)
+max f 2 =
+∑40
+j=1 zj × DJ
+∑40
+j=1 Dj
+(23)
+s.t.
+
+
+
+zj, (bij ∈ [0, 1] 1 ≤ j ≤ 40)
+wj, Bj (1 ≤ j ≤ 40)
+27 ≤ ∑40
+j=1 zj ≤ 33
+2.5 ≤ zj × Bj ≤ Qj
+ln Q = ln Qყҩᆴ + Ep ln P
+Pყҩ
+M = ∑6
+i=1 kQiLiPi + (1 − Li)QiPi
+T = ∑40
+j=1 BI × Cj
+(24)
+8 . 2 . 2ࡹܒ
+Ⴕ 0-1م
+bЧ໓ҐႨم
+NSGA-IIࣉڿđNSGA-II ႄೆਔᆦ஥ஆ
+ඌĠ
+๝ൈႄೆਔ஥ए৖ဢྟ [1]b
+ඪૼğ
+•щ઒ğҐႨ BG щ઒ა RIႵ 01 эਈႻႵ
+౦ঃb
+• ༵ဒᆩ്ॹଆ྘൬৻b
+•֖ാb
+26
+===== 第27页 =====
+8 . 3ݔࢲࢳ
+ݖࣜ400ೂ๭19෮ൕ,ູğ
+f 1 = 16686 , f 2 = 0 .9667
+๭ 19 NSGA2ݔࢲࢳ
+੣
+DҦ੻ູğ
+і 10Ҧ੻
+ো଀ӫਈ
+୻ (1)ো 1.19999825 4.46848427
+ো 1.19375576 2.7224025
+ܖ( އ)ൊႨऩ 1.19406515 9.02246278
+ܖ޽1) ൊႨऩ 1.19999996 3.58719345
+ሬ౎ሰ (2) ౎ো 1.19065746 4.09742674
+Ӊཌ౎ ౎ো 0.75652509 6.43350562
+࢈1)ো 1.15731386 10.4345508
+࢈( ٺ)ো 1.19984241 17.1600476
+ᄉଲളҒ (ٺ)ွো 1.19899223 4.1002955
+ᄉଲႲચҒ (ٺ)ွো 1.19946604 14.2922507
+27
+===== 第28页 =====
+ࢳ
+໓ང [4]Ⴕğཟ
+مࡎקིၭቋնູ
+ؿ
+ᆚ
+ӁളӉჹ႕ཙbၹՎЧ
+໓ᆚაླ౰ၰb
+9 . 1ࡎק
+b Ч໓Ґ
+ؓ
+бቓԛ࿊ᄴđ ၹՎଖ
+b
+ྟ৘ંॖᆩđྟ֥߄
+ᆷѓđ২ೂഅ௖ yൈđഅ௖ xđഅ௖
+xൔູğ
+Ec = dQx/Qx
+dPy/Py
+അ
+ൔ 7႕
+ק
+௖
+ሙ
+ቋնᆴb
+9 . 2؇ۋ
+႕
+۬ࡎ֥
+ၩ჻b
+അ௖
+đྟൔູğ
+Ev = dF /F
+dC/C
+ൔᇏđFđCࡎ
+ྟնႿ 1ࢆ
+ᄹնb
+28
+===== 第29页 =====
+ડၩ
+༅
+ཧ൲ਈӁളᇗေ႕ཙb
+9 . 3ٮPchc߄
+ླ
+ሹุཧ
+౦ঃbඔ༢ğ
+max u = (xρ
+1 + xρ
+2)1/ρ
+s.t. Y = p1 × x1 + p2 × x2
+xླ౰ਈđp౦ঃ༯ ,Y
+ᆴbY֒Y ഈശൈഅ௖ླ౰ਈ္
+ઙ
+അ௖b
+ٮPchcٮ
+ቓԛथҦđླေॉ੮
+ٮPchcᆜุ႕ཙb
+ဒ
+ݖ֥
+ః
+b
+༅ LSTMັཬ
+ೂ༯๭෮ൕ
+๭ 20 LSTMӮЧູ২Ď
+29
+===== 第30页 =====
+ຶᄝ 2֞18ຶ
+ᄝ 3.16 ᇀ 3.93ᄝ 5%֥ࡹLSTM ଆ྘ऎႵ၂
+ѩ҂ૼཁb
+༅
+11 . 1ׄ
+1.Чᇉ
+༅Ġ
+2.༅ყҩđႄೆຓള
+ྛྩᆞĠ
+3.ଢ
+ีଢྐ༏Ġ
+4.ࣩ
+ၰb
+11 . 2ׄ
+1.޺
+ྟĠ
+ҕॉ໓ང
+[1] Kalyanmoy Deb, Samir Agrawal, Amrit Pratap, and et al. A fast and elitist multiobjective
+genetic algorithm: Nsga-ii. IEEE Transactions on Evolutionary Computation, 6(2), 2002.
+[2] J. Kennedy and R.C. Eberhart. Particle swarm optimization. In Proceedings of the IEEE
+International Joint Conference on Neural Networks, pages 1942–1948, 1995.
+[3] ိᆽ and௰ૼ.ྟҩෘ.აथҦ, 36(03):52–56,
+2020.
+[4] રঢ়೨.࣮2023.
+30
+===== 第31页 =====
+੣ Aਙі
+ࢺࡥ
+data_class.py pythonোս઒
+data_clean.py pythonඔऌౢ༡ս઒
+data_select.py pythonඔऌೱ࿊ս઒
+description.py pythonս઒
+double_log.py pythonս઒
+find_price_seal.py python༅ս઒
+lstm.py pythonࡱLSTM ଆ྘ൌགྷս઒
+main.py python૭ඍս઒
+nsga_ii.py pythonࡱNSGAIIൌགྷս઒
+question3.py python໙ี೘ඔऌᆜ৘ս઒
+single_ana.py pythonս઒
+spo.py pythonൌགྷս઒
+strmatch.py pythonԱ௄஥ս઒
+time_series.py pythonൌགྷս઒
+༅.docx SPSSPROݔࢲ
+݂߭1).docx SPSSPROݔࢲ݂߭
+݂߭2).docx SPSSPROݔࢲ݂߭
+݂߭3).docx SPSSPROݔࢲ݂߭
+݂߭4).docx SPSSPROݔࢲ݂߭
+݂߭5).docx SPSSPROݔࢲ݂߭
+݂߭6).docx SPSSPROݔࢲ݂߭
+໙ี೘С࿊ֆ௖.xlsxС࿊ֆ௖ඔऌ
+༅.xlsx༅
+ݔࢲxlsxݔࢲ
+31
+===== 第32页 =====
+੣ B LSTMݔࢲ
+ರ௹ 7.1 7.2 7.3 7.4 7.5 7.6 7.7
+ွো 3.29 3.29 3.29 3.29 3.29 3.30 3.29
+Ғো 7.74 7.76 7.81 7.79 7.75 7.81 7.76
+ো 12.02 11.91 12.03 11.94 11.92 12.12 11.97
+౎ো 4.56 4.60 4.55 4.55 4.53 4.54 4.60
+ো 3.71 3.66 3.66 3.68 3.67 3.68 3.65
+ൊႨऩ 4.02 4.08 4.03 4.08 4.04 4.02 4.06
+੣ C LSTMݔࢲ
+ರ௹ 7.1 7.2 7.3 7. 4 7.5 7.6 7.7
+ွো 190.76 189.94 189.23 190.35 189.09 188.56 190.11
+Ғো 28.62 28.87 28.87 28.74 28.78 28.87 28.66
+ো 26.96 27.81 27.65 27.21 27.88 27.76 27.24
+౎ো 32.30 31.80 32.43 31.65 31.68 31.38 31.97
+ো 102.15 101.68 102.02 102.56 102.08 102.73 4.06
+ൊႨऩ 56.31 57.40 58.13 56.81 56.46 57.19 57.95
+੣ D 7 ᄅ 1Ҧ੻
+ਈ
+୻ (1)ো 1.1999983 4.4684843
+ো 1.1937558 2.7224025
+ܨۚ1)ো 1.1969269 2.5694186
+ܨۚ2)ো 1.1989785 3.3118241
+ܖ( އ)ൊႨऩ 1.1940652 9.0224628
+ܖ޽1) ൊႨऩ 1.2 3.5871935
+ܖ( އ)ൊႨऩ 1.1950486 7.1308823
+Continued on next page
+32
+===== 第33页 =====
+ਈ
+ܖ( Ї) ൊႨऩ 0.9100539 4.01525
+ሬ౎ሰ (2) ౎ো 1.1906575 4.0974267
+Ӊཌ౎ ౎ো 0.7565251 6.4335056
+࢈1)ো 1.1573139 10.434551
+࢈( ٺ)ো 1.1998424 17.160048
+࢈( ٺ)ো 1.1822684 5.0326392
+ཬᇤ௃ (ٺ)ো 1.0736568 6.0000298
+ো 1.1757303 4.3256812
+ል (ٺ)ো 1.1314702 5.603787
+࢈ޣ2)ো 1.1767554 2.5761036
+࢈2)ো 1.1811276 2.5473168
+ᄉଲളҒ (ٺ)ွো 1.1989922 4.1002955
+ᄉଲႲચҒ (ٺ)ွো 1.199466 14.292251
+ွো 0.6886801 10.51447
+ွো 1.0366075 4.0608702
+ွো 1.1919795 3.0106372
+ွো 1.1954072 6.9103183
+ွো 0.9852141 4.1342185
+ཬౝҒ (1)ွো 1.1798374 6.0965642
+ѫҒ (ٺ)ွো 1.1999989 2.6720992
+ွো 0.6411419 3.5567912
+ွো 1.179598 2.9094884
+ွো 1.1999292 2.8542299
+ွো 1.1564346 2.8045198
+Ғো 1.1833879 8.1387696
+Ғো 1.1815719 2.5205245
+੣ Eࠢ
+33
+===== 第34页 =====
+؇
+102900005116714.0) 0.992 1
+(102900005116899.0) 0.974 1
+(102900005116714.0a102900005116899.0) 0.967 2
+(102900005116257.0) 0.942 1
+(102900005116257.0a102900005116714.0) 0.935 2
+(102900005116257.0a102900005116899.0) 0.927 2
+(102900005116257.0a102900005116714.0a102900005116899.0) 0.921 3
+(102900005115823.0) 0.847 1
+(102900005116257.0a102900005115823.0) 0.843 2
+(102900005116714.0a102900005115823.0) 0.841 2
+(102900005116899.0a102900005115823.0) 0.837 2
+(102900005116257.0a102900005116714.0a102900005115823.0) 0.837 3
+(102900051010455.0) 0.833 1
+(102900005116257.0a102900005116899.0a102900005115823.0) 0.833 3
+(102900005116714.0a102900005116899.0a102900005115823.0) 0.831 3
+੣ Fᄵ
+؇
+102900005115823.0) (102900005116257.0) 0.847 0.942 0.843 0.996
+(102900005116714.0a
+102900005115823.0) (102900005116257.0) 0.841 0.942 0.837 0.996
+(102900005116899.0a
+102900005115823.0) (102900005116257.0) 0.837 0.942 0.833 0.996
+(102900005116714.0a
+102900005116899.0a
+102900005115823.0) (102900005116257.0) 0.831 0.942 0.828 0.996
+(102900005116899.0a
+102900005115823.0) (102900005116714.0) 0.837 0.992 0.831 0.993
+Continued on next page
+34
+===== 第35页 =====
+؇
+102900005116257.0a
+102900005116899.0a
+102900005115823.0) (102900005116714.0) 0.833 0.992 0.828 0.993
+(102900005116899.0a
+102900051010455.0) (102900005116714.0) 0.812 0.992 0.806 0.993
+(102900005116257.0a
+102900005116899.0) (102900005116714.0) 0.927 0.992 0.921 0.993
+(102900005116899.0) (102900005116714.0) 0.974 0.992 0.967 0.992
+(102900005115823.0) (102900005116714.0 0.847 0.992 0.841 0.992
+(102900005116257.0a
+102900005115823.0) (102900005116714.0) 0.843 0.992 0.837 0.992
+(102900051010455.0) (102900005116714.0) 0.833 0.992 0.827 0.992
+(102900005116257.0) (102900005116714.0) 0.942 0.992 0.935 0.992
+(102900005116714.0a
+102900005115823.0) (102900005116899.0) 0.841 0.974 0.831 0.989
+(102900005116257.0a
+102900005116714.0a
+102900005115823.0) (102900005116899.0) 0.837 0.974 0.828 0.989
+(102900005115823.0) (102900005116899.0) 0.847 0.974 0.837 0.988
+(102900005116257.0a
+102900005115823.0) (102900005116899.0) 0.843 0.974 0.833 0.988
+(102900005116257.0a
+102900005116714.0) (102900005116899.0) 0.935 0.974 0.921 0.985
+(102900005116257.0) (102900005116899.0) 0.942 0.974 0.927 0.984
+(102900005116714.0a
+102900051010455.0) (102900005116899.0) 0.827 0.974 0.806 0.975
+(102900005116714.0) (102900005116899.0) 0.992 0.974 0.967 0.975
+(102900051010455.0) (102900005116899.0) 0.833 0.974 0.812 0.975
+35
+===== 第36页 =====
+੣ G LSTMݔࢲ
+๭ 21ွো LSTM
+๭ 22Ғো LSTM
+๭ 23ো LSTM
+36
+===== 第37页 =====
+๭ 24 ౎ো LSTM
+๭ 25ো LSTM
+๭ 26 ൊႨऩ LSTM
+37
+===== 第38页 =====
+੣ HҦ੻
+і 14 7 ᄅ 1Ҧ੻
+ᆷѓো ൊႨऩ
+ਈčэਈĎ 189.81 23.37 24.56 33.38 103.91 55.13
+০೎ੱčэਈĎ 1.20 0.98 0.80 0.88 1.20 1.00
+і 15 7 ᄅ 2Ҧ੻
+ᆷѓো ൊႨऩ
+ਈčэਈĎ 186.08 24.03 25.50 34.46 106.21 56.37
+০೎ੱčэਈĎ 1.20 0.97 0.80 0.85 1.20 0.99
+і 16 7 ᄅ 3Ҧ੻
+ᆷѓো ൊႨऩ
+ਈčэਈĎ 185.61 24.35 22.16 43.30 103.70 57.76
+০೎ੱčэਈĎ 1.20 0.97 0.80 0.77 1.20 1.00
+і 17 7 ᄅ 4Ҧ੻
+ᆷѓো ൊႨऩ
+ਈčэਈĎ 186.78 24.31 25.09 45.03 103.77 55.78
+০೎ੱčэਈĎ 1.20 0.94 0.78 0.89 1.20 0.99
+і 18 7 ᄅ 5Ҧ੻
+ᆷѓো ൊႨऩ
+ਈčэਈĎ 185.97 25.97 24.77 32.30 103.44 55.75
+০೎ੱčэਈĎ 1.20 0.98 0.78 0.87 1.20 0.98
+і 19 7 ᄅ 6Ҧ੻
+ᆷѓো ൊႨऩ
+ਈčэਈĎ 184.73 23.97 25.24 32.81 105.30 61.69
+০೎ੱčэਈĎ 1.20 0.97 0.79 0.90 1.20 0.98
+38
+===== 第39页 =====
+і 20 7 ᄅ 7Ҧ੻
+ᆷѓো ൊႨऩ
+ਈčэਈĎ 187.51 24.31 24.81 35.24 103.97 58.03
+০೎ੱčэਈĎ 1.20 0.97 0.80 0.81 1.20 1.00
+і 21 ૄರሹ০೎
+ರ௹ ሹ০೎
+7 ᄅ 1 ರ 1810.0229504449542
+7 ᄅ 2 ರ 1802.8689165370076
+7 ᄅ 3 ರ 1745.2188075578458
+7 ᄅ 4 ರ 1758.4150069946324
+7 ᄅ 5 ರ 1790.4355304439705
+7 ᄅ 6 ರ 1794.1248918808792
+7 ᄅ 7 ರ 1799.794480480253
+੣ Iোս઒
+1 """
+2Ď
+3ඔऌ
+4 োљğ
+5 -֤ࠆ
+6ѓሙğ၂୍ᇏཧ൲฿ඔնႿ 300࠹܋30۱
+7 -႕ཙb
+8࠹܋151۱
+9 -ଽཧ൲b
+10ѓሙğ၂୍ᇏཧ൲฿ඔཬႿ 15࠹܋70۱
+11 """
+12
+13 ############࠹########## 
+14 import pandas as pd
+15 import matplotlib.pyplot as plt
+16 plt.rcParams['font.sans-serif'] = [u'simHei']
+17 plt.rcParams['axes.unicode_minus'] = False
+18
+19
+20 csv_file = 'data/ࡱڸ1.csv'
+21 df_1 = pd.read_csv(csv_file)
+39
+===== 第40页 =====
+22 csv_file = 'data/ࡱڸ3.csv'
+23 df = pd.read_csv(csv_file)
+24
+25 df['ರ௹'] = pd.to_datetime(df['ರ௹'])
+26 df['ٺ'] = df['ರ௹'].dt.month
+27 #௖ো
+28 mapping_dict = df_1.set_index('ֆ௖щ઒')['ো଀ӫ'].to_dict()
+29 df['௖ো'] = df['ֆ௖щ઒'].map(mapping_dict)
+30 print(df.head(5))
+31
+32 grouped = df.groupby('ֆ௖щ઒')
+33 result = {}
+34
+35 for name, group in grouped:
+36 unique_months = group['ٺ'].unique()
+37 total_months = len(unique_months)
+38 season = []
+39 season_list = [0]*4
+40 if 3 in unique_months or 4 in unique_months or 5 in unique_months:
+41 season.append("࠱")
+42 season_list[0] = 1
+43 if 6 in unique_months or 7 in unique_months or 8 in unique_months:
+44 season.append("࠱")
+45 season_list[1] = 1
+46 if 9 in unique_months or 10 in unique_months or 11 in unique_months:
+47 season.append("࠱")
+48 season_list[2] = 1
+49 if 12 in unique_months or 1 in unique_months or 2 in unique_months:
+50 season.append("࠱׫")
+51 season_list[3] = 1
+52 result[name] = {
+53 'ٺ'unique_months,
+54 'ඔ': total_months,
+55 'ࢫ࠱֥'season,
+56 "ඔ": len(season),
+57 "ਙі": season_list
+58 }
+59
+60 count_all = 0
+61 count_all_list = []
+62 for key, value in result.items():
+63 if value['ඔ'] == 4:
+64 count_all += 1
+65 count_all_list.append(key)
+66 # print(f" ֆ௖щ઒ {key}ٺ{', '.join(map(str, value['ٺ]))}܋
+ඔ: {value['ඔ']}, ԛགྷᄝ {value['ࢫ࠱֥]}"),→
+40
+===== 第41页 =====
+67 print(count_all)
+68 print(count_all_list)
+69
+70
+71 ############࠹############# 
+72
+73
+74 df['ٺ'] = df['ರ௹'].dt.year
+75
+76 result = df.groupby(['ֆ௖щ઒', 'ٺ']).agg({'ರ௹': 'nunique'}).reset_index()
+77 result.rename(columns={'ರ௹': '฿ඔ'}, inplace=True)
+78
+79 #print(result)
+80
+81 max_days = result.groupby('ֆ௖щ઒')['฿ඔ'].max().reset_index()
+82 # print(max_days)
+83 plt.hist(max_days['฿ඔ'], bins=35, edgecolor='k') #ᆜ bins ҕඔটഡᇂᇸሰඔਈ
+84 plt.xlabel('฿ඔ')
+85 plt.ylabel('௔ඔ')
+86 plt.title('๭')
+87 plt.show()
+88 filtered_df = max_days[max_days['฿ඔ'] <= 15]
+89 cnt = 0
+90 cnt_list = []
+91 for index, row in filtered_df.iterrows():
+92 cnt_list.append(row['ֆ௖щ઒'])
+93 print(f" ֆ௖щ઒ğ{row['ֆ௖щ઒']}ԛགྷ{row['฿ඔ']}฿")
+94 cnt += 1
+95 print(cnt)
+੣ J ඔऌౢ༡ս઒
+1 """
+2ቔğ
+3 1༅
+4ğ251 ัԢğ5 ഺჅğ246
+5 2ğཧ൲฿ඔഒčᚐᆴ 1čᚐᆴ 2༅
+6 ᚐᆴ 1:Ⴟ 10 ฿
+7 ᚐᆴ 2:ᆭ 0.3
+8ğ246 ัԢğ48 ഺჅğ198
+9 """
+10
+11 import pandas as pd
+12 import matplotlib.pyplot as plt
+13 plt.rcParams['font.sans-serif'] = [u'simHei']
+41
+===== 第42页 =====
+14 plt.rcParams['axes.unicode_minus'] = False
+15
+16 #ೆ
+17 csv_file = 'data/ࡱڸ1.csv'
+18 df_1 = pd.read_csv(csv_file)
+19 csv_file = 'data/ࡱڸ2.csv'
+20 df = pd.read_csv(csv_file)
+21
+22 #྽ਙ
+23 df['ཧ൲ರ௹'] = pd.to_datetime(df['ཧ൲ರ௹'])
+24 df['ࡗ'] = pd.to_datetime(df['ཧ൲ರ௹'].astype(str) + ' ' + df['ೡ઒ཧ൲ൈ
+ࡗ'],errors='coerce',format='%Y-%m-%d %H:%M:%S.%f'),→
+25 #حࣁ
+26 df['حࣁ'] = df['ཧਈ (తक़)'] * df['ࡎ( ჭ/తक़)']
+27 #௖ো
+28 mapping_dict = df_1.set_index('ֆ௖щ઒')['ো଀ӫ'].to_dict()
+29 df['௖ো'] = df['ֆ௖щ઒'].map(mapping_dict)
+30 print(df.head(5))
+31
+32 #######ඔऌ ######
+33
+34 unique_values_df = df['ֆ௖щ઒'].unique()
+35 unique_values_df_1 = df_1['ֆ௖щ઒'].unique()
+36 values_only_in_df_1 = set(unique_values_df_1) - set(unique_values_df)
+37 count_values_only_in_df_1 = len(values_only_in_df_1)
+38
+39 print("df ਙ'ֆ௖щ઒'ඔğ", len(unique_values_df))
+40 print("df_1 ਙ'ֆ௖щ઒'ඔğ", len(unique_values_df_1))
+41 print("df_1 ᇏႵ֌൞ dfᆴğ", values_only_in_df_1)
+42 print("ඔğ", count_values_only_in_df_1) # 5
+43
+44
+45 #######҄ğཧ൲฿ඔഒčᚐᆴ 1ֆ௖ᅳԛট ########
+46
+47 threshold_1 = 10
+48
+49 import numpy as np
+50 from matplotlib.cm import ScalarMappable
+51
+52 result = df.groupby('ֆ௖щ઒')['ཧ൲ರ௹'].nunique().reset_index()
+53 result.rename(columns={'ཧ൲ರ௹': 'ཧ൲฿ඔ'}, inplace=True)
+54
+55 hist, bins = np.histogram(result['ཧ൲฿ඔ'], bins=10)
+56 bin_centers = 0.5 * (bins[:-1] + bins[1:])
+57 cmap = plt.cm.coolwarm
+58 norm = plt.Normalize(vmin=min(hist), vmax=max(hist))
+42
+===== 第43页 =====
+59 colors = cmap(norm(hist))
+60 plt.figure(figsize=(8,6))
+61 bars = plt.bar(bin_centers, hist, width=bins[1] - bins[0], color=colors, edgecolor='k',
+alpha=0.7),→
+62
+63 for i, count in enumerate(hist):
+64 plt.text(bin_centers[i], count + 5, str(count), ha='center', va='bottom')
+65
+66 plt.xlabel('ཧ൲฿ඔ')
+67 plt.ylabel('ֆ௖ඔ')
+68 plt.title('๭')
+69 plt.grid(True)
+70
+71 sm = ScalarMappable(cmap=cmap, norm=norm)
+72 sm.set_array([])
+73 cbar = plt.colorbar(sm, ax=plt.gca(), orientation='vertical')
+74 cbar.set_label('ඔ', rotation=90, labelpad=15)
+75 plt.show()
+76
+77 # for index, row in result.iterrows():
+78 # print(f'{index} ֆ௖щ઒: {row[" ֆ௖щ઒"]}, ཧ൲฿ඔ: {row[" ཧ൲฿ඔ"]}')
+79 filtered_result = result[result['ཧ൲฿ඔ'] <= threshold_1]
+80 count = filtered_result.shape[0]
+81 #print(f"Ⴟ {threshold_1}ඔਈ:")
+82 list_1 = []
+83 for index, row in filtered_result.iterrows():
+84 if row[" ཧ൲฿ඔ"] <= threshold_1:
+85 list_1.append(row[" ֆ௖щ઒"])
+86 print(f'\nᚐᆴູ{threshold_1}ֆ௖ඔਈ: {count}')
+87 print("љ൞:")
+88 print(list_1)
+89
+90 threshold_2 = 0.00003
+91
+92 #########čᚐᆴ 2ֆ௖ᅳԛট #########
+93
+94 grouped = df.groupby('ֆ௖щ઒')['ཧਈ (తक़)'].sum().reset_index()
+95 print(len(grouped))
+96 total_sales = grouped['ཧਈ (తक़)'].sum()
+97 grouped['ཧਈᅝб'] = grouped['ཧਈ (తक़)'] / total_sales
+98 low_percentage_groups = grouped[grouped['ཧਈᅝб'] < threshold_2]['ֆ௖щ઒']
+99
+100 list_2 = low_percentage_groups.to_list()
+101 print("\nބ":total_sales)
+102 print(f"Ⴟ{threshold_2}ֆ௖щ઒:")
+103 print(list_2)
+43
+===== 第44页 =====
+104 print(f" ሹඔ൞ğ{len(low_percentage_groups)}")
+105
+106 data_g = []
+107 for i in grouped['ཧਈᅝб']:
+108 if i <= threshold_2:
+109 data_g.append(i)
+110
+111 bins = 10
+112 n, bins, patches = plt.hist(data_g, bins=bins, edgecolor='k')
+113 plt.xlabel('ཧਈᅝб')
+114 plt.ylabel('௔ඔ')
+115 plt.title('๭')
+116 plt.grid()
+117 for i, rect in enumerate(patches):
+118 height = rect.get_height()
+119 plt.annotate(f'{height}', xy=(rect.get_x() + rect.get_width() / 2, height),
+120 xytext=(0, 5), textcoords='offset points',
+121 ha='center', va='bottom')
+122 plt.show()
+123
+124 ###########ࠢࢌ########### 
+125
+126 #ࠢࢌ
+127 intersection = list(set(list_1) & set(list_2))
+128 print(f"\nඔਈູğ{len(intersection)}")
+129 print(intersection)
+130
+131 ############໴҄ğҰु ###########
+132 #ֆ௖щ઒
+133 target_item = intersection[1]
+134 grouped = df.groupby(['ֆ௖щ઒', 'ཧ൲ರ௹'])['ཧਈ (తक़)'].sum().reset_index()
+135 filtered_df = grouped[grouped['ֆ௖щ઒'] == target_item]
+136 print(filtered_df)
+137
+138 #ᇅᅼཌ๭
+139 plt.figure(figsize=(10, 6))
+140 plt.plot(filtered_df['ཧ൲ರ௹'], filtered_df['ཧਈ (తक़)'], marker='o', linestyle='-')
+141 plt.title(f'ֆ௖щ઒ {target_item}ཧਈᅼཌ๭')
+142 plt.xlabel('ཧ൲ರ௹')
+143 plt.ylabel('حࣁ')
+144 plt.grid(True)
+145
+146 # ཁൕᅼཌ๭
+147 plt.show()
+44
+===== 第45页 =====
+੣ K ඔऌೱ࿊ս઒
+1 """
+2ֆ௖
+3ყҩᆴ
+4 """
+5 from tool import *
+6 csv_file = 'data/ࡱڸ3.csv'
+7 csv_file_1 = 'data/type.csv'
+8 df = pd.read_csv(csv_file)
+9 df_1 = pd.read_csv(csv_file_1,encoding='GBK')
+10 print(df.head(5))
+11
+12 df['ರ௹'] = pd.to_datetime(df['ರ௹'])
+13 start_date = pd.to_datetime('2023-06-24')
+14 end_date = pd.to_datetime('2023-06-30')
+15 filtered_df = df[(df['ರ௹'] >= start_date) & (df['ರ௹'] <= end_date)]
+16
+17 unique_product_codes = filtered_df['ֆ௖щ઒'].unique()
+18 unique_product_codes_list = unique_product_codes.tolist()
+19
+20 print(f"ֆ௖č2023-06-24֞2023-06-30Ď ğ\n {unique_product_codes_list}")
+21 print(f"ֆ௖ো྘ğ{len(unique_product_codes_list)}")
+22
+23 # ൐Ⴈ isin()ᄝਙіᇏ
+24 matching_rows = df_1[df_1['ֆ௖щ઒'].isin(unique_product_codes_list)]
+25 matched_product_names = matching_rows['ֆ௖଀ӫ']
+26 matched_product_names_list = matched_product_names.tolist()
+27
+28 print(matched_product_names_list)
+29
+30 ##########ؽࡱڸ############ 
+31
+32 csv_file_2 = 'data/filtered_2_with_all_no_deleted.csv'
+33 data = pd.read_csv(csv_file_2)
+34 print(data.columns)
+35 print(len(data))
+36 mask = data['ֆ௖щ઒'].isin(unique_product_codes_list)
+37 filtered_data = data[mask]
+38 print(len(filtered_data))
+39 print(filtered_data['ֆ௖щ઒'])
+40
+41
+42
+45
+===== 第46页 =====
+੣ Lս઒
+1 """
+2ྟ૭ඍ
+3 """
+4
+5 import pandas as pd
+6 from scipy.stats import fisher_exact
+7 from fuzzywuzzy import fuzz
+8 from fuzzywuzzy import process
+9 import re
+10
+11 #ࢤ
+12 #ো଀ӫ
+13 #ֆ௖щ઒ ཧਈ (తक़)ࡎ( ჭ/తक़)յᅼཧ൲
+14 base_info = pd.read_csv("./data/ࡱڸ1.csv", encoding="utf-8", index_col=0)
+15 sale_info = pd.read_csv("./data/ࡱڸ2.csv", encoding="utf-8")
+16 sale_info['ཧ൲ರ௹'] = pd.to_datetime(sale_info['ཧ൲ರ௹'])
+17
+18 data = sale_info.join(base_info, on=" ֆ௖щ઒")
+19 # data = data[[" ཧ൲ರ௹", " ֆ௖଀ӫ", "ো଀ӫ", " ཧਈ (తक़)", "ࡎ( ჭ/తक़)", "
+ཧ൲ো྘"]],→
+20 data["ح( ჭ)"] = data[" ཧਈ (తक़)"] * data["ࡎ( ჭ/తक़)"]
+21
+22 print("---------------------------------------")
+23 print("յᅼཧ൲౦ঃ")
+24 print(data["յᅼཧ൲"].groupby([data["յᅼཧ൲"], data["ো଀ӫ"]]).count())
+25
+26 print("---------------------------------------")
+27 print("౦ঃ")
+28 print(data[" ཧ൲ো྘"].groupby([data[" ཧ൲ো྘"], data["ো଀ӫ"]]).count())
+29
+30 print("---------------------------------------")
+31 print(" ᆳྛ Fisherဒ")
+32 print(data[" ཧ൲ো྘"].groupby([data[" ཧ൲ো྘"], data["յᅼཧ൲"]]).count())
+33 table = [[457, 4], [830680, 47362]]
+34 result = fisher_exact(table, alternative='two-sided')
+35 print("Fisherğ")
+36 print("p-value:", result.pvalue)
+37 print("statistic:", result.statistic)
+38
+39 print("---------------------------------------")
+40 print(" ᆳྛ Fisherဒ")
+41 names = base_info[" ֆ௖଀ӫ"].tolist()
+42 print(names)
+43
+46
+===== 第47页 =====
+44 print("---------------------------------------")
+45 print("Ա௄஥")
+46 strings = names
+47 threshold = 80 #ᚐᆴ
+48 similar_strings = {}
+49 for string in strings:
+50 # print(string)
+51 # ൐Ⴈ process.extractOneԱ
+52 best_match = process.extractOne(
+53 string,
+54 [s for s in strings if s not in [string]],
+55 scorer=fuzz.ratio)
+56 #֞ࡆsimilar_stringsᇏ
+57 if best_match[1] >= threshold and best_match[0] != string and best_match[0][:2] ==
+string[:2]:,→
+58 if re.search(r'\(\d+\)', best_match[0]) and re.search(r'\(\d+\)', string):
+59 similar_strings[string] = best_match[0]
+60 # strings = [s for s in strings if s not in [string]]
+61 #ؓ
+62 for original, similar in similar_strings.items():
+63 print(f"'{original}'ބ' {similar}'")
+੣ Mս઒
+1
+2 """
+3ކ
+4 """
+5
+6 import pandas as pd
+7 import numpy as np
+8 from scipy.optimize import minimize
+9 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+10 from matplotlib import pyplot as plt
+11 plt.rcParams['font.sans-serif'] = ['SimHei']
+12 plt.rcParams['axes.unicode_minus'] = False
+13
+14 data = pd.read_csv("./out/result.csv")
+15 grouped = data.groupby(" ௖ো")
+16 sale_num = pd.DataFrame()
+17 price = pd.DataFrame()
+18
+19 for group_name, group_data in grouped:
+20 print(group_name)
+21 group_data = group_data[[" ཧ൲ರ௹", " ཧਈ (తक़)", "ࡎ( ჭ/తक़)"]]
+47
+===== 第48页 =====
+22 group_data[" ཧ൲ರ௹"] = pd.to_datetime(group_data[" ཧ൲ರ௹"])
+23 group_data = group_data.set_index(" ཧ൲ರ௹")
+24
+25 if group_name == "ো":
+26 sale_num.index = group_data.index
+27 price.index = group_data.index
+28 sale_num = sale_num.join(group_data[" ཧਈ (తक़)"].rename(group_name), on=" ཧ൲ರ௹",
+how="left"),→
+29 price = price.join(group_data["ࡎ( ჭ/తक़)"].rename(group_name), on=" ཧ൲ರ௹",
+how="left"),→
+30 sale_num.fillna(0)
+31 price.fillna(0)
+32
+33 data = pd.read_excel("./double/double_log.xlsx")
+34 data = data.fillna(0)
+35
+36 y = data.iloc[:, 1]
+37 x = data.iloc[:, -7:]
+38 #Ď
+39 def objective(params, x, y):
+40 a = params[:-1] # భ 7༢ඔ
+41 b = params[-1] #ए
+42 y_pred = np.dot(x, a) + b
+43 return np.sum((y_pred - y) ** 2) #ބٚ
+44
+45 #đ২ೂ a1 + a2 + a3 + a4 + a5 + a6 + a7 = 1
+46 constraints = ({'type': 'eq', 'fun': lambda params: np.sum(params[:-1]) - 1})
+47 # Ԛ൓ҕඔ҉ҩ
+48 initial_guess = np.random.rand(8)
+49 #ඔ
+50 result = minimize(objective, initial_guess, args=(x, y), constraints=constraints)
+51 #ݔࢲ݂߭
+52 coefficients = result.x[:-1] # భ 7༢ඔ
+53 intercept = result.x[-1] #ए
+54 #ݔࢲ݂߭
+55 print(f"Coefficients (༢ඔ): {coefficients}")
+56 print(f"Intercept (ए): {intercept}")
+57 #ྛყҩ
+58 y_pred = np.dot(x, coefficients) + intercept
+59 #༂ҵčMSEĎ
+60 mse = mean_squared_error(y, y_pred)
+61 #ෘ RčR-squaredĎ
+62 r2 = r2_score(y, y_pred)
+63 #༂ҵčMAEĎ
+64 mae = mean_absolute_error(y, y_pred)
+65 #ݔࢲܙ
+48
+===== 第49页 =====
+66 print(f"༂ҵ (MSE): {mse}")
+67 print(f"RٚR-squared): {r2}")
+68 print(f"༂ҵ (MAE): {mae}")
+69
+70
+੣ N༅ս઒
+1 """
+2ބ
+3ࡎק
+4 ০೎ੱ
+5 ӮЧ
+6༢
+7
+8 """
+9 from tool import *
+10
+11 file_path = r'D:\ም૫\Project\data\result.csv'
+12 df = pd.read_csv(file_path)
+13 #োљ
+14 df['ཧ൲ರ௹'] = pd.to_datetime(df['ཧ൲ರ௹'])
+15 print(df.head(5))
+16 # ௖োਙі []
+17 list_test = ['ွো', 'Ғো', 'ো', '౎ো' ,'ো', 'ൊႨऩ']
+18 def plot_category(df,i):
+19 data = df[df['௖ো'] == list_test[i]]
+20 print(data.head(5))
+21 fig, ax = plt.subplots(figsize=(12,10))
+22
+23 x = data['ཧ൲ರ௹']
+24 y1 = data['ࡎ( ჭ/తक़)']
+25 y1 = standar(y1)
+26 y2 = data['۬ࡎؿ( ჭ/తक़)']
+27 y2 = standar(y2)
+28 y3 = data['ཧਈ (తक़)']
+29 y3 = standar(y3)
+30
+31 ax.plot(x, y1, label='ࡎ'linestyle='-',linewidth = 2)
+32 # ax.plot(x, y2, label='۬ࡎؿlinestyle='-',linewidth = 2)
+33 ax.plot(x, y3, label='ཧਈ', linestyle='-',linewidth = 2)
+34 ax.legend()
+35 ax.set_title(f'{list_test[i]}Ď')
+36 ax.set_xlabel('ཧ൲ರ௹')
+37 ax.set_ylabel('֥ު߄Y')
+49
+===== 第50页 =====
+38 plt.xticks(x[::5], x[::5])
+39 plt.xticks(rotation=45)
+40 beautiful(ax)
+41 plt.show()
+42
+43 # οᇛԩ৘၂༯
+44
+45 df['ཧ൲ರ௹'] = df['ཧ൲ರ௹'].dt.to_period('W')
+46 grouped = df.groupby(['ཧ൲ರ௹', '௖ো'])
+47 aggregation = {
+48 'ཧਈ (తक़)': 'sum',
+49 '০೎ੱ': lambda x: (x * df.loc[x.index, 'ཧਈ (తक़)']).sum() / df.loc[x.index, 'ཧਈ (త
+क़)'].sum(),,→
+50 'ࡎ( ჭ/తक़)': lambda x: (x * df.loc[x.index, 'ཧਈ (తक़)']).sum() /
+df.loc[x.index, 'ཧਈ (తक़)'].sum(),,→
+51 '۬ࡎؿ( ჭ/తक़)': lambda x: (x * df.loc[x.index, 'ཧਈ (తक़)']).sum() /
+df.loc[x.index, 'ཧਈ (తक़)'].sum(),→
+52 }
+53
+54 #ѩᇗᇂ෬ႄ
+55 result = grouped.agg(aggregation).reset_index()
+56 result['ཧ൲ರ௹'] = result['ཧ൲ರ௹'].astype(str)
+57 result['ཧ൲ರ௹'] = result['ཧ൲ರ௹'].str.split('/').str[1]
+58 result.to_csv('result_weekly.csv', index=False)
+59 print(result)
+60
+61 def Correlation_analysis(df,i):
+62 data = df[df['௖ো'] == list_test[i]]
+63 y1 = data['ࡎ( ჭ/తक़)']
+64 y1 = standar(y1)
+65 y2 = data['۬ࡎؿ( ჭ/తक़)']
+66 y2 = standar(y2)
+67 y3 = data['০೎ੱ']
+68 y3 = standar(y3)
+69 y4 = data['ཧਈ (తक़)']
+70 y4 = standar(y4)
+71
+72 data = pd.DataFrame({
+73 'ࡎ'y1,
+74 '۬ࡎؿ'y2,
+75 '০೎ੱ': y3,
+76 'ཧਈ': y4
+77 })
+78 correlation_matrix = data.corr(method='spearman')
+79 plt.figure(figsize=(8, 6))
+80 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
+50
+===== 第51页 =====
+81 plt.title(f"{list_test[i]} Spearman༅")
+82 plt.show()
+83
+84
+85 for i in range(6):
+86 Correlation_analysis(result,i)
+੣ O LSTM ଆ྘ൌགྷս઒
+1
+2 """
+3 LSTM ყҩଆ྘
+4 """
+5
+6 import pandas as pd
+7 import numpy as np
+8 from keras.models import Sequential
+9 from keras.layers import LSTM, Dense
+10 from sklearn.preprocessing import MinMaxScaler
+11 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+12 from math import sqrt
+13 import matplotlib.pyplot as plt
+14 plt.rcParams['font.sans-serif'] = ['SimHei']
+15 plt.rcParams['axes.unicode_minus'] = False
+16
+17 file_path = "./out/result.csv"
+18 df = pd.read_csv(file_path)
+19 print(df.head(5))
+20 df['ཧ൲ರ௹'] = pd.to_datetime(df['ཧ൲ರ௹'])
+21 df.set_index('ཧ൲ರ௹', inplace=True)
+22 list_test = ['ွো', 'Ғো', 'ো', '౎ো', 'ো', 'ൊႨऩ']
+23
+24 i = 4
+25 print(i)
+26 df = df[df['௖ো'] == list_test[i]]
+27 #߄
+28 scaler = MinMaxScaler(feature_range=(0, 1))
+29 scaled_data = scaler.fit_transform(df['۬ࡎؿ( ჭ/తक़)'].values.reshape(-1, 1))
+30 train_size = int(len(scaled_data) * 1)
+31 train = scaled_data[0:train_size, :]
+32
+33 #ކژLSTM ൻೆေ౰
+34 def create_dataset(dataset, look_back=1):
+35 dataX, dataY = [], []
+36 for i in range(len(dataset) - look_back - 1):
+51
+===== 第52页 =====
+37 a = dataset[i:(i + look_back), 0]
+38 dataX.append(a)
+39 dataY.append(dataset[i + look_back, 0])
+40 return np.array(dataX), np.array(dataY)
+41
+42
+43 look_back = 30
+44 trainX, trainY = create_dataset(train, look_back)
+45 pre_X = train[-30:]
+46 pre_X = [item for sublist in pre_X for item in sublist]
+47 pre_X = np.array([[pre_X]])
+48 trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
+49
+50 #ࡹܒLSTM ଆ྘
+51 model = Sequential()
+52 model.add(LSTM(6, input_shape=(1, look_back)))
+53 model.add(Dense(7))
+54 model.compile(loss='mean_squared_error', optimizer='adam')
+55 history = model.fit(trainX, trainY, epochs=50, batch_size=1, verbose=2)
+56
+57 trainPredict = model.predict(trainX)
+58 trainPredict = scaler.inverse_transform(trainPredict)
+59 trainY = scaler.inverse_transform([trainY])
+60
+61 pre_Y = model.predict(pre_X)
+62 pre_Y = scaler.inverse_transform(pre_Y)
+63
+64 #ෘ RaMSEaRMSEބMAE
+65 mse = mean_squared_error(trainY[0], trainPredict[:, 0])
+66 rmse = sqrt(mse)
+67 mae = mean_absolute_error(trainY[0], trainPredict[:, 0])
+68 r2 = r2_score(trainY[0], trainPredict[:, 0])
+69 print(f'R2: {r2}, MSE: {mse}, RMSE: {rmse}, MAE: {mae}')
+70
+71 print(f" ყҩໃট௾฿{list_test[i]}ཧਈğ{pre_Y[0, :]}")
+72
+73 #۱figureބaxesའ
+74 fig, ax = plt.subplots(figsize=(12, 6))
+75 ax.plot(trainY[0], label=f'{list_test[i]}ࡎࣉ࠽')
+76 ax.plot(trainPredict[:, 0], label=f'{list_test[i]}ࡎࣉ࠽')
+77 ax.set_xlabel('Time')
+78 ax.set_ylabel('Value')
+79 ax.legend()
+80 ax.set_title(f'{list_test[i]} LSTM๭')
+81 ax.grid()
+82 beautiful(ax)
+52
+===== 第53页 =====
+83 fig.savefig(f"./rst2/{list_test[i]}Loss.png")
+84 fig.show()
+85
+86 #֥figureބaxesའ
+87 fig, ax = plt.subplots(figsize=(12, 6))
+88 loss_history = history.history['loss']
+89 ax.plot(loss_history, label='Loss')
+90 ax.set_xlabel('Epoch')
+91 ax.set_ylabel('Loss')
+92 ax.legend()
+93 ax.set_title('Loss Over Training Epochs')
+94 ax.grid()
+95 beautiful(ax)
+96 fig.savefig(f"./rst2/{list_test[i]}LSTM๭.png")
+97 fig.show()
+੣ P૭ඍս઒
+1
+2 """
+3ෘ Hurst ᆷඔ
+4ඔ ACF
+5ࢳٳ
+6ဒ
+7ဒ
+8 """
+9
+10 import matplotlib.pyplot as plt
+11 from Tools import *
+12
+13 kg_per_date = pd.read_csv("./out/kg_per_date.csv", index_col=0)
+14 kg_per_date["SUM"] = kg_per_date.sum(axis=1)
+15 kg_per_date.index = pd.to_datetime(kg_per_date.index)
+16
+17 kg_per_month = kg_per_date.resample('M').sum()
+18 print(kg_per_date)
+19
+20 #################################################
+21 #################################################
+22 #ෘ hurst ᆷඔ
+23 print("-------------------------------")
+24 print("௖ো hurst ᆷඔğ(ο฿)")
+25 for colname in kg_per_date:
+26 hurst_val = hurst(kg_per_date[colname].to_list())
+27 print(colname, hurst_val)
+53
+===== 第54页 =====
+28
+29 #ඔ
+30 print("-------------------------------")
+31 print("ඔ (ACF)(ο฿)ğ")
+32 for colname in kg_per_date:
+33 acf(kg_per_date[colname].tail(60), f"./fig/ACF/{colname}.png")
+34
+35 print("-------------------------------")
+36 print("ğ(ο฿)")
+37 for column_name in kg_per_date:
+38 val = kg_per_date[column_name].tail(30)
+39 time_series(val, period=7, out_fig=f"./fig/ࢳٳ/{column_name}.png")
+40
+41 print("-------------------------------")
+42 print("ဒ (ο฿)ğ")
+43 for column_name in kg_per_date:
+44 print(column_name)
+45 adf(kg_per_date[column_name])
+46
+47 print("-------------------------------")
+48 print("ဒ (ο฿)ğ")
+49 johansen(kg_per_date.iloc[:, :6])
+50
+51 print("-------------------------------")
+52 print("ဒ (ο฿)ğ")
+53 correlation_matrix = kg_per_date.corr()
+54 print(correlation_matrix)
+55 plt.figure(figsize=(8, 6)) # ഡᇂ๭ྙնཬ
+56 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+57 plt.title('ྟइᆔಣ৯๭')
+58 plt.tight_layout()
+59 plt.savefig("./fig/ྟइᆔಣ৯๭.png")
+60 plt.show()
+61
+62
+63 print("-------------------------------")
+64 print("ဒ (ο฿)ğ")
+65 window_size = 365
+66 step = 365
+67 category1 = 'ো'
+68 category2 = 'ွো'
+69 correlation_results = []
+70 for i in range(0, len(kg_per_date) - window_size + 1, step):
+71 window_data = kg_per_date.iloc[i:i + window_size]
+72 correlation = window_data[category1].corr(window_data[category2])
+73 correlation_results.append(correlation)
+54
+===== 第55页 =====
+74 plt.plot(
+75 range(len(correlation_results)),
+76 correlation_results,
+77 marker='o',
+78 linestyle='-')
+79 plt.xlabel('Window Index')
+80 plt.ylabel('Correlation')
+81 plt.title('Sliding Window Correlation Analysis')
+82 plt.show()
+83
+84
+85 #################################################
+86 #################################################
+87 #౷ཌ
+88 print("-------------------------------")
+89 print("౷ཌ (οᄅ)ğ")
+90 fig, ax = plt.subplots(figsize=(12, 6))
+91 for colname in kg_per_month.iloc[:, :6]:
+92 val = kg_per_month[colname].to_list()
+93 ax.plot(val, label=colname)
+94
+95 ax.set_title("௖োᄅཧਈčతक़Ď")
+96 date_num = range(36)
+97 month_string = [ts.strftime('%Y-%m') for ts in kg_per_month.index.to_list()]
+98 ax.set_xticks(date_num, month_string, rotation=45)
+99 beautiful(ax)
+100 ax.legend(loc="upper right")
+101 fig.tight_layout()
+102 fig.savefig("./fig/௖োᄅཧਈčతक़Ď.png")
+103 fig.show()
+104
+105 #ྛԩ৘
+106 fig, ax = plt.subplots(figsize=(8, 6))
+107 for colname in kg_per_month.iloc[:, -1:]:
+108 val = kg_per_month[colname].to_list()
+109 ax.plot(val, label=colname, linewidth=2)
+110
+111 ax.set_title(" ᄅሹཧਈčతक़Ď")
+112 month_string = [ts.strftime('%Y-%m') for ts in kg_per_month.index.to_list()]
+113 ax.set_xticks(range(36), month_string, rotation=45)
+114 beautiful(ax)
+115 ax.legend(loc="upper right")
+116 fig.tight_layout()
+117 fig.savefig("./fig/ᄅሹཧਈčతक़Ď.png")
+118 fig.show()
+119
+55
+===== 第56页 =====
+120 #ඔ
+121 print("-------------------------------")
+122 print("ඔ (ACF)(οᄅ)ğ")
+123 for colname in kg_per_month:
+124 acf(kg_per_month[colname], f"./fig/ACF ᄅ/{colname}")
+125
+126 print("-------------------------------")
+127 print("ࢳٳ( οᄅ)ğ")
+128 for column_name in kg_per_month:
+129 val = kg_per_month[column_name]
+130 time_series(val, out_fig=f"./fig/ᄅ/{column_name}.png")
+131
+132 print("-------------------------------")
+133 print("௖ো hurst ᆷඔğ(οᄅ)")
+134 for colname in kg_per_month:
+135 hurst_val = hurst(kg_per_month[colname].to_list())
+136 print(colname, hurst_val)
+੣ Q NSGAIIൌགྷս઒
+1 import numpy as np
+2 import pandas as pd
+3 from tool import *
+4 """
+5ğ
+6ğNSGA-IIčNon-dominated Sorting Genetic Algorithm II Ď
+7߃ܿ
+8ᆭԩğ
+9 1ॹଆ྘൬৻
+10 2щ઒č'BG' щ઒-đ'RI' щ઒-Ď
+11 """
+12 address = r'data/q3.csv'
+13 data = pd.read_csv(address)
+14 data_40_rows = data.head(40)
+15
+16 cost_pre = data_40_rows['۬ࡎؿ( ჭ/తक़)'].tolist() # ყҩӮЧ
+17 sale_pre = data_40_rows['௜नཧਈ'].tolist() # ყҩཧਈ
+18 for i in range(40):
+19 if sale_pre[i] <= 2.5:
+20 sale_pre[i] = 2.5
+21 mean_sale = data_40_rows['ࡎ']
+22 alph = [0.1]* 40 #ੱ
+23 discount = [0.8] * 40 # յᅼ
+24 ini_data = np.array([1]*30 + [0]*10 + [0.7]*40 + sale_pre) # Ԛ൓ᆴ
+25 need_list = data_40_rows['Q'].tolist()
+56
+===== 第57页 =====
+26 weight = [0.5] * 40
+27
+28 def Modify(sale_price):
+29 sale = []
+30 for i in range(40):
+31 ss = ( 1 - (sale_price[i] - mean_sale[i])/(mean_sale[i]) * weight[i] ) + sale_pre[i]
+32 sale.append(ss)
+33 return sale
+34
+35 def Obj_fuction(X):
+36 Objv= []
+37 Cv = []
+38 for i in range(len(X)):
+39 x = X[i]
+40 #০೎
+41 decide = x[:40]
+42 profit = x[40:80]
+43 nums = x[80:120]
+44 #ෘӮЧ
+45 cost = []
+46 for i in range(len(cost_pre)):
+47 cost.append(decide[i] * cost_pre[i])
+48 #ࡎ
+49 sale_price = []
+50 for i in range(len(cost_pre)):
+51 s = cost[i] * (1 + profit[i])
+52 sale_price.append(s)
+53 #ෘཧਈ
+54 sale_modify = Modify(sale_price)
+55 #ح
+56 w1 = []
+57 for i in range(len(sale_modify)):
+58 bad = (sale_modify[i] * alph[i]) * ( discount[i] * sale_price[i] )
+59 good = (sale_modify[i] * (1 - alph[i])) *(sale_price[i])
+60 w1.append(bad + good)
+61 sum_sale = sum(w1)
+62 #ෘሹӮЧ
+63 w2 = []
+64 for i in range(len(cost)):
+65 w2.append(nums[i] * cost[i])
+66 sum_cost = sum(w2)
+67 penalty = 0
+68 for i in range(40):
+69 if nums[i] < 2.5:
+70 penalty -= 200
+71 f1 = sum_sale - sum_cost + penalty
+57
+===== 第58页 =====
+72
+73 #ླ౰
+74 satif_need = []
+75 for i in range(len(decide)):
+76 satif_need.append(decide[i] * need_list[i])
+77 f2 = sum(satif_need) / sum(need_list)
+78
+79 #ඔᆴ
+80 x_Objv = np.hstack([f1,f2])
+81 #ၬჿඏ
+82 list_cv = [sum(decide) - 33, 27 - sum(decide)]
+83 # for i in range(40):
+84 # list_cv.append( 2.5- nums[i] )
+85 x_Cv = np.array(list_cv)
+86 Objv.append(x_Objv)
+87 Cv.append(x_Cv)
+88 Objv = np.array(Objv)
+89 Cv = np.array(Cv)
+90 return Objv, Cv
+91
+92
+93 problem = ea.Problem(
+94 name='NSGAII_for_q3',
+95 M = 2,
+96 maxormins = [-1,-1],
+97 Dim = 120,
+98 varTypes=[1] * 40 + [0] * 80,
+99 lb=[0] * 40 + [0] * 40 + data_40_rows['ቋཬཧਈ'].tolist(),
+100 ub=[1] * 40 + [1.2] * 40 + data_40_rows['ቋնཧਈ'].tolist(),
+101 evalVars=Obj_fuction
+102 )
+103
+104 #щ઒
+105 Encodings=['BG','RI']
+106 Field1 = ea.crtfld( Encodings[0], problem.varTypes[:40],ranges=np.array( [problem.lb[:40],
+problem.ub[:40]] ) ),→
+107 Field2 = ea.crtfld( Encodings[1], problem.varTypes[40:],ranges=np.array( [problem.lb[40:],
+problem.ub[40:]] ) ),→
+108 Fields = [Field1, Field2]
+109 population = ea.PsyPopulation(Encodings=Encodings, Fields=Fields, NIND=100)
+110
+111 algorithm = ea.moea_psy_NSGA2_archive_templet(
+112 problem,
+113 population,
+114 MAXGEN=300,
+115 logTras=20,
+58
+===== 第59页 =====
+116 prophetPop=ini_data,
+117 maxTrappedCount=20,
+118 )
+119
+120 res = ea.optimize(algorithm, seed=1, verbose=True , drawing=1,
+121 outputMsg=True, drawLog = True )
+122
+123 print(f"൞ğ{res['Vars'][0]}")
+124 print(f"ᆴ൞ğ{res['ObjV'][0]}")
+125 print(f"hvູğ{res['hv']}")
+126 print(f"spacingູğ{res['spacing']}")
+127
+128
+੣ R ໙ี೘ඔऌᆜ৘ս઒
+1
+2 """
+3 ໙ี೘ඔऌყԩ৘
+4 """
+5
+6 import numpy as np
+7 import pandas as pd
+8 import matplotlib.pyplot as plt
+9 from sklearn.preprocessing import StandardScaler
+10
+11 plt.rcParams['font.sans-serif'] = ['SimHei']
+12 plt.rcParams['axes.unicode_minus'] = False
+13
+14 sale_data = pd.read_csv("./data/ࡱڸ2.csv")
+15 sale_data[" ཧ൲ರ௹"] = pd.to_datetime(sale_data[" ཧ൲ರ௹"])
+16 sale_data = sale_data[[" ཧ൲ರ௹", " ֆ௖щ઒", " ཧਈ (తक़)", "ࡎ( ჭ/తक़)"]]
+17 sale_data = sale_data[sale_data[" ཧ൲ರ௹"] >= "2023-6-24"]
+18 sale_sum = sale_data[[" ֆ௖щ઒", " ཧਈ (తक़)"]].groupby(" ֆ௖щ઒").sum()
+19 # sale_sum[" ֆ௖щ઒"] = sale_sum.index
+20 sale_sum = sale_sum.sort_values(" ཧਈ (తक़)", ascending=False)
+21 # sale_sum.index = range(1, len(sale_sum) + 1)
+22 # print(sale_data)
+23
+24 buy_data = pd.read_csv("./data/ࡱڸ3.csv")
+25 buy_data[" ರ௹"] = pd.to_datetime(buy_data[" ರ௹"])
+26 buy_data = buy_data[buy_data[" ರ௹"] >= "2023-6-24"]
+27 buy_data = buy_data[[" ֆ௖щ઒", "۬ࡎؿ( ჭ/తक़)"]].groupby(" ֆ௖щ઒").count()
+28 buy_data[" ֆ௖щ઒"] = buy_data.index
+29 buy_data = buy_data[[" ֆ௖щ઒"]]
+59
+===== 第60页 =====
+30 buy_data.index = range(1, len(buy_data) + 1)
+31 # print(buy_data)
+32
+33 data = buy_data.merge(sale_sum, on='ֆ௖щ઒', how="left")
+34 data.dropna(inplace=True)
+35 data = data.sort_values(" ཧਈ (తक़)", ascending=False)
+36 data.index = range(1, len(data) + 1)
+37 data = data[data[" ཧਈ (తक़)"] >= 2.5]
+38
+39 base_info = pd.read_csv("./data/ࡱڸ1.csv")[[" ֆ௖щ઒", "ো଀ӫ", " ֆ௖଀ӫ"]]
+40 data = data.merge(base_info, on=" ֆ௖щ઒", how="left")
+41
+42 sale_data["ࡎ"] = sale_data[" ཧਈ (తक़)"] * sale_data["ࡎ( ჭ/తक़)"]
+43 sale_money = sale_data[[" ֆ௖щ઒", "ࡎ"]].groupby(" ֆ௖щ઒").sum()
+44 sale_num = sale_data.groupby(" ֆ௖щ઒").count().iloc[:, 1]
+45 sale_num.name = " ֆඔ"
+46 # print(sale_num)
+47
+48 data = data.merge(sale_money, on=" ֆ௖щ઒", how="left")
+49 data["ࡎ"] = data["ࡎ"] / data[" ཧਈ (తक़)"]
+50
+51 data = data.merge(sale_num, on=" ֆ௖щ઒", how="left")
+52
+53 ############################
+54 # VIKORم
+55
+56 #ؓFeature2'߄
+57 data['Feature1'] = StandardScaler().fit_transform(data[['ཧਈ (తक़)']])
+58 data['Feature2'] = StandardScaler().fit_transform(data[['ֆඔ']])
+59
+60 data['F1'] = (max(data['Feature1']) - data['Feature1']) / (max(data['Feature1']) -
+min(data['Feature1'])),→
+61 data['F2'] = (max(data['Feature2']) - data['Feature2']) / (max(data['Feature2']) -
+min(data['Feature2'])),→
+62
+63 data['S'] = data['F1'] + data['F2']
+64 data['R'] = np.maximum(data['F1'], data['F2'])
+65
+66 v = 0.5
+67 data['Q'] = (v * (data['S'] - max(data['S']) / (min(data['S']) - max(data['S']))) +
+68 (1 - v) * (data['R'] - max(data['R']) / (min(data['R']) - max(data['R']))))
+69
+70 data = data.drop(['Feature1', 'Feature2', 'F1', 'F2', 'S', 'R'], axis=1)
+71 data = data.sort_values("Q", ascending=True)
+72 data['Q'] = (max(data['Q']) - data['Q']) / (max(data['Q']) - min(data['Q']))
+73
+60
+===== 第61页 =====
+74 buy_data = pd.read_csv("./data/ࡱڸ3.csv")
+75 buy_data[" ರ௹"] = pd.to_datetime(buy_data[" ರ௹"])
+76 buy_data = buy_data[buy_data[" ರ௹"] >= "2023-6-24"]
+77 buy_data = buy_data[['۬ࡎؿ( ჭ/తक़)', 'ֆ௖щ઒']].groupby(" ֆ௖щ઒").mean()
+78 data = data.merge(buy_data, on=" ֆ௖щ઒", how="left")
+79 # print(buy_data)
+80
+81
+82 print(sale_data)
+83 grouped = sale_data.groupby(" ֆ௖щ઒")
+84 result_df = pd.DataFrame(columns=['ֆ௖щ઒', 'ቋնཧਈ', 'ቋཬཧਈ', '௜नཧਈ'])
+85 for group_name, group_data in grouped:
+86 max_sale = group_data.groupby(" ཧ൲ರ௹").sum()[" ཧਈ (తक़)"].max()
+87 min_sale = group_data.groupby(" ཧ൲ರ௹").sum()[" ཧਈ (తक़)"].min()
+88 mean_sale = group_data.groupby(" ཧ൲ರ௹").sum()[" ཧਈ (తक़)"].mean()
+89 result_df = pd.concat(
+90 [result_df,
+91 pd.DataFrame({'ֆ௖щ઒': [group_name],
+92 'ቋնཧਈ': [max_sale],
+93 'ቋཬཧਈ': [min_sale],
+94 '௜नཧਈ': [mean_sale]})],
+95 ignore_index=True)
+96 data = data.merge(result_df, on=" ֆ௖щ઒", how="left")
+97
+98 loss_data = pd.read_csv("./data/ࡱڸ4.csv")
+99 data = data.merge(loss_data, on=" ֆ௖щ઒", how="left")
+100 data["ੱ (%)"] = data["ੱ (%)"] / 100
+101
+102 #######################################
+103 # ௜नཧਈྩᆞ
+104 data[" ௜नཧਈ"] = data[" ௜नཧਈ"] / (1 - data["ੱ (%)"])
+105
+106 # plt.plot(data[" ཧਈ (తक़)"])
+107 # plt.plot(data[" ཧਈ (తक़)"].cumsum())
+108 # plt.show()
+109
+110 print(data)
+111 data.to_csv("./q3.csv")
+112 # print(data.groupby("ো଀ӫ").count().iloc[:, 1])
+੣ Sս઒
+1 """
+2࣮
+3 1ğಀԢᇌཧ௖čഺჅ 198ֆ௖Ď
+61
+===== 第62页 =====
+4Чӱ྽ଽಸĎ2ਈഒгaਬ೛ཧ൲
+5 2ੰ
+6 3:ੰ
+7 4ੰᆭ
+8 """
+9
+10 list_1 = [102900011023648, 102900011011782, 102900005116776, 102900005116042,
+102900011032145],→
+11 list_2 = [102900011030400, 102900011010563, 102900011021699, 102900011033999,
+102900011000335, 102900011030417, 102900011029275, 102900011027615, 102900011030561,
+102900011031841, 106971563780002, 102900011036068, 106931885000356, 102900011034538,
+102900005128748, 102900011031858, 102900011029299, 102900011032114, 102900011029688,
+102900011033913, 102900011026618, 102900011033531, 102900011035962, 102900051000890,
+102900011031742, 106973223300667, 102900011008577, 102900011026502, 102900011034316,
+102900011031759, 102900011034705, 102900011034323, 102900011030615, 102900011033562,
+102900011030622, 102900011015391, 102900011023075, 106931885000035, 102900005116905,
+102900011026793, 102900011021675, 102900011008492, 102900011009772, 102900011036266,
+102900011030639, 102900011033968, 102900011011058, 102900011033586]
+,→
+,→
+,→
+,→
+,→
+,→
+,→
+,→
+,→
+12 list_dead_stock = list_1 + list_2
+13 print(len(list_dead_stock))
+14
+15 import pandas as pd
+16 import matplotlib.pyplot as plt
+17 plt.rcParams['font.sans-serif'] = [u'simHei']
+18 plt.rcParams['axes.unicode_minus'] = False
+19
+20 #ೆ
+21 csv_file = 'data/type.csv'
+22 df_1 = pd.read_csv(csv_file,encoding='GBK')
+23 csv_file = 'data/ࡱڸ2.csv'
+24 df = pd.read_csv(csv_file)
+25
+26 #྽ਙ
+27 df['ཧ൲ರ௹'] = pd.to_datetime(df['ཧ൲ರ௹'])
+28 df['ࡗ'] = pd.to_datetime(df['ཧ൲ರ௹'].astype(str) + ' ' + df['ೡ઒ཧ൲ൈ
+ࡗ'],errors='coerce',format='%Y-%m-%d %H:%M:%S.%f'),→
+29 #حࣁ
+30 df['حࣁ'] = df['ཧਈ (తक़)'] * df['ࡎ( ჭ/తक़)']
+31 #௖ো
+32 mapping_dict = df_1.set_index('ֆ௖щ઒')['ো଀ӫ'].to_dict()
+33 df['௖ো'] = df['ֆ௖щ઒'].map(mapping_dict)
+34 #োљ
+35 mapping_dict = df_1.set_index('ֆ௖щ઒')['ো྘'].to_dict()
+36 df['ো྘'] = df['ֆ௖щ઒'].map(mapping_dict)
+37 print(df.head(5))
+38
+62
+===== 第63页 =====
+39 ##########၂҄ğಀᇌཧӁ௖ #########
+40
+41 df = df[~df['ֆ௖щ઒'].isin(list_dead_stock)]
+42 print(len(df['ֆ௖щ઒'].unique()))
+43
+44 ##########ੰ ###########
+45 df['ٺ'] = df['ཧ൲ರ௹'].dt.strftime('%Y-%m')
+46
+47 # ൐Ⴈ groupbyοᅶ"ٺ"ބ "ো྘"֥"ཧਈ (తक़)"ބ
+48 grouped = df.groupby(['ٺ',' ো྘'])['ཧਈ (తक़)'].sum().reset_index()
+49
+50 #๭і
+51 fig, ax = plt.subplots(figsize=(12, 7))
+52 types = grouped['ো྘'].unique()
+53
+54 for type_name in types:
+55 type_data = grouped[grouped['ো྘'] == type_name]
+56 plt.plot(type_data['ٺ'], type_data['ཧਈ (తक़)'], label=type_name,linewidth = 3)
+57
+58 ax.set_xlabel('ٺ')
+59 ax.set_ylabel('ཧਈ (తक़)')
+60 ax.set_title('ཧਈᅼཌ๭')
+61 ax.legend(['൶Ғ', "൶Ғ", "൶Ғ"])
+62 ax.grid(True)
+63
+64 ax.spines['left'].set_linewidth(2) # ቐшॿ
+65 ax.spines['bottom'].set_linewidth(2) #шॿ
+66 ax.spines['right'].set_linewidth(2) # Ⴗшॿ
+67 ax.spines['top'].set_linewidth(2) #шॿ
+68
+69 ax.tick_params(axis='both', direction='in', which='both') #Ӕཟ
+70 ax.tick_params(axis='both', which='major', width=2, length=8) #؇
+71 ax.tick_params(axis='both', which='minor', width=1, length=4) #؇
+72
+73 #ࡼx ᇠѓదౠོ 45؇
+74 ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
+75
+76 plt.show()
+੣ Tൌགྷս઒
+1 """
+2Ď
+3ğ
+4 1 GBest PSO čGlobal Best Particle Swarm Optimization Ď
+63
+===== 第64页 =====
+5 GBest PSO ൞ PSO၂ᇕэุđఃᇏЇওಆअቋႪ৬ሰčGlobal Best Particle Ď
+6 2 ವೆ༵ဒᆩ്ğ 30%ק70%ളӮčॖၛϺᇹ൬৻Ď
+7 3Ď
+8 """
+9 from tool import *
+10 list_l = ['ွো' ,'Ғো' ,'ো' ,'౎ো' ,'ো' ,'ൊႨऩ' ]
+11
+12 predit_buy =[
+13 [3.285864, 3.2921748, 3.2889733, 3.285188, 3.2851105, 3.2964268, 3.2876368] ,
+14 [7.7414317, 7.763459, 7.814592, 7.794937, 7.747068, 7.810813, 7.7633805] ,
+15 [12.018651, 11.912668, 12.027704, 11.941088, 11.92054, 12.118359, 11.972251] ,
+16 [4.5562034, 4.601929, 4.5483465, 4.549116, 4.532483, 4.539543, 4.601603] ,
+17 [3.7067149, 3.65774, 3.6644902, 3.6755412, 3.6658049, 3.6834998, 3.6471841] ,
+18 [4.015016, 4.075036, 4.025253, 4.0783653, 4.0397897, 4.0211616, 4.0569587] ] #ࡎࣉ
+19 predit_sale =[
+20 [190.75572, 189.94437 ,189.2342 , 190.34938 ,189.08669, 188.56415 ,190.10588],
+21 [28.618061, 28.872581, 28.873682 ,28.74203 , 28.776909, 28.86964 ,28.661997],
+22 [26.962397, 27.805391, 27.65219, 27.210875, 27.88252, 27.764929, 27.24346 ],
+23 [32.29913, 31.795496 ,32.425, 31.649815, 31.683603 ,31.381622, 31.967655],
+24 [102.14867, 101.67641, 102.01936, 102.55891 ,102.07538 ,102.73362 ,102.2766 ],
+25 [56.307552, 57.39569 , 58.130955, 56.80816, 56.4629, 57.186737, 57.953686] ] # ყҩཧ
+ਈ,→
+26 predit_omega =[0.7]*6 # ᅼ२
+27 predit_gama = [0.1283, 0.1551, 0.1365, 0.0668, 0.0924, 0.0945] #ੱ
+28
+29 day = 6
+30
+31 ini_pos = [0.6, 0.4, 0.3, 0.6, 0.9, 0.6,150, 30, 20, 20, 100, 60]
+32 ini_pos = np.array(ini_pos)
+33 n_particles = 1000
+34 n_dimensions = 12
+35 lower_bound = np.array( [0.3, 0.2, 0.2, 0.3, 0.3, 0.3, 10, 0, 0, 10, 10, 20] )
+36 upper_bound = np.array( [1.2, 0.98, 0.8, 0.9, 1.2, 1.0, 450, 90, 75, 60, 300, 250] )
+37 bounds = (lower_bound, upper_bound)
+38
+39 weight_ini = 0.3 #б২
+40 pos_given = np.random.uniform(
+41 low=lower_bound, high=upper_bound, size=(int(n_particles * weight_ini) , n_dimensions)
+42 )
+43 pos_given = 0.8 * pos_given + 0.2 * ini_pos
+44 pos_given = np.clip(pos_given,lower_bound,upper_bound)
+45 pos_random = np.random.uniform(
+46 low=lower_bound, high=upper_bound, size=(int(n_particles * (1-weight_ini)), n_dimensions)
+47 )
+48 Initial_pos = np.vstack((pos_given, pos_random))
+49
+64
+===== 第65页 =====
+50 def modify(y,x,idx):
+51
+52 if idx ==0 :
+53 sale = -1.91 * x + 1.03 * y + 3.82
+54 if sale < 0:
+55 return 0
+56 else:
+57 return sale
+58 if idx ==1 :
+59 sale = -0.25 * x + 0.94 * y + 1.07
+60 if sale < 0:
+61 return 0
+62 else:
+63 return sale
+64 if idx ==2 :
+65 sale = -0.03 * x + 0.97 * y + -0.98
+66 if sale < 0:
+67 return 0
+68 else:
+69 return sale
+70 if idx ==3 :
+71 sale = -0.07 * x + 0.99 * y + 1.70
+72 if sale < 0:
+73 return 0
+74 else:
+75 return sale
+76 if idx ==4 :
+77 sale = -0.029 * x + 0.99 * y + 2.54
+78 if sale < 0:
+79 return 0
+80 else:
+81 return sale
+82 if idx ==5 :
+83 sale = -0.51 * x + 1.01 * y + 2.32
+84 if sale < 0:
+85 return 0
+86 else:
+87 return sale
+88
+89
+90 #ඔ
+91 def Objective_function(x):
+92 """
+93ඔ
+94 :param buy:ࡎࣉ
+95 :param sale_lstm: ཧ൲ਈčlstmĎ
+65
+===== 第66页 =====
+96 :param alpha:Ӯੱč০೎ੱĎ(эਈ)
+97 :param beta:ਈ (эਈ)
+98 :param gama:ੱ
+99 :param omega: ᅼ२
+100 :return: ൬ၭ
+101 """
+102 profit_list = []
+103 for i in range(n_particles) :
+104 x_new = x[i]
+105 profit = 0
+106 for idx in range(6):
+107 alpha = x_new[idx] # ০೎ੱ
+108 beta = x_new[idx + 6] #ਈ
+109
+110 buy = predit_buy[idx][day] #ࡎࣉ
+111 sale_lstm = predit_sale[idx][day] # ყҩཧਈ
+112 omega = predit_omega[idx] # ᅼ२
+113 gama = predit_gama[idx] #ੱ
+114
+115 sale_price_normal = buy * (1 + alpha) #ࡎ
+116 sale_price_discount = buy * (1 + alpha) * omega #ࡎ
+117
+118 good = beta * (1 - gama) #ਈ
+119 bad = beta * gama #ਈ
+120
+121 sale_modify = modify(sale_lstm, sale_price_normal,idx) #ཧਈ
+122
+123 w1 = sale_modify * (1 - gama) * sale_price_normal \
+124 + sale_modify * gama * sale_price_discount
+125 w2 = beta * buy
+126
+127 if beta <= sale_modify:
+128 profit += (w1-w2) - (sale_modify - beta) * 20
+129 else:
+130 profit += (w1 - w2)
+131
+132 profit_list.append(-profit)
+133
+134 return profit_list
+135
+136
+137 options = {'c1': 0.5, 'c2': 0.5, 'w': 0.6} #ӵ
+138 optimizer = ps.single.GlobalBestPSO(n_particles=n_particles, dimensions=n_dimensions
+139 , options=options , bounds=bounds
+140 ,init_pos=Initial_pos)
+141
+66
+===== 第67页 =====
+142 best_position, best_cost = optimizer.optimize(Objective_function, iters=300, verbose= True)
+143 fig, ax = plt.subplots(figsize=(8,6))
+144 beautiful(ax)
+145 plot_cost_history(cost_history=optimizer.cost_history,title="ඔ č-౷ཌ",ax=ax)
+146 plt.show()
+147
+148
+149 def pre_sale_mount (x1,x2):
+150 # x1۬ࡎ
+151 # x2 ൞ LSTMཧਈ
+152 list_sale = []
+153 for idx in range(6):
+154 x = x1[idx]
+155 y = x2[idx]
+156 sale = modify(y,x,idx)
+157 list_sale.append(sale)
+158
+159 return list_sale
+160
+161 def count_how_much(x,y):
+162 # x ൞০೎ੱ
+163 # yࡎࣉ
+164 list_how_much = []
+165 for i in range(6):
+166 list_how_much.append((x[i] +1) * y[i])
+167
+168 return list_how_much
+169
+170 print(" ቋն০೎ğ", -(best_position))
+171
+172 print("ਈčэਈĎ ğ", best_cost[-6:].tolist())
+173
+174 print("\nğ",[row[day] for row in predit_buy])
+175 sale_price = count_how_much(best_cost[:6].tolist(),[row[day] for row in predit_buy] )
+176 print("ğ",sale_price)
+177 print(" ০೎ੱčэਈĎ ğ", best_cost[:6].tolist())
+178
+179 # print("\nLSTM ყҩཧਈğ",[row[day] for row in predit_sale] )
+180 print("ཧਈğ",pre_sale_mount(sale_price, [row[day] for row in predit_sale] ))
+181
+182
+੣ UԱ௄஥ս઒
+67
+===== 第68页 =====
+1
+2 """
+3Ա௄஥
+4 """
+5
+6 import pandas as pd
+7 from fuzzywuzzy import fuzz
+8 from fuzzywuzzy import process
+9 import re
+10
+11
+12 info_data = pd.read_csv("./data/ࡱڸ1.csv")
+13 sale_data = pd.read_csv("./data/ࡱڸ2.csv")
+14 buy_data = pd.read_csv("./data/ࡱڸ3.csv")
+15 loss_data = pd.read_csv("./data/ࡱڸ4.csv")
+16 #ো଀ӫ
+17 #ֆ௖щ઒ ཧਈ (తक़)ࡎ( ჭ/తक़)յᅼཧ൲
+18 #۬ࡎؿ( ჭ/తक़)
+19 #ੱ (%)
+20
+21 data = pd.merge(buy_data, info_data, on=" ֆ௖щ઒", how="left")
+22 data = data[[" ರ௹", " ֆ௖଀ӫ"]]
+23 data[" ರ௹"] = pd.to_datetime(data[" ರ௹"])
+24 data = data.set_index(" ರ௹")
+25
+26
+27 grouped = data.groupby(" ರ௹")
+28 for group_name, group_data in grouped:
+29 # print(group_name)
+30 # print(group_data[" ֆ௖଀ӫ"].to_list())
+31
+32 strings = group_data[" ֆ௖଀ӫ"].to_list()
+33 threshold = 80 #ᆜ
+34 similar_strings = {}
+35 for string in strings:
+36 # print(string)
+37 # ൐Ⴈ process.extractOneԱ
+38 best_match = process.extractOne(
+39 string,
+40 [s for s in strings if s not in [string]],
+41 scorer=fuzz.ratio)
+42 #֞ࡆsimilar_stringsᇏ
+43 if best_match[1] >= threshold and best_match[0] != string and best_match[0][:2] ==
+string[:2]:,→
+44 if re.search(r'\(\d+\)', best_match[0]) and re.search(r'\(\d+\)', string):
+68
+===== 第69页 =====
+45 similar_strings[string] = best_match[0]
+46 strings = [s for s in strings if s not in [string]]
+47
+48 if bool(similar_strings):
+49 print(group_name)
+50 #ؓ
+51 for original, similar in similar_strings.items():
+52 print(f"Աğ'{original}'ބ' {similar}'")
+53
+54
+55 print(data.info)
+56
+੣ Vൌགྷս઒
+1
+2 """
+3༅
+4 """
+5
+6 import matplotlib.pyplot as plt
+7 import pandas as pd
+8 from statsmodels.tsa.seasonal import seasonal_decompose
+9
+10 plt.rcParams['font.sans-serif'] = ['SimHei']
+11 plt.rcParams['axes.unicode_minus'] = False
+12
+13
+14 def time_series_3d(pd_list: list, name):
+15 num_plots = 4 #җҵ
+16
+17 #๭Գ१
+18 plt.figure(figsize=(8, 6))
+19
+20 #֥DataFrame টթԥ౴൝ඔऌ
+21 trend_df = pd.DataFrame()
+22
+23 for df in pd_list:
+24 #ࢳٳ
+25 result = seasonal_decompose(df, model='additive', period=365)
+26 #ٳ
+27 for i in range(num_plots):
+28 if i == 1:
+29 plt.plot(result.trend, label='Trend')
+30 plt.legend(loc='upper left')
+69
+===== 第70页 =====
+31 trend_df[df.name] = result.trend
+32
+33 trend_df.dropna(inplace=True)
+34 trend_df.to_csv(f"./trend/{name}.csv", encoding="GBK")
+35 print(trend_df)
+36 plt.title(name, fontsize=16)
+37 plt.tight_layout()
+38 plt.show()
+39
+40
+41 ########################################
+42 #౼ඔऌ
+43
+44 info_data = pd.read_csv("./data/ࡱڸ1.csv")
+45 sale_data = pd.read_csv("./data/ࡱڸ2.csv")
+46 buy_data = pd.read_csv("./data/ࡱڸ3.csv")
+47 loss_data = pd.read_csv("./data/ࡱڸ4.csv")
+48
+49 print(sale_data)
+50 sale_data[" ཧ൲ರ௹"] = pd.to_datetime(sale_data[" ཧ൲ರ௹"])
+51
+52 rst_data = pd.read_csv("./out/result.csv")
+53
+54 ########################################
+55 # ԩ৘
+56
+57 grouped = rst_data.groupby(" ௖ো")
+58 for group_name, group_data in grouped:
+59 # print(group_name)
+60 # print(group_data.info())
+61 group_data[" ཧ൲ರ௹"] = pd.to_datetime(group_data[" ཧ൲ರ௹"])
+62 group_data = group_data.set_index(" ཧ൲ರ௹")
+63
+64 time_series_3d(
+65 [group_data[" ཧਈ (తक़)"], group_data[" ০೎ੱ"], group_data["۬ࡎؿ( ჭ/తक़)"],
+66 group_data["ࡎ( ჭ/తक़)"]], name=group_name)
+70

@@ -80,6 +80,16 @@ opencode 会自动加载 `~/.claude/skills` 与 `~/.agents/skills`，无需额�
 把 `cumcm/` 整个文件夹复制到对应工具的 skills 目录即可（同上表）。
 **安装/更新后请重启对应工具。**
 
+### 依赖：LaTeX（论文编译，可选但推荐）
+
+`export-paper.ps1` 优先走 **md2tex.py + xelatex** 路线（公式/表格/中文排版最佳），无 xelatex 时回退 Word 路线（需 Office + python-docx）。
+Windows 安装 MiKTeX：
+```powershell
+winget install MiKTeX.MiKTeX
+& "$env:LOCALAPPDATA\Programs\MiKTeX\miktex\bin\x64\initexmf.exe" --set-config-value "[MPM]AutoInstall=1"
+```
+> AutoInstall=1 使首次编译自动安装缺失宏包（ctex 等）；无需管理员权限。
+
 ## 使用
 
 在任意工具中自然语言触发（skill 会自动被识别）：

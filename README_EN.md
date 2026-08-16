@@ -13,7 +13,9 @@ It turns the 72-hour contest workflow into a repeatable AI-assisted process: pro
 
 This is not just a prompt collection. It includes templates, scripts, checkers, scoring rubrics, anti-hallucination constraints, and reusable modeling references.
 
-[中文 README](README.md) · [2023C Demo](examples/2023C-workflow-demo.md) · [Evaluation Framework](EVALUATION.md)
+[![workflow](cumcm/assets/workflow-overview.svg)](examples/2023C-workflow-demo.md)
+
+[中文 README](README.md) · [2023C Demo](examples/2023C-workflow-demo.md) · [Evaluation Framework](EVALUATION.md) · [Share Kit](PROMOTION.md)
 
 ## Why Star This Repo
 

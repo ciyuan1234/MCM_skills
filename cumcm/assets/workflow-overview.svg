@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="title desc">
+  <title id="title">CUMCM Skill Pack Workflow Overview</title>
+  <desc id="desc">A simple workflow diagram from problem reading to packaging materials.</desc>
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .frame { fill: #f7f9fc; stroke: #d9e2ef; stroke-width: 2; rx: 18; }
+      .node { fill: #ffffff; stroke: #4f8cff; stroke-width: 2; rx: 14; }
+      .node2 { fill: #ffffff; stroke: #18a999; stroke-width: 2; rx: 14; }
+      .node3 { fill: #ffffff; stroke: #f59e0b; stroke-width: 2; rx: 14; }
+      .label { fill: #102033; font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif; font-size: 20px; font-weight: 700; }
+      .sub { fill: #4a5b73; font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif; font-size: 14px; }
+      .arrow { stroke: #7b8796; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+      .tag { fill: #66758a; font-family: "Segoe UI", Arial, sans-serif; font-size: 12px; letter-spacing: 0.8px; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#7b8796"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="280" />
+  <rect class="frame" x="24" y="24" width="1152" height="232" rx="18" />
+  <text class="tag" x="600" y="54" text-anchor="middle">72-HOUR CUMCM WORKFLOW</text>
+
+  <rect class="node" x="50" y="94" width="190" height="110" rx="14" />
+  <text class="label" x="145" y="136" text-anchor="middle">读题</text>
+  <text class="sub" x="145" y="162" text-anchor="middle">题型判断 / 任务拆解</text>
+
+  <rect class="node2" x="290" y="94" width="190" height="110" rx="14" />
+  <text class="label" x="385" y="136" text-anchor="middle">数据契约</text>
+  <text class="sub" x="385" y="162" text-anchor="middle">缺失 / 异常 / 溯源</text>
+
+  <rect class="node" x="530" y="94" width="190" height="110" rx="14" />
+  <text class="label" x="625" y="136" text-anchor="middle">建模求解</text>
+  <text class="sub" x="625" y="162" text-anchor="middle">代码 / 图表 / 结果</text>
+
+  <rect class="node3" x="770" y="94" width="190" height="110" rx="14" />
+  <text class="label" x="865" y="136" text-anchor="middle">写作检查</text>
+  <text class="sub" x="865" y="162" text-anchor="middle">摘要 / 论文 / 格式</text>
+
+  <rect class="node2" x="1010" y="94" width="140" height="110" rx="14" />
+  <text class="label" x="1080" y="136" text-anchor="middle">交卷</text>
+  <text class="sub" x="1080" y="162" text-anchor="middle">导出 / 打包</text>
+
+  <path class="arrow" d="M240 149 L286 149" />
+  <path class="arrow" d="M480 149 L526 149" />
+  <path class="arrow" d="M720 149 L766 149" />
+  <path class="arrow" d="M960 149 L1006 149" />
+
+  <text class="sub" x="600" y="236" text-anchor="middle">从赛题到论文与支撑材料的一条可验证路径</text>
+</svg>

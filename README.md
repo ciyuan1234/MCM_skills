@@ -11,6 +11,8 @@
 
 它不是简单提示词合集，而是一个带 **论文模板、脚本工具、评测体系、反幻觉溯源约束、历年题型经验库** 的可安装技能包。
 
+[![workflow](cumcm/assets/workflow-overview.svg)](examples/2023C-workflow-demo.md)
+
 [English README](README_EN.md) · [2023C Demo](examples/2023C-workflow-demo.md) · [质量评估框架](EVALUATION.md)
 
 ## 为什么值得 Star
@@ -186,11 +188,15 @@ winget install MiKTeX.MiKTeX
 
 ## Roadmap
 
-- [ ] 增加 README 截图或 GIF：展示从提示词到工作区和检查报告的过程
+- [x] 增加工作流视觉入口：README 首屏已嵌入 workflow overview
 - [ ] 增加 GitHub Actions：脚本语法检查和 Tier 1 冒烟测试
 - [ ] 增加 `LICENSE` 和贡献指南
 - [ ] 补充更多往届题的端到端公开 demo
 - [ ] 将中文资料库索引拆成可选扩展包
+
+## 分享文案
+
+项目简介与发布文案见：[PROMOTION.md](PROMOTION.md)。
 
 ## Changelog
 

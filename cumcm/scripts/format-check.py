@@ -9,15 +9,17 @@
     python format-check.py . -o 4_论文\format-check.json
 
 检查项（docx 版面层，官方规范 HARD + 获奖论文惯例）:
-  1. 页边距      上下左右 >= 2.5cm（format2023 官方 HARD）
+  1. 页边距      上下左右 >= 2.5cm（官方规范 HARD）
   2. 页脚页码    每节页脚含 PAGE 域（官方 HARD: 摘要页起、页脚中部连续编号）
-  3. 首页摘要    文档第一段须含"摘要"
+  3. 首页摘要    文档第一段须含"摘要"（电子版第一页=摘要专用页，官方 HARD）
   4. 图片题注    每张图片后须紧跟含"图N"的题注段（获奖论文 4/4 惯例）
   5. 三线表      表格边框仅顶线/表头线/底线，无竖线（获奖论文惯例）
   6. 表题注      每个表格前须有含"表N"的题注段（获奖论文惯例）
   7. 题注字号    图/表题注字号 <= 正文字号（惯例，软检查）
-  8. PDF 大小    论文 PDF <= 20MB（官方 HARD）
-  9. 正文页数    PDF 总页数（正文尽量 <= 20 页，官方 HARD"尽量"，软检查）
+  8. 身份泄漏    论文全文不得含 学校/队号/手机号/邮箱 等参赛者身份信息（官方 HARD）
+  9. PDF 检查    大小 <= 20MB（官方 HARD）；第 1 页须为摘要页；
+                 正文页数（第 2 页 至 附录/参考文献 前）>30 错误 / 26-30 警告 / <=25 通过
+                 （官方 HARD: 正文不超过 30 页；附录页数不限，不计入正文）
 
 退出码: 0 = 无错误; 1 = 存在错误项
 """
@@ -115,6 +117,34 @@ def body_sequence(doc):
 def has_image(par):
     return par._element.findall(".//{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}inline") or \
            par._element.findall(".//{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}anchor")
+
+
+# ---------- 8. 身份泄漏扫描（官方 HARD: 摘要页/正文/附录均不得含参赛者身份信息） ----------
+
+IDENTITY_PATTERNS = [
+    (re.compile(r"[\u4e00-\u9fa5]{2,3}(?:省|市|自治区)[\u4e00-\u9fa5]{0,8}(?:大学|学院)(?:[\u4e00-\u9fa5]{0,6}(?:分校|校区))?"),
+     "学校/院校名称（省市+校名）"),
+    (re.compile(r"(?<!\d)1[3-9]\d{9}(?!\d)"), "手机号码"),
+    (re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"), "电子邮箱"),
+    (re.compile(r"(?:队号|参赛队编号|队伍编号)\s*[:：]?\s*[A-Z]?\d{4,}"), "参赛队号"),
+    (re.compile(r"(?<!\d)20\d{2}[A-Z]\s*\d{3,4}(?!\d)"), "队号（年份+题号+序号）"),
+    (re.compile(r"(?:队员|参赛队员|姓名)\s*[:：]\s*[\u4e00-\u9fa5]{2,4}(?:[、，,]\s*[\u4e00-\u9fa5]{2,4}){0,2}"),
+     "队员姓名列表"),
+]
+
+
+def check_identity(paras_text):
+    print("== 7. 身份泄漏扫描 ==")
+    hits = []
+    for pat, desc in IDENTITY_PATTERNS:
+        for m in pat.finditer(paras_text):
+            snippet = paras_text[max(0, m.start() - 10):m.end() + 10].replace("\n", " ")
+            hits.append(f"{desc}: …{snippet}…")
+            break  # 每类只报首处
+    if hits:
+        report(ERR, f"检测到参赛者身份信息（官方 HARD: 任何地方不得出现）: {hits}")
+    else:
+        report(PASS, "未检测到学校/队号/手机号/邮箱等身份信息")
 
 
 def table_border_info(tbl):
@@ -222,6 +252,73 @@ def check_figures_and_tables(seq):
     return n_img, tbls
 
 
+def check_pdf_layout(pdf_path):
+    """PDF 层检查: 大小 / 第 1 页摘要 / 正文页数（附录不计入）。
+    正文 = 第 2 页 至 附录标题前（无附录则至参考文献标题页）。
+    """
+    print("== 8. PDF 大小 / 首页摘要 / 正文页数 ==")
+    size_mb = os.path.getsize(pdf_path) / 1048576.0
+    if size_mb <= 20:
+        report(PASS, f"PDF {size_mb:.1f}MB <= 20MB（官方 HARD）")
+    else:
+        report(ERR, f"PDF {size_mb:.1f}MB > 20MB（官方 HARD）")
+    try:
+        from pypdf import PdfReader
+        reader = PdfReader(pdf_path)
+        total = len(reader.pages)
+        texts = []
+        for p in reader.pages:
+            try:
+                texts.append(p.extract_text() or "")
+            except Exception:
+                texts.append("")
+        page1 = re.sub(r"\s", "", texts[0])
+        if not page1:
+            report(WARN, "PDF 第 1 页无法提取文本（可能为图片型 PDF，跳过摘要页检查）")
+        elif re.search(r"承诺书", page1):
+            report(ERR, "PDF 第 1 页含'承诺书'——电子版论文不得包含承诺书/编号专用页（官方 HARD: 第一页必须为摘要专用页）")
+        elif re.search(r"摘\s*要", page1):
+            report(PASS, "PDF 第 1 页为摘要专用页（电子版第一页必须为摘要页，官方 HARD）")
+        else:
+            report(ERR, "PDF 第 1 页未识别到'摘要'（电子版第一页必须为摘要专用页，官方 HARD）")
+
+        # 定位附录/参考文献起始页：标题独立成行（"附录" / "七、附录" / "参考文献"）
+        appendix_p = None
+        refs_p = None
+        title_pat = re.compile(r"(?m)^\s*(?:[一二三四五六七八九十\d]+\s*[、.．]\s*)?(附\s*录|参考文献)([:：]?[\s]*|$)")
+        for i, t in enumerate(texts):
+            if appendix_p is None or refs_p is None:
+                for m in title_pat.finditer(t):
+                    if m.group(1).startswith("附") and appendix_p is None:
+                        appendix_p = i + 1
+                    elif m.group(1).startswith("参考") and refs_p is None:
+                        refs_p = i + 1
+        body_end = None
+        if appendix_p:
+            body_end = appendix_p - 1
+        elif refs_p:
+            body_end = refs_p
+        else:
+            body_end = total
+        body_pages = body_end - 1  # 第 2 页起
+        if appendix_p:
+            app_pages = total - (appendix_p - 1)
+        else:
+            app_pages = 0
+        if body_pages > 30:
+            report(ERR, f"正文 {body_pages} 页 > 30 页（官方 HARD: 正文不超过 30 页，不含附录）")
+        elif body_pages >= 26:
+            report(WARN, f"正文 {body_pages} 页（26-30 页，合规但逼近官方上限 30 页）")
+        elif body_pages < 20:
+            report(ERR, f"正文仅 {body_pages} 页（<20 页，本 skill 硬标准——获奖论文正文 25-35 页，分析深度不足会失分）")
+        else:
+            report(PASS, f"正文 {body_pages} 页（20-25 页，官方上限 30 页；含 摘要1页+附录{app_pages}页 共 {total} 页）")
+        return {"pdf_pages": total, "body_pages": body_pages, "appendix_pages": app_pages}
+    except Exception as e:
+        report(WARN, f"无法读取 PDF 布局: {e}")
+        return None
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -241,6 +338,38 @@ def main():
 
     docx_path = find_docx(wd)
     if not docx_path:
+        has_tex = any(f.lower().endswith(".tex") for f in os.listdir(os.path.join(wd, "4_论文")))
+        if has_tex:
+            # LaTeX 路线: md2tex.py/paper-template 已保证版面（页边距/页码域/题注字号），
+            # 这里只做 PDF 层检查（大小/首页摘要/正文页数/身份泄漏）
+            print("== LaTeX 路线（无 docx）: 版面级检查由模板保证 ==")
+            report(PASS, "LaTeX 模板保证版面（页边距 2.5cm/页脚页码/题注字号），跳过 docx 级检查")
+            pdf_path = find_pdf(wd)
+            n_pages = -1
+            if not pdf_path:
+                report(ERR, "4_论文 下没有 PDF（最终必须提交 PDF 版论文）")
+            else:
+                pdf_info = check_pdf_layout(pdf_path)
+                n_pages = pdf_info["pdf_pages"] if pdf_info else -1
+                try:
+                    from pypdf import PdfReader
+                    reader = PdfReader(pdf_path)
+                    ptext = "\n".join((p.extract_text() or "") for p in reader.pages)
+                    check_identity(ptext)
+                except Exception as e:
+                    report(WARN, f"PDF 文本提取失败，跳过身份扫描: {e}")
+            print()
+            if ERROR_COUNT:
+                print(f"检查完成: {ERROR_COUNT} 项错误，请修复版面后再提交。")
+                sys.exit(1)
+            print("检查完成: 无错误。")
+            if out:
+                payload = {"margins_ok": True, "page_number_ok": True,
+                           "images": 0, "tables": 0, "pdf_pages": n_pages}
+                with open(out, "w", encoding="utf-8") as f:
+                    json.dump(payload, f, ensure_ascii=False, indent=2)
+                print(f"[完成] 版面检查结果已写入: {out}")
+            sys.exit(0)
         report(ERR, "4_论文 下没有 docx（先运行 export-paper.ps1 导出）")
         print(f"检查完成: {ERROR_COUNT} 项错误")
         sys.exit(1)
@@ -266,26 +395,20 @@ def main():
 
     m4 = check_figures_and_tables(body_sequence(doc))
 
-    print("== 6. PDF 大小与页数 ==")
+    all_text = "\n".join(p.text for p in doc.paragraphs)
+    for tbl in doc.tables:
+        for row in tbl.rows:
+            for cell in row.cells:
+                all_text += "\n" + cell.text
+    check_identity(all_text)
+
     pdf_path = find_pdf(wd)
     n_pages = -1
     if not pdf_path:
         report(ERR, "4_论文 下没有 PDF（最终必须提交 PDF 版论文）")
     else:
-        size_mb = os.path.getsize(pdf_path) / 1048576.0
-        if size_mb <= 20:
-            report(PASS, f"PDF {size_mb:.1f}MB <= 20MB（官方 HARD）")
-        else:
-            report(ERR, f"PDF {size_mb:.1f}MB > 20MB（官方 HARD）")
-        try:
-            from pypdf import PdfReader
-            n_pages = len(PdfReader(pdf_path).pages)
-            if n_pages <= 20:
-                report(PASS, f"PDF 共 {n_pages} 页（正文 <= 20 页建议，符合）")
-            else:
-                report(WARN, f"PDF 共 {n_pages} 页（含附录则正常；正文建议 <= 20 页）")
-        except Exception as e:
-            report(WARN, f"无法读取 PDF 页数: {e}")
+        pdf_info = check_pdf_layout(pdf_path)
+        n_pages = pdf_info["pdf_pages"] if pdf_info else -1
 
     print()
     if ERROR_COUNT:

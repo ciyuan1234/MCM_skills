@@ -54,6 +54,36 @@ if ($tex) {
     Write-Warning "未安装 xelatex，跳过 LaTeX 路线；尝试 Markdown -> Word 路线"
 }
 
+# ---- Markdown -> LaTeX -> PDF 路线（公式排版最佳，xelatex + ctex） ----
+if ($md -and -not $tex) {
+    $xelatex = Get-Command xelatex -ErrorAction SilentlyContinue
+    if ($xelatex) {
+        $md2tex = Join-Path $PSScriptRoot 'md2tex.py'
+        if (Test-Path -LiteralPath $md2tex) {
+            $texOut = [System.IO.Path]::ChangeExtension($md.FullName, 'tex')
+            python $md2tex $md.FullName $texOut
+            if ($LASTEXITCODE -eq 0) {
+                Push-Location $PaperDir
+                & xelatex -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
+                & xelatex -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
+                Pop-Location
+                $outPdf = [System.IO.Path]::ChangeExtension($texOut, 'pdf')
+                if (Test-Path -LiteralPath $outPdf) {
+                    $dest = Join-Path $OutDir ([System.IO.Path]::GetFileName($outPdf))
+                    if ([System.IO.Path]::GetFullPath($dest) -ne [System.IO.Path]::GetFullPath($outPdf)) {
+                        Copy-Item -LiteralPath $outPdf -Destination $dest -Force
+                    }
+                    Write-Host "[完成] md2tex + xelatex 编译成功: $outPdf"
+                    exit 0
+                }
+                Write-Error "xelatex 编译失败，请查看 4_论文 下的 .log"
+                exit 1
+            }
+            Write-Warning "md2tex.py 转换失败，回退 Word 路线"
+        }
+    }
+}
+
 # ---- Word 路线 ----
 if ($md) {
     $docx = [System.IO.Path]::ChangeExtension($md.FullName, 'docx')

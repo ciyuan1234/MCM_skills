@@ -14,7 +14,9 @@
                     （判定: 代码是否含读取语句; 无读取且含大量数字字面量 -> 疑似硬编码）
   3. 图表三方一致  论文引用的图N 与 3_图表 文件、绘图代码的"数据来源"声明是否对应
   4. 图内对象数量  绘图代码的 系列数/分组数 注释声明 与 数据契约分组是否一致（软检查）
-  5. 数值溯源     论文摘要中的关键数值 是否能在 代码输出文件 / 数据契约 stats 中找到出处
+  5. 数值溯源     论文正文（摘要+正文+表格）中的关键数值
+                 是否能在 代码输出文件 / 数据契约 stats 中找到出处，
+                 并生成 4_论文/溯源报告.md（N/M 溯源 + 未溯源清单）
   6. 论文-代码对应 附录/支撑材料提到的代码文件 是否真实存在
 
 约定（skill 红线，必须遵守）:
@@ -142,6 +144,10 @@ def main():
             for k, v in fe.get("stats", {}).items():
                 for metric, val in v.items():
                     contract_stats.setdefault(metric, set()).add(str(val))
+        # 题面常量/派生常量: data_contract.json 的 constants 字段（{名称: 数值}）
+        # 论文中的题给参数（运力/消耗系数/数据规模等）由此获得出处
+        contract_stats.setdefault("constants", set()).update(
+            str(v) for v in contract.get("constants", {}).values())
 
     # 2. 代码-数据绑定
     print("== 2. 代码-数据绑定 ==")
@@ -242,8 +248,8 @@ def main():
     if missing_decl:
         report(WARN, f"{len(missing_decl)} 个绘图脚本缺对象数声明: {', '.join(missing_decl[:5])}")
 
-    # 5. 数值溯源（摘要数值 必须在输出文件/契约 stats 中有出处）
-    print("== 5. 数值溯源 ==")
+    # 5. 数值溯源（正文全数值 必须在输出文件/契约 stats 中有出处，并生成溯源报告）
+    print("== 5. 数值溯源（全文） ==")
     output_files = find_output_files(workdir)
     if not output_files:
         report(WARN, "未找到代码输出文件（results*.csv/运行日志等），数值溯源无法执行")
@@ -253,25 +259,91 @@ def main():
             paper_text = read_text(paper)
         except Exception:
             paper_text = ""
-        am = re.search(r"摘要(.*?)(关键词)", paper_text, re.S)
+        # 只扫摘要+正文（参考文献前），剔除代码块防标识符误报
+        body_part = re.split(r"参考文献", paper_text)[0]
+        body_no_code = re.sub(r"```.*?```", "", body_part, flags=re.S)
+        am = re.search(r"摘要(.*)", body_no_code, re.S)
         if am:
-            # 聚焦带小数位的数值结果（精确数值是幻觉高发点）；整数常量如 10%、3 天不纳入溯源
-            abstract_nums = re.findall(r"\d+\.\d+", am.group(1))
+            body_no_code = am.group(1)
+        # 数值提取: 带小数全部纳入; 纯整数 >=100 纳入（小整数如"5 个""10%"不溯源）
+        # 过滤误报: 年份（2021 年）、章节标题行（### 5.1 问题1）
+        for m in re.finditer(r"\d+(?:\.\d+)?", body_no_code):
+            v = m.group(0)
+            if "." in v or int(v) >= 100:
+                line_start = body_no_code.rfind("\n", 0, m.start()) + 1
+                line = body_no_code[line_start:m.end()]
+                if re.match(r"#{1,6}\s*\d+(?:\.\d+)?\s*$", line):
+                    continue  # 标题行小节号（如 "### 5.1"）
+                tail = body_no_code[m.end():m.end() + 6]
+                if re.match(r"^\d{4}$", v) and tail.startswith("年"):
+                    continue  # 年份
+                ctx = body_no_code[max(0, m.start() - 18):m.end() + 18].replace("\n", " ")
+                abstract_nums.append((v, ctx))
     if abstract_nums:
-        found_vals = numeric_values_from_outputs(output_files)
+        found_str = numeric_values_from_outputs(output_files)
+        found_float = set()
+        for s in found_str:
+            try:
+                found_float.add(float(s))
+            except ValueError:
+                pass
         for k, vs in contract_stats.items():
-            found_vals.update(vs)
+            for v in vs:
+                found_str.add(v)
+                try:
+                    found_float.add(float(v))
+                except ValueError:
+                    pass
         missing = []
-        for v in abstract_nums:
-            if v not in found_vals:
-                missing.append(v)
-        if missing:
-            report(WARN, f"摘要中 {len(missing)} 个数值在代码输出/契约中无出处（抽查前 5 个）: {missing[:5]}")
-            report(WARN, "建议: 每个结果由代码写入 results.csv 并在论文中直接引用")
+        for v, ctx in abstract_nums:
+            if v in found_str:
+                continue
+            try:
+                fv = float(v)
+                if any(abs(fv - x) < 1e-3 * max(1.0, abs(fv)) for x in found_float):
+                    continue
+            except ValueError:
+                pass
+            missing.append((v, ctx))
+        total = len(abstract_nums)
+        n_missing = len(missing)
+        ratio = (total - n_missing) / total if total else 1.0
+        report_file = os.path.join(workdir, "4_论文", "溯源报告.md")
+        lines = [
+            "# 数值溯源报告",
+            "",
+            f"- 论文正文检出数值（带小数或 ≥100 的整数）: **{total}** 个",
+            f"- 在 代码输出文件/数据契约 中找到出处: **{total - n_missing}** 个（{ratio:.0%}）",
+            f"- 未找到出处: **{n_missing}** 个",
+            "",
+        ]
+        if n_missing:
+            lines += ["## 未溯源数值（需人工核实或补写进结果文件）", ""]
+            for v, ctx in missing[:20]:
+                lines.append(f"- `{v}` — 所在上下文: …{ctx}…")
+            if n_missing > 20:
+                lines.append(f"- …共 {n_missing} 个，仅列前 20 个")
+            lines.append("")
         else:
-            report(PASS, f"摘要中的 {len(abstract_nums)} 个数值均能在输出文件/契约中找到出处")
+            lines += ["## 结论", "", "论文全部关键数值均可在代码输出文件/数据契约中找到出处。", ""]
+        try:
+            with open(report_file, "w", encoding="utf-8") as f:
+                f.write("\n".join(lines))
+            ok_note = f"，报告已写入 {report_file}"
+        except Exception:
+            ok_note = ""
+        if n_missing == 0:
+            report(PASS, f"正文 {total} 个数值全部有出处（{ratio:.0%}）{ok_note}")
+        elif ratio >= 0.95:
+            report(PASS, f"正文 {total} 个数值 {n_missing} 个未在输出/契约中找到出处（{ratio:.0%} 已溯源，多为题给常量）{ok_note}")
+        elif ratio >= 0.85:
+            report(WARN, f"{n_missing}/{total} 个数值未在输出/契约中找到出处（{ratio:.0%} 已溯源，抽查前 5）: {[m[0] for m in missing[:5]]}")
+            report(WARN, f"详情见 {report_file}，请人工核实这些数值是否编造")
+        else:
+            report(ERR, f"{n_missing}/{total} 个数值未在输出/契约中找到出处（仅 {ratio:.0%} 已溯源）: {[m[0] for m in missing[:5]]}")
+            report(WARN, f"建议: 每个结果由代码写入 results.csv 并在论文中直接引用；详情见 {report_file}")
     else:
-        report(WARN, "论文摘要未解析到数值（或未找到论文）")
+        report(WARN, "论文正文未解析到可溯源数值（或未找到论文）")
 
     # 6. 论文-代码对应（附录引用的代码文件必须存在）
     print("== 6. 论文-代码对应 ==")

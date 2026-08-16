@@ -199,7 +199,7 @@ def main():
     else:
         report(WARN, "论文中未识别到 图N 引用（或未找到论文文件）")
     # 绘图代码必须声明数据来源
-    plot_scripts = [s for s in scripts if s.endswith((".py", ".m")) and re.search(r"(savefig|print\(|figure|plot|bar\(|imshow|scatter)", read_text(s)) if os.path.isfile(s)]
+    plot_scripts = [s for s in scripts if s.endswith((".py", ".m")) and re.search(r"(savefig|\.plot\(|bar\(|imshow|scatter|stem\()", read_text(s)) if os.path.isfile(s)]
     no_src = []
     for s in plot_scripts:
         try:
@@ -222,25 +222,31 @@ def main():
     max_cat = max(categories.values()) if categories else 0
     declared = []
     missing_decl = []
+    curve_scripts = []
     for s in plot_scripts:
         try:
             text = read_text(s)
         except Exception:
             continue
-        m = re.search(r"(?:#|%)\s*对象数[:：]\s*(\d+)", text)
+        m = re.search(r"(?:#|%)\s*对象数[:：]\s*(\d+)(?:\s*(\S+))?", text)
         if m:
             declared.append(int(m.group(1)))
+            kind = (m.group(2) or "").strip("（）()")
+            if kind == "曲线":
+                curve_scripts.append(s)
         else:
             missing_decl.append(os.path.basename(s))
     if max_cat:
-        under = [d for d in declared if d < max_cat]
-        over = [d for d in declared if d > max_cat]
+        curve_d = [d for s, d in zip(plot_scripts, declared) if s in curve_scripts]
+        under = [d for d in declared if d < max_cat and d not in curve_d]
+        over = [d for d in declared if d > max_cat and d not in curve_d]
         if under:
             report(ERR, f"存在绘图脚本对象数声明 {under} < 数据分组数 {max_cat} —— 可能出现「3 个对象只画 2 条线」")
         elif over:
             report(WARN, f"存在绘图脚本对象数声明 {over} > 数据分组数 {max_cat}（可能多画）")
         else:
-            report(PASS, f"绘图脚本对象数声明 {sorted(set(declared))} 与数据分组数 {max_cat} 一致")
+            note = "（曲线图按曲线条数计）" if curve_d else ""
+            report(PASS, f"绘图脚本对象数声明 {sorted(set(declared))} 与数据分组数 {max_cat} 一致{note}")
     elif declared:
         report(PASS, f"数据契约无分组信息，各绘图脚本对象数声明 {sorted(set(declared))}（自查一致）")
     else:

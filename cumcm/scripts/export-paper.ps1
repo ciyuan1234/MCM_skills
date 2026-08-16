@@ -6,7 +6,8 @@
 #   Word 路线:  paper.md  -> (pandoc 或 md2docx.py) -> paper.docx -> Word COM -> paper.pdf
 param(
     [string]$WorkDir = '.',
-    [string]$OutDir = ''
+    [string]$OutDir = '',
+    [switch]$Force
 )
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -20,10 +21,18 @@ $md = Get-ChildItem -LiteralPath $PaperDir -Filter *.md -ErrorAction SilentlyCon
 $tex = Get-ChildItem -LiteralPath $PaperDir -Filter *.tex -ErrorAction SilentlyContinue |
       Sort-Object @{ e = { $_.Name -eq 'paper.tex' }; Descending = $true }, Name | Select-Object -First 1
 $pdf = Get-ChildItem -LiteralPath $PaperDir -Filter *.pdf -ErrorAction SilentlyContinue | Select-Object -First 1
-if ($pdf) {
-    Write-Host "[完成] 已有 PDF: $($pdf.FullName)"
-    if ($pdf.FullName -ne (Join-Path $OutDir $pdf.Name)) { Copy-Item -LiteralPath $pdf.FullName -Destination $OutDir -Force }
-    exit 0
+if ($pdf -and -not $Force) {
+    $newerThan = $false
+    foreach ($src in @($md, $tex) | Where-Object { $_ }) {
+        if ($pdf.LastWriteTime -lt $src.LastWriteTime) { $newerThan = $true }
+    }
+    if ($newerThan) {
+        Write-Warning "源文件比 PDF 新，强制重新编译（跳过旧 PDF）"
+    } else {
+        Write-Host "[完成] 已有 PDF: $($pdf.FullName)"
+        if ($pdf.FullName -ne (Join-Path $OutDir $pdf.Name)) { Copy-Item -LiteralPath $pdf.FullName -Destination $OutDir -Force }
+        exit 0
+    }
 }
 
 if (-not $md -and -not $tex) {

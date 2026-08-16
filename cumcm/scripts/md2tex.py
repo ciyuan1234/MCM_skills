@@ -19,8 +19,8 @@ import re
 import sys
 
 
-def esc_text(s):
-    """普通文本转义（公式块/代码块/表格外）。"""
+def esc_plain(s):
+    """转义普通文本片段，保留后续 Markdown 粗体转换能力。"""
     s = s.replace("\\", r"\textbackslash{}")
     for ch, rep in [("#", r"\#"), ("$", r"\$"), ("%", r"\%"),
                     ("&", r"\&"), ("_", r"\_"), ("{", r"\{"),
@@ -28,12 +28,28 @@ def esc_text(s):
                     ("^", r"\textasciicircum{}")]:
         s = s.replace(ch, rep)
     s = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", s)
-    s = re.sub(r"(?<!\$)\$(?!\$)([^$]+?)\$(?!\$)", r"$\1$", s)
     return s
 
 
+def esc_text(s):
+    """普通文本转义（公式块/代码块/表格外），保留 $...$ 行内公式。"""
+    parts = re.split(r"(?<!\\)(\$[^$\n]+\$)", s)
+    out = []
+    for part in parts:
+        if re.fullmatch(r"\$[^$\n]+\$", part or ""):
+            out.append(part)
+        else:
+            out.append(esc_plain(part))
+    return "".join(out)
+
+
+def normalize_caption_text(s):
+    """兼容 **表1** 标题 / 表1 标题 两种写法。"""
+    return re.sub(r"^\*\*(表\s*\d+)\*\*\s*", r"\1 ", s).strip()
+
+
 def md_table_to_tex(lines):
-    """把 markdown 表格行集合转成三线表 tabular。"""
+    """把 markdown 表格行集合转成三线表（≥4 列用 tabularx 自动换行适应版心）。"""
     rows = []
     for ln in lines:
         if re.match(r"^\s*\|?[\s:|\-]+\|?\s*$", ln) and "-" in ln:
@@ -43,16 +59,22 @@ def md_table_to_tex(lines):
     if not rows:
         return ""
     ncol = max(len(r) for r in rows)
-    align = "c" * ncol
-    out = [r"\begin{center}", r"\begin{tabular}{" + align + "}",
-           r"\toprule"]
+    wide = ncol >= 4
+    out = [r"\begin{center}"]
+    if wide:
+        out.append(r"\begin{tabularx}{\textwidth}{" + (r">{\raggedright\arraybackslash}X" * ncol) + "}")
+    else:
+        out.append(r"\begin{tabular}{" + "c" * ncol + "}")
+    out.append(r"\toprule")
     for i, r in enumerate(rows):
         r = r + [""] * (ncol - len(r))
         cells = " & ".join(esc_text(c) for c in r)
         out.append(cells + r" \\")
         if i == 0:
             out.append(r"\midrule")
-    out += [r"\bottomrule", r"\end{tabular}", r"\end{center}"]
+    out += [r"\bottomrule"]
+    out.append(r"\end{tabularx}" if wide else r"\end{tabular}")
+    out.append(r"\end{center}")
     return "\n".join(out)
 
 
@@ -65,6 +87,7 @@ def convert(md_path, tex_path):
 \usepackage{geometry}
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 \usepackage{booktabs}
+\usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{xcolor}
@@ -159,8 +182,9 @@ def convert(md_path, tex_path):
             out.append(r"\end{center}")
             i += 1
             continue
-        # 表题注行：表N 标题（数据源：…）
-        m = re.match(r"^(表\s*\d+[^\n|]*)$", stripped)
+        # 表题注行：表N 标题 / **表N** 标题（数据源：…）
+        caption = normalize_caption_text(stripped)
+        m = re.match(r"^(表\s*\d+[^\n|]*)$", caption)
         if m:
             out.append(r"\begin{center}{\small\heiti " + esc_text(m.group(1)) + r"}\end{center}")
             i += 1
@@ -213,8 +237,11 @@ def convert(md_path, tex_path):
                     break
             out.append(r"\end{itemize}")
             continue
-        # 普通段落
-        out.append(esc_text(stripped))
+        # 普通段落（"注："开头用 sloppy 宽松断行，避免表格注溢出）
+        if stripped.startswith("注："):
+            out.append(r"{\sloppy " + esc_text(stripped) + r"\par}")
+        else:
+            out.append(esc_text(stripped))
         out.append("")
         i += 1
 

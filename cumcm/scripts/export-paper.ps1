@@ -22,12 +22,15 @@ $tex = Get-ChildItem -LiteralPath $PaperDir -Filter *.tex -ErrorAction SilentlyC
       Sort-Object @{ e = { $_.Name -eq 'paper.tex' }; Descending = $true }, Name | Select-Object -First 1
 $pdf = Get-ChildItem -LiteralPath $PaperDir -Filter *.pdf -ErrorAction SilentlyContinue | Select-Object -First 1
 if ($pdf -and -not $Force) {
-    $newerThan = $false
-    foreach ($src in @($md, $tex) | Where-Object { $_ }) {
-        if ($pdf.LastWriteTime -lt $src.LastWriteTime) { $newerThan = $true }
-    }
-    if ($newerThan) {
-        Write-Warning "源文件比 PDF 新，强制重新编译（跳过旧 PDF）"
+    $md2tex = Join-Path $PSScriptRoot 'md2tex.py'
+    $texOk = $true
+    if ($md -and $tex -and $tex.LastWriteTime -lt $md.LastWriteTime) { $texOk = $false }
+    if ($tex -and (Test-Path -LiteralPath $md2tex) -and $tex.LastWriteTime -lt (Get-Item -LiteralPath $md2tex).LastWriteTime) { $texOk = $false }
+    if ($md -and -not $tex) { $texOk = $false }
+    $pdfOk = $texOk -and $tex -and ($pdf.LastWriteTime -gt $tex.LastWriteTime) -and
+            (-not $md -or $pdf.LastWriteTime -gt $md.LastWriteTime)
+    if (-not $pdfOk) {
+        Write-Warning "PDF 或 paper.tex 已过期，重新编译（跳过旧 PDF）"
     } else {
         Write-Host "[完成] 已有 PDF: $($pdf.FullName)"
         if ($pdf.FullName -ne (Join-Path $OutDir $pdf.Name)) { Copy-Item -LiteralPath $pdf.FullName -Destination $OutDir -Force }
@@ -41,6 +44,49 @@ if (-not $md -and -not $tex) {
 }
 
 # ---- LaTeX 路线 ----
+function Get-PythonRunner {
+    if ($script:PythonRunner) { return $script:PythonRunner }
+    $candidates = @(
+        @{ Name = 'python'; Args = @() },
+        @{ Name = 'python3'; Args = @() },
+        @{ Name = 'py'; Args = @('-3') }
+    )
+    foreach ($candidate in $candidates) {
+        $cmd = Get-Command $candidate.Name -ErrorAction SilentlyContinue
+        if (-not $cmd) { continue }
+        try {
+            $checkArgs = @()
+            $checkArgs += $candidate.Args
+            $checkArgs += '--version'
+            & $cmd.Source @checkArgs | Out-Null
+            if ($LASTEXITCODE -eq 0) {
+                $script:PythonRunner = @{ Exe = $cmd.Source; Args = $candidate.Args }
+                return $script:PythonRunner
+            }
+        } catch {
+            continue
+        }
+    }
+    return $null
+}
+
+function Invoke-PythonScript {
+    param(
+        [string]$ScriptPath,
+        [string[]]$Arguments = @()
+    )
+    $runner = Get-PythonRunner
+    if (-not $runner) {
+        Write-Error "找不到可用 Python。请安装 Python 3.8+，或启用可用的 python/python3/py -3 命令。"
+        exit 1
+    }
+    $invokeArgs = @()
+    $invokeArgs += $runner.Args
+    $invokeArgs += $ScriptPath
+    $invokeArgs += $Arguments
+    & $runner.Exe @invokeArgs
+}
+
 function Find-Xelatex {
     $cmd = Get-Command xelatex -ErrorAction SilentlyContinue
     if ($cmd) { return $cmd.Source }
@@ -56,6 +102,20 @@ function Find-Xelatex {
 }
 
 if ($tex) {
+    # md / md2tex.py 比 tex 新时（或 -Force）先用 md2tex.py 重新生成 tex，避免编译旧内容
+    $md2tex = Join-Path $PSScriptRoot 'md2tex.py'
+    $texStale = $false
+    if ($md) {
+        if ($md.LastWriteTime -gt $tex.LastWriteTime) { $texStale = $true }
+        if ((Test-Path -LiteralPath $md2tex) -and (Get-Item -LiteralPath $md2tex).LastWriteTime -gt $tex.LastWriteTime) { $texStale = $true }
+    }
+    if ($Force -or $texStale) {
+        if ($md) {
+            if ($texStale) { Write-Warning "源文件/转换脚本比 paper.tex 新，重新执行 md2tex.py" }
+            Invoke-PythonScript $md2tex @($md.FullName, $tex.FullName)
+            if ($LASTEXITCODE -ne 0) { Write-Error "md2tex.py 转换失败"; exit 1 }
+        }
+    }
     $xelatex = Find-Xelatex
     if ($xelatex) {
         Push-Location $PaperDir
@@ -84,11 +144,11 @@ if ($md -and -not $tex) {
         $md2tex = Join-Path $PSScriptRoot 'md2tex.py'
         if (Test-Path -LiteralPath $md2tex) {
             $texOut = [System.IO.Path]::ChangeExtension($md.FullName, 'tex')
-            python $md2tex $md.FullName $texOut
+            Invoke-PythonScript $md2tex @($md.FullName, $texOut)
             if ($LASTEXITCODE -eq 0) {
                 Push-Location $PaperDir
-                & $xelatex.Source -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
-                & $xelatex.Source -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
+                & $xelatex -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
+                & $xelatex -interaction=nonstopmode ([System.IO.Path]::GetFileName($texOut)) | Out-Null
                 Pop-Location
                 $outPdf = [System.IO.Path]::ChangeExtension($texOut, 'pdf')
                 if (Test-Path -LiteralPath $outPdf) {
@@ -115,7 +175,7 @@ if ($md) {
         & pandoc $md.FullName -o $docx
         Write-Host "[完成] pandoc: $($md.Name) -> $($docx.Name)"
     } else {
-        python "$PSScriptRoot\md2docx.py" $md.FullName -o $docx
+        Invoke-PythonScript "$PSScriptRoot\md2docx.py" @($md.FullName, '-o', $docx)
         if ($LASTEXITCODE -ne 0) {
             Write-Error "md2docx 转换失败（需要 pip install python-docx，或用 pandoc）"
             exit 1
@@ -146,3 +206,6 @@ if ($md) {
         exit 1
     }
 }
+
+Write-Error "无法导出 PDF：未安装 xelatex，且没有可用于 Word 路线的 paper.md"
+exit 1

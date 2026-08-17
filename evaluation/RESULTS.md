@@ -108,3 +108,20 @@
 | 附录扩充 | 附录 B 扩充 B.2-B.5（乘法分解/SARIMA/模拟退火/灰色关联代码片段）；新增附录 C（3 个算法伪代码）；新增附录 D（4 张补充图表说明）；新增附录 E（数据质量分析+表 E1 指标口径）；新增附录 F（复现指南：环境/运行顺序/时间/输出清单） |
 | 格式核验 | PDF 38 页（正文 26 页/附录 10 页/摘要+参考 2 页）；正文 26 页在 26-30 合规窗口；verify exit 0（526 数值 99%+ 溯源）；checks exit 0；Overfull 3+5 处（3pt 不可见级 + 附录代码块 verbatim 溢出，预期） |
 | 工具改进 | checks.py：编号跳号从 ERR 降为 WARN（允许附录移表）；截断点增加"## 附录" |
+
+### v1.7.0 架构升级：结构化状态 + 时间感知 + 跨阶段一致性
+
+> 替代自然语言进度日志为结构化 JSON；增加 72h 计时器与锁定模式；引入阶段交接协议、L2 回溯检查、Fresh-eyes 审查、AP/Manual 双模式。
+
+| 项目 | 内容 |
+|---|---|
+| 结构化决策日志 | 新增 `decision_log.json`（schema v1.0），替代 `进度日志.md`；含 stages/decisions/backcheck_logs/events/budget 五大模块；scaffold 自动初始化 |
+| 时间感知 + 锁定模式 | `references/12-time-budget.md`：CUMCM 72h 分配（5/6/30/20/9/2h）；<6h 自动锁定（拒绝新任务，只做写作/打包）；<2h 只做 PDF+ZIP；降级策略 4 级 |
+| 阶段交接协议 | `references/13-handoff-protocol.md` + `assets/hand_off_template.md`：三段式 hand_off.md（What I did / What's true now / What you should do next）；验证规则（三段齐全+事实≥3+祈使句） |
+| L2 跨阶段回溯检查 | `references/14-backcheck-l2.md`：3 个检查点（L2-A Phase2→3, L2-B Phase3→4, L2-C Phase4 终检）；critical 项阻止阶段转换；checks.py 新增 check_l2_backcheck() |
+| Fresh-eyes 审查 | `references/15-fresh-eyes-review.md`：5 维度审查清单（逻辑连贯/数值可信/表述一致/图表对应/评委视角）；最多 2 轮；结果写入 backcheck_logs |
+| AP/Manual 双模式 | SKILL.md 新增模式选择；Manual：每阶段暂停等确认；AP：AI 自主推进+自评报告；锁定模式自动切 AP |
+| verify.py 增强 | 新增 check 7：读取 decision_log.json，验证 hand_off.md 存在性+三段式格式+时间预算+decisions 数组 |
+| checks.py 增强 | 新增 check_l2_backcheck()：验证 hand_off.md 齐全+三段式格式+时间预算+决策记录 |
+| SKILL.md 重写 | 146→248 行；新增时间预算/锁定模式/交接协议/L2/Fresh-eyes/双模式章节；references 索引 10→15 个 |
+| README 更新 | 核心能力表+目录结构+why star+changelog 全部更新 |

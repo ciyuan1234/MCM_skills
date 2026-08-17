@@ -1,0 +1,75 @@
+{
+  "_schema_version": "1.0",
+  "_doc": "跨阶段决策日志。每个阶段开头读、结尾写。L2 回检读此文件寻找跨阶段冲突。",
+  "competition": "cumcm",
+  "problem": null,
+  "problem_meta": {
+    "year": null,
+    "letter": null,
+    "title": null,
+    "deadline_iso": null,
+    "team_control_number": null
+  },
+  "mode": "manual",
+  "started_at": null,
+  "current_stage": 0,
+  "budget": {
+    "total_hours": 72,
+    "started_at": null,
+    "elapsed_hours": null,
+    "remaining_hours": null,
+    "stage_durations_h": {},
+    "pause_offset_seconds": 0
+  },
+  "stages": {
+    "0": {
+      "_label": "读题选题",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "artifacts": [],
+      "results": {},
+      "risks": []
+    },
+    "1": {
+      "_label": "数据探索",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "artifacts": [],
+      "results": {},
+      "risks": []
+    },
+    "2": {
+      "_label": "建模求解",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "artifacts": [],
+      "results": {},
+      "risks": [],
+      "sub_problems": {}
+    },
+    "3": {
+      "_label": "论文写作",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "artifacts": [],
+      "results": {},
+      "risks": []
+    },
+    "4": {
+      "_label": "检查提交",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "artifacts": [],
+      "results": {},
+      "risks": []
+    }
+  },
+  "decisions": [],
+  "backcheck_logs": [],
+  "events": []
+}

@@ -37,6 +37,12 @@ foreach ($i in 1..4) {
 New-Item -ItemType Directory -Path (Join-Path $Dest '2_代码\common') -Force | Out-Null
 Write-Host "[创建] $Dest\2_代码\common"
 
+$stageDirs = @('stage0_read', 'stage1_data', 'stage2_model', 'stage3_write', 'stage4_check')
+foreach ($s in $stageDirs) {
+    New-Item -ItemType Directory -Path (Join-Path $Dest $s) -Force | Out-Null
+    Write-Host "[创建] $Dest\$s"
+}
+
 foreach ($t in @('paper-template.md', 'paper-template.tex')) {
     $src = Join-Path $AssetsDir $t
     if (Test-Path -LiteralPath $src) {
@@ -44,10 +50,10 @@ foreach ($t in @('paper-template.md', 'paper-template.tex')) {
         Write-Host "[复制] $t -> 4_论文"
     }
 }
-$log = Join-Path $AssetsDir 'progress-log-template.md'
-if (Test-Path -LiteralPath $log) {
-    Copy-Item -LiteralPath $log -Destination (Join-Path $Dest '进度日志.md') -Force
-    Write-Host "[复制] progress-log-template.md -> 进度日志.md"
+$dlog = Join-Path $AssetsDir 'decision_log.json'
+if (Test-Path -LiteralPath $dlog) {
+    Copy-Item -LiteralPath $dlog -Destination (Join-Path $Dest 'decision_log.json') -Force
+    Write-Host "[复制] decision_log.json -> 工作区根目录"
 }
 $contract = Join-Path $AssetsDir 'data-contract-template.json'
 if (Test-Path -LiteralPath $contract) {

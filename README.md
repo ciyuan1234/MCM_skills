@@ -17,11 +17,13 @@
 
 ## 为什么值得 Star
 
-- **开赛能直接用**：一键创建比赛工作区，预置 `0_赛题`、`1_数据`、`2_代码`、`3_图表`、`4_论文`、`5_支撑材料`。
+- **开赛能直接用**：一键创建比赛工作区，预置 `0_赛题`、`1_数据`、`2_代码`、`3_图表`、`4_论文`、`5_支撑材料` + `decision_log.json` + 5 个 stage 目录。
 - **覆盖国赛真实流程**：读题选题、数据契约、模型选择、代码求解、论文七章结构、交卷检查全部串起来。
 - **反 AI 幻觉**：论文数值必须能从数据文件和运行结果溯源，图表必须由代码生成，文献不得编造。
 - **有工程化验收**：`checks.py`、`verify.py`、`format-check.py`、`auto-score.py` 用来判断一次优化是变好还是变坏。
 - **适配主流 Agent**：支持 Claude Code、OpenAI Codex、opencode 的 skill 目录结构。
+- **时间感知 + 自动降级**：72h 计时器，<6h 自动锁定模式，确保按时交卷。
+- **跨阶段一致性**：L2 回溯检查 + Fresh-eyes 审查，消除假设漂移和作者盲区。
 
 ## 30 秒看懂
 
@@ -88,8 +90,16 @@ chmod +x install.sh
 | Phase 1 | 数据侧写、缺失/异常/重复检查 | 数据质量报告、`data_contract.json` |
 | Phase 2 | 模型选择、代码求解、结果检验 | 可运行代码、结果表、图表 |
 | Phase 3 | 摘要、正文、图表、参考文献 | `paper.md` / `paper.tex` / `paper.docx` |
-| Phase 4 | 格式检查、溯源检查、导出 PDF | 检查报告、论文 PDF |
+| Phase 4 | 格式检查、溯源检查、Fresh-eyes 审查、导出 PDF | 检查报告、论文 PDF |
 | Phase 5 | 支撑材料整理与打包 | 提交 zip |
+
+**v1.7.0 新增能力：**
+- 结构化决策日志（`decision_log.json`）：替代自然语言进度日志，程序化状态恢复
+- 时间感知 + 锁定模式：72h 计时器，<6h 自动切换写作/打包模式
+- 阶段交接协议（`hand_off.md`）：三段式结构化交接，防止上下文丢失
+- L2 跨阶段回溯检查：3 个检查点，检测假设漂移和数值矛盾
+- Fresh-eyes 审查：清空上下文以评委视角重读论文，消除作者盲区
+- AP/Manual 双模式：AI 自主推进 或 人工确认关键决策
 
 ## 目录结构
 
@@ -101,10 +111,12 @@ MCM_skills/
 ├── examples/                      # Demo 输出样例
 ├── evaluation/                    # benchmark、评分表、获奖论文经验库
 └── cumcm/
-    ├── SKILL.md                   # skill 编排层
+    ├── SKILL.md                   # skill 编排层（v1.7.0: 时间感知+双模式+L2）
     ├── references/                # 赛制、模型、写作、检查清单
+    │   ├── 01-10 基础参考          # 格式/评分/模型/代码/写作/检查/资源/FAQ/时间/约束
+    │   └── 11-15 架构升级          # 决策日志/时间预算/交接协议/L2回溯/Fresh-eyes
     ├── scripts/                   # 工作区、契约、检查、导出、打包工具
-    └── assets/                    # 论文模板、绘图模板、进度日志模板
+    └── assets/                    # 论文模板、绘图模板、decision_log.json、hand_off 模板
 ```
 
 ## 常用命令
@@ -200,6 +212,8 @@ winget install MiKTeX.MiKTeX
 
 ## Changelog
 
+- **v1.7.0**（2026-08-17）：架构升级。结构化决策日志（`decision_log.json` schema v1.0）替代进度日志.md；时间感知 + 锁定模式（72h 计时器，<6h 自动切换）；阶段交接协议（`hand_off.md` 三段式）；L2 跨阶段回溯检查（3 个检查点）；Fresh-eyes 审查流程；AP/Manual 双模式。verify.py 增加 check 7（decision_log 集成），checks.py 增加 L2 回溯检查，scaffold 初始化 decision_log.json + stage 目录。
+- **v1.6.0**（2026-08-17）：图表质量提升。统一 4 个绘图脚本配色/字号/DPI；新增 plot_appendix.py 生成 4 张附录图；verify.py 表格检查按列分组消除误报；正文精简至 26 页，附录扩充至 10 页（算法伪代码+补充图表+数据质量+复现指南）。
 - **v1.5.2**（2026-08-16）：导出链路稳健性优化。`export-paper.ps1` 增加 Python 发现与调用封装，自动尝试 `python`/`python3`/`py -3`；修复 Markdown 直转 LaTeX 分支误用 `$xelatex.Source`；当 PDF 或 `paper.tex` 落后于 `paper.md`/`md2tex.py` 时自动重编译。`md2tex.py` 增强宽表排版、兼容 `**表N**` 题注写法，并保留 `$...$` 行内公式。
 - **v1.5.1**（2026-08-16）：2023C Q2 增加显式时序预测基线，补齐预测精度、论文数值链和支撑材料。
 - **v1.5.0**（2026-08-16）：沉淀 2023 年获奖论文经验库与评阅视角，强化差异化创新流程。

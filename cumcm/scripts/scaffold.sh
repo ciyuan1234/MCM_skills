@@ -23,15 +23,20 @@ done
 mkdir -p "$DEST/2_代码/common"
 echo "[创建] $DEST/2_代码/common"
 
+for s in stage0_read stage1_data stage2_model stage3_write stage4_check; do
+  mkdir -p "$DEST/$s"
+  echo "[创建] $DEST/$s"
+done
+
 for t in paper-template.md paper-template.tex; do
   if [[ -f "$ASSETS_DIR/$t" ]]; then
     cp "$ASSETS_DIR/$t" "$DEST/4_论文/"
     echo "[复制] $t -> 4_论文"
   fi
 done
-if [[ -f "$ASSETS_DIR/progress-log-template.md" ]]; then
-  cp "$ASSETS_DIR/progress-log-template.md" "$DEST/进度日志.md"
-  echo "[复制] progress-log-template.md -> 进度日志.md"
+if [[ -f "$ASSETS_DIR/decision_log.json" ]]; then
+  cp "$ASSETS_DIR/decision_log.json" "$DEST/decision_log.json"
+  echo "[复制] decision_log.json -> 工作区根目录"
 fi
 if [[ -f "$ASSETS_DIR/data-contract-template.json" ]]; then
   cp "$ASSETS_DIR/data-contract-template.json" "$DEST/1_数据/"

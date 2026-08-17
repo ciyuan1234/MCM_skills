@@ -1,0 +1,43 @@
+{
+  "problem_id": "2021_C",
+  "expected_results": {
+    "Q1": {
+      "supplier_count": 402,
+      "top50_share_pct": 78.9,
+      "abc_class_count": "A=146, B=134, C=122",
+      "key_finding": "Top50供应商占比78.9%，可按ABC分类差异化管理"
+    },
+    "Q2": {
+      "min_suppliers": 31,
+      "weekly_demand_R": 18610.2,
+      "total_cost_24w": 492914.5,
+      "avg_loss_rate": 0.442,
+      "transports_per_week": 4,
+      "key_finding": "最少需要31家供应商，每周4家转运商，24周总损耗率44.2%"
+    },
+    "Q3": {
+      "total_cost_24w": 489962.8,
+      "cost_reduction": 2951.7,
+      "avg_loss_rate": 0.462,
+      "key_finding": "产能约束优化后总成本降低2951.7元，损耗率略升至46.2%"
+    },
+    "Q4": {
+      "current_capacity": 28200,
+      "theoretical_max": 35318,
+      "proposed_capacity": 34259,
+      "capacity_increase_pct": 21.48,
+      "key_finding": "产能提升21.48%至34259，接近理论上限35318"
+    }
+  },
+  "verification_metrics": {
+    "Q1_top50_share_min_pct": 70,
+    "Q2_total_cost_max": 600000,
+    "Q3_total_cost_max": 600000,
+    "Q4_capacity_increase_min_pct": 15
+  },
+  "page_range": {
+    "body_min": 20,
+    "body_max": 30,
+    "appendix_min": 5
+  }
+}

@@ -231,7 +231,7 @@ Manual 模式下所有决策都等用户，不受信心分级影响。
 
 ## 本地脚本工具
 
-- `scripts/scaffold.ps1` / `.sh`：创建工作区（含 decision_log.json + stage 目录）
+- `scripts/scaffold.ps1` / `.sh`：创建工作区（含 decision_log.json + memory/ + stage 目录）
 - `scripts/make-data-contract.py`：Phase 1 生成数据契约
 - `scripts/checks.py`：论文自动检查 + L2 回溯检查
 - `scripts/verify.py`：溯源硬校验（7 项检查含 decision_log 集成）
@@ -244,6 +244,28 @@ Manual 模式下所有决策都等用户，不受信心分级影响。
 - `competitions/cumcm/current_rules.md`：国赛规则（页数/格式/摘要/AI 规范）
 - `competitions/mcm/current_rules.md`：美赛规则（Summary Sheet/25 页/AI Disclosure）
 - `competitions/diangong/current_rules.md`：电工杯规则（25 页/40% 查重阈值）
+
+## Evaluation 目录布局
+
+skill 包内 `evaluation/` 与顶层 `evaluation/` 的分工：
+
+```text
+MCM_skills/
+├── cumcm/evaluation/golden_problems/    # 结构化测试数据（skill 包内）
+│   ├── 2021_C/   # problem.json + expected_results.json + check_points.json + reference_paper.md
+│   ├── 2022_C/   # 同上
+│   └── 2023_C/   # 同上
+└── evaluation/                           # 回归测试工具（顶层）
+    ├── golden_problems/ → 符号链接或复制 cumcm/evaluation/golden_problems/
+    ├── runs/               # Tier1/Tier2 实际运行结果
+    ├── auto-score.py       # 自动评分（90分制）
+    ├── run-tier1.ps1       # Tier1 回归（fixture 小测）
+    ├── run-tier2.ps1       # Tier2 盲测（往届真题）
+    ├── run-benchmark.ps1   # 反幻觉基准（9 工作区含 3 陷阱）
+    └── blind-rubric.md     # 盲评量表（5维度×5分）
+```
+
+**Golden problems 用途：** 每次修改 SKILL.md 或脚本后，用 golden_problems 的 check_points.json 自动验证关键输出文件存在性和数值范围，防止改动破坏已有功能。
 
 ## 环境准备（开赛前 30 分钟核对）
 

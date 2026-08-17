@@ -1,0 +1,17 @@
+{
+  "problem_id": "2022_C",
+  "title": "古代玻璃文物的成分分析与鉴别",
+  "year": 2022,
+  "letter": "C",
+  "competition": "cumcm",
+  "problem_type": "C_判别+聚类",
+  "sub_problems": 4,
+  "data_files": ["附件.xlsx"],
+  "description": "古代玻璃文物成分分析问题。给定58件玻璃文物的化学成分数据和69个采样点数据，需要完成：Q1 风化统计与成分分析；Q2 亚类划分与判别模型；Q3 表单3文物鉴别；Q4 风化影响与恢复系数。",
+  "expected_model_types": {
+    "Q1": "描述统计 + 卡方检验 + 独立性检验",
+    "Q2": "聚类分析 + Fisher判别/Logistic回归",
+    "Q3": "判别模型应用（分类预测）",
+    "Q4": "成分相关分析 + 风化恢复系数"
+  }
+}

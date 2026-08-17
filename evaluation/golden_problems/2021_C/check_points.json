@@ -1,0 +1,78 @@
+{
+  "problem_id": "2021_C",
+  "check_points": [
+    {
+      "id": "CP-01",
+      "description": "数据契约存在",
+      "type": "file_exists",
+      "path": "1_数据/data_contract.json",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-02",
+      "description": "Q1供应商评价结果",
+      "type": "output_exists",
+      "path": "2_代码/01_问题1/results_q1_summary.csv",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-03",
+      "description": "Q1 Top50占比>70%",
+      "type": "value_range",
+      "file": "2_代码/01_问题1/results_q1_summary.csv",
+      "column": "Top50占比百分",
+      "min": 70,
+      "max": 100,
+      "severity": "critical"
+    },
+    {
+      "id": "CP-04",
+      "description": "Q2订购优化结果",
+      "type": "output_exists",
+      "path": "2_代码/02_问题2/results_q2_summary.csv",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-05",
+      "description": "Q2最少供应商数>10",
+      "type": "value_range",
+      "file": "2_代码/02_问题2/results_q2_summary.csv",
+      "column": "最少供应商数",
+      "min": 10,
+      "max": 100,
+      "severity": "critical"
+    },
+    {
+      "id": "CP-06",
+      "description": "Q3产能优化结果",
+      "type": "output_exists",
+      "path": "2_代码/03_问题3/results_q3_summary.csv",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-07",
+      "description": "Q4产能提升>15%",
+      "type": "value_range",
+      "file": "2_代码/04_问题4/results_q4_summary.csv",
+      "column": "提升幅度",
+      "min": 15,
+      "max": 50,
+      "severity": "critical"
+    },
+    {
+      "id": "CP-08",
+      "description": "论文存在",
+      "type": "file_exists",
+      "path": "4_论文/paper.md",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-09",
+      "description": "图表文件存在（≥4张）",
+      "type": "file_count_min",
+      "path": "3_图表/*.png",
+      "min_count": 4,
+      "severity": "warning"
+    }
+  ]
+}

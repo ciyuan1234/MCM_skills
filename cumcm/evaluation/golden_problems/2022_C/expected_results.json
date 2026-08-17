@@ -1,0 +1,43 @@
+{
+  "problem_id": "2022_C",
+  "expected_results": {
+    "Q1": {
+      "artifact_count": 58,
+      "weathered_count": 34,
+      "weathered_pct": 58.6,
+      "lead_bar_weathered_pct": 70.0,
+      "potassium_weathered_pct": 33.3,
+      "key_finding": "铅钡文物风化比例(70%)显著高于高钾文物(33.3%)"
+    },
+    "Q2": {
+      "loocv_accuracy": 0.8909,
+      "threshold": 2.797,
+      "lead_bar_mean_score": 2.195,
+      "potassium_mean_score": 3.398,
+      "bootstrap_mean": 0.962,
+      "key_finding": "Fisher判别LOOCV正确率89.09%，铅钡/高钾两类可分"
+    },
+    "Q3": {
+      "total_artifacts": 8,
+      "identified_potassium": 4,
+      "identified_lead_bar": 4,
+      "key_finding": "表单3的8件文物中4件鉴别为高钾、4件鉴别为铅钡"
+    },
+    "Q4": {
+      "lead_bar_strong_corr_pairs": 13,
+      "potassium_strong_corr_pairs": 12,
+      "significant_diff_pairs": 4,
+      "key_finding": "风化导致显著成分差异的配对有4对"
+    }
+  },
+  "verification_metrics": {
+    "Q1_weathered_pct_min": 50,
+    "Q2_loocv_accuracy_min": 0.80,
+    "Q3_total_artifacts": 8
+  },
+  "page_range": {
+    "body_min": 20,
+    "body_max": 30,
+    "appendix_min": 5
+  }
+}

@@ -18,6 +18,19 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 
 可在任意阶段边界切换模式（修改 `decision_log.json` 的 `mode` 字段）。锁定模式下自动切换为 AP。
 
+## 竞赛路由
+
+支持三种竞赛模式，通过 `decision_log.json` 的 `competition` 字段切换：
+
+| 竞赛 | `competition` | 时长 | 语言 | 论文结构 |
+|---|---|---|---|---|
+| CUMCM 国赛 | "cumcm" | 72h | 中文 | 七章（重述/分析/假设/符号/建模/评价/参考） |
+| MCM/ICM 美赛 | "mcm" | 96h | 英文 | 十节（Summary/Intro/Assumptions/Notation/Model/Sensitivity/Strengths/Conclusions/Refs/Appendix） |
+| 电工杯 | "diangong" | 72h | 中文 | 封面+摘要+正文 ≤25 页 |
+
+首次启动时自动检测竞赛类型（从赛题 PDF 或用户指定），读取 `competitions/<comp>/current_rules.md`。
+规则差异详见 `references/16-competition-routing.md`。
+
 ## 启动协议（每次会话开始第一步）
 
 1. **读取 decision_log.json**（工作区根目录），恢复全部上下文：
@@ -70,6 +83,8 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 
 - 模型选择：查 `references/03-model-catalog.md`，简单优先，先做基线再升级
 - 代码实现：查 `references/04-code-library.md` 复用本地代码；**禁用 bug 版本**
+- **配对验证**（见 `references/17-paired-verification.md`）：每个求解脚本配套 `verify_*.py`，全部 `✓ PASS` 后结果才能写入论文；按模型类型执行验证项（优化 V-OPT / 回归 V-REG / ODE V-ODE / 图 V-GRF / 时序 V-TS / 统计 V-STAT）
+- **并行子问题**（见 `references/18-parallel-subagents.md`，仅 AP 模式）：子问题数据独立+模型独立时，可同时启动多个子 Agent 并行 build+verify；主 Agent 做跨问题一致性检查
 - 每个模型必做：误差分析 + 灵敏度/稳定性分析（±5% ±10% 扰动）
 - 结果保存为可复现文件，数值直接从运行日志取，不手改
 - 绘图套用 `assets/plot-style.py` 模板：`# 数据来源:` + `# 对象数: N`
@@ -172,6 +187,9 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 | 阶段交接协议 | `references/13-handoff-protocol.md` |
 | L2 跨阶段回溯检查 | `references/14-backcheck-l2.md` |
 | Fresh-eyes 审查流程 | `references/15-fresh-eyes-review.md` |
+| 竞赛路由（CUMCM/MCM/电工杯） | `references/16-competition-routing.md` |
+| 配对验证脚本规范 | `references/17-paired-verification.md` |
+| 多 Agent 并行子问题 | `references/18-parallel-subagents.md` |
 | 图表/表格排版样例 | `assets/result-table-samples.md` |
 | 绘图规范模板（必用） | `assets/plot-style.py` |
 | 论文模板（Word） | `assets/paper-template.md` |
@@ -185,8 +203,15 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 - `scripts/make-data-contract.py`：Phase 1 生成数据契约
 - `scripts/checks.py`：论文自动检查 + L2 回溯检查
 - `scripts/verify.py`：溯源硬校验（7 项检查含 decision_log 集成）
+- `scripts/verify_template.py`：配对验证脚本模板（复制后填写验证逻辑）
 - `scripts/export-paper.ps1`：论文导出 PDF
 - `scripts/package.ps1` / `.sh`：支撑材料打包 zip
+
+## 竞赛规则文件
+
+- `competitions/cumcm/current_rules.md`：国赛规则（页数/格式/摘要/AI 规范）
+- `competitions/mcm/current_rules.md`：美赛规则（Summary Sheet/25 页/AI Disclosure）
+- `competitions/diangong/current_rules.md`：电工杯规则（25 页/40% 查重阈值）
 
 ## 环境准备（开赛前 30 分钟核对）
 

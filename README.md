@@ -24,6 +24,9 @@
 - **适配主流 Agent**：支持 Claude Code、OpenAI Codex、opencode 的 skill 目录结构。
 - **时间感知 + 自动降级**：72h 计时器，<6h 自动锁定模式，确保按时交卷。
 - **跨阶段一致性**：L2 回溯检查 + Fresh-eyes 审查，消除假设漂移和作者盲区。
+- **多竞赛支持**：同一框架支持 CUMCM 国赛、MCM/ICM 美赛、电工杯，切换参数即可。
+- **配对验证**：每个模型配套独立验证脚本，按模型类型自动选择验证项。
+- **并行子问题**：独立子问题可并行 build+verify，缩短建模时间。
 
 ## 30 秒看懂
 
@@ -111,12 +114,16 @@ MCM_skills/
 ├── examples/                      # Demo 输出样例
 ├── evaluation/                    # benchmark、评分表、获奖论文经验库
 └── cumcm/
-    ├── SKILL.md                   # skill 编排层（v1.7.0: 时间感知+双模式+L2）
-    ├── references/                # 赛制、模型、写作、检查清单
+    ├── SKILL.md                   # skill 编排层（v1.8.0: 竞赛路由+配对验证+并行子问题）
+    ├── competitions/              # 竞赛规则
+    │   ├── cumcm/current_rules.md # 国赛规则
+    │   ├── mcm/current_rules.md   # 美赛规则
+    │   └── diangong/current_rules.md # 电工杯规则
+    ├── references/                # 参考文档（18 个）
     │   ├── 01-10 基础参考          # 格式/评分/模型/代码/写作/检查/资源/FAQ/时间/约束
-    │   └── 11-15 架构升级          # 决策日志/时间预算/交接协议/L2回溯/Fresh-eyes
-    ├── scripts/                   # 工作区、契约、检查、导出、打包工具
-    └── assets/                    # 论文模板、绘图模板、decision_log.json、hand_off 模板
+    │   └── 11-18 扩展能力          # 决策日志/时间预算/交接/L2/Fresh-eyes/路由/验证/并行
+    ├── scripts/                   # 工具脚本（含 verify_template.py）
+    └── assets/                    # 模板（论文/绘图/decision_log/hand_off）
 ```
 
 ## 常用命令
@@ -212,6 +219,7 @@ winget install MiKTeX.MiKTeX
 
 ## Changelog
 
+- **v1.8.0**（2026-08-17）：扩展能力。竞赛路由（CUMCM/MCM/电工杯三模式）；配对验证脚本规范（verify_*.py 按模型类型：V-OPT/V-REG/V-ODE/V-GRF/V-TS/V-STAT）；多 Agent 并行子问题（数据独立+模型独立时可并行 build+verify）。新增 competitions/ 目录、references/16-18、scripts/verify_template.py。
 - **v1.7.0**（2026-08-17）：架构升级。结构化决策日志（`decision_log.json` schema v1.0）替代进度日志.md；时间感知 + 锁定模式（72h 计时器，<6h 自动切换）；阶段交接协议（`hand_off.md` 三段式）；L2 跨阶段回溯检查（3 个检查点）；Fresh-eyes 审查流程；AP/Manual 双模式。verify.py 增加 check 7（decision_log 集成），checks.py 增加 L2 回溯检查，scaffold 初始化 decision_log.json + stage 目录。
 - **v1.6.0**（2026-08-17）：图表质量提升。统一 4 个绘图脚本配色/字号/DPI；新增 plot_appendix.py 生成 4 张附录图；verify.py 表格检查按列分组消除误报；正文精简至 26 页，附录扩充至 10 页（算法伪代码+补充图表+数据质量+复现指南）。
 - **v1.5.2**（2026-08-16）：导出链路稳健性优化。`export-paper.ps1` 增加 Python 发现与调用封装，自动尝试 `python`/`python3`/`py -3`；修复 Markdown 直转 LaTeX 分支误用 `$xelatex.Source`；当 PDF 或 `paper.tex` 落后于 `paper.md`/`md2tex.py` 时自动重编译。`md2tex.py` 增强宽表排版、兼容 `**表N**` 题注写法，并保留 `$...$` 行内公式。

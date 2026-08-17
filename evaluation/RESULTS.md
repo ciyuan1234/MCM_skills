@@ -125,3 +125,14 @@
 | checks.py 增强 | 新增 check_l2_backcheck()：验证 hand_off.md 齐全+三段式格式+时间预算+决策记录 |
 | SKILL.md 重写 | 146→248 行；新增时间预算/锁定模式/交接协议/L2/Fresh-eyes/双模式章节；references 索引 10→15 个 |
 | README 更新 | 核心能力表+目录结构+why star+changelog 全部更新 |
+
+### v1.8.0 扩展能力：竞赛路由 + 配对验证 + 并行子问题
+
+> 支持 CUMCM/MCM/电工杯三模式切换；每个求解脚本配套验证脚本（按模型类型）；独立子问题可并行 build+verify。
+
+| 项目 | 内容 |
+|---|---|
+| 竞赛路由 | 新增 `competitions/` 目录（cumcm/mcm/diangong 各含 current_rules.md）；`references/16-competition-routing.md` 定义路由参数（时长/语言/论文结构/页数/AI 规范）；CUMCM 72h/MCM 96h/电工杯 72h 三种时间预算 |
+| 配对验证 | `references/17-paired-verification.md`：6 类模型验证项（V-OPT 优化/V-REG 回归/V-ODE 动力学/V-GRF 图/V-TS 时序/V-STAT 统计）；`scripts/verify_template.py` 模板（机器可解析 PASS/FAIL 报告） |
+| 并行子问题 | `references/18-parallel-subagents.md`：启用条件（数据独立+模型独立+AP模式+剩余>24h）；主 Agent 分析依赖→启动子 Agent→等待→跨问题一致性检查→统一敏感度 |
+| SKILL.md 更新 | 新增竞赛路由/配对验证/并行子问题章节；references 索引 15→18；本地脚本增加 verify_template.py；新增竞赛规则文件列表 |

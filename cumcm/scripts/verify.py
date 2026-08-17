@@ -351,8 +351,116 @@ def main():
     else:
         report(WARN, "论文正文未解析到可溯源数值（或未找到论文）")
 
-    # 6. 论文-代码对应（附录引用的代码文件必须存在）
-    print("== 6. 论文-代码对应 ==")
+    # 6. 表格-CSV 一致性（论文表格数值 ↔ 数据源 CSV 交叉核对）
+    print("== 6. 表格-CSV 一致性 ==")
+    if paper:
+        try:
+            paper_text = read_text(paper)
+        except Exception:
+            paper_text = ""
+        # 提取所有 markdown 表格及其上方的表题（含数据源标注）
+        lines = paper_text.splitlines()
+        tables = []  # [(title_line, table_rows)]
+        i = 0
+        while i < len(lines):
+            line = lines[i].strip()
+            # 检测表题行：以"表N"开头，不含"|"（不是表格行）
+            if re.match(r"^表\s*\d+", line) and "|" not in line:
+                title = line
+                # 跳过空行找到表格起始
+                j = i + 1
+                while j < len(lines) and not lines[j].strip().startswith("|"):
+                    j += 1
+                tbl_rows = []
+                while j < len(lines) and lines[j].strip().startswith("|"):
+                    tbl_rows.append(lines[j].strip())
+                    j += 1
+                if tbl_rows:
+                    tables.append((title, tbl_rows))
+                i = j
+            else:
+                i += 1
+        n_ok = 0
+        n_warn = 0
+        n_skip = 0
+        for title, tbl_rows in tables:
+            # 解析数据源标注：数据源：xxx.csv / yyy.csv
+            ds_match = re.search(r"数据源[：:]\s*(.+?)(?:\s*[）)）]|$)", title)
+            if not ds_match:
+                n_skip += 1
+                continue
+            src_str = ds_match.group(1)
+            csv_names = re.findall(r"[\w\-]+\.(?:csv|txt)", src_str)
+            if not csv_names:
+                n_skip += 1
+                continue
+            # 解析表头和数据行（跳过分隔行）
+            content_rows = []
+            for row in tbl_rows:
+                if re.match(r"^\|?[\s:|\-]+\|?\s*$", row) and "-" in row:
+                    continue
+                cells = [c.strip() for c in row.strip().strip("|").split("|")]
+                content_rows.append(cells)
+            if len(content_rows) < 2:
+                n_skip += 1
+                continue
+            header = content_rows[0]
+            data_rows = content_rows[1:]
+            # 提取表格数值集合
+            tbl_vals = set()
+            for cells in data_rows:
+                for cell in cells:
+                    for vm in re.finditer(r"\d+(?:\.\d+)?", cell):
+                        tbl_vals.add(vm.group(0))
+            if not tbl_vals:
+                n_skip += 1
+                continue
+            # 在工作目录中查找数据源 CSV
+            found_any = False
+            for csv_name in csv_names:
+                matches = glob.glob(os.path.join(workdir, "**", csv_name), recursive=True)
+                if not matches:
+                    # 也查 workdir 根目录
+                    matches = glob.glob(os.path.join(workdir, csv_name))
+                for csv_path in matches:
+                    try:
+                        csv_text = read_text(csv_path)
+                    except Exception:
+                        continue
+                    csv_vals = set()
+                    for vm in re.finditer(r"\d+(?:\.\d+)?", csv_text):
+                        csv_vals.add(vm.group(0))
+                    # 表格数值是否都能在 CSV 中找到
+                    missing = []
+                    for tv in tbl_vals:
+                        if tv in csv_vals:
+                            continue
+                        try:
+                            tfv = float(tv)
+                            if any(abs(tfv - cv) < 1e-3 * max(1.0, abs(tfv)) for cv in
+                                   [float(x) for x in csv_vals if re.match(r"^-?\d+(?:\.\d+)?$", x)]):
+                                continue
+                        except ValueError:
+                            pass
+                        missing.append(tv)
+                    if missing:
+                        report(WARN, f"{title[:30]}... 有 {len(missing)}/{len(tbl_vals)} 个数值未在 {csv_name} 中找到: {missing[:3]}")
+                        n_warn += 1
+                    else:
+                        report(PASS, f"{title[:30]}... 表格数值与 {csv_name} 一致（{len(tbl_vals)} 个数值匹配）")
+                        n_ok += 1
+                    found_any = True
+                    break  # 每个 csv_name 只核对第一个匹配文件
+            if not found_any:
+                n_skip += 1
+        if n_ok + n_warn + n_skip > 0:
+            report(PASS,
+                   f"表格-CSV 核对: {n_ok} 通过, {n_warn} 警告（多源汇总表预期），{n_skip} 跳过")
+    else:
+        report(WARN, "未找到论文文件，跳过表格-CSV 核对")
+
+    # 7. 论文-代码对应（附录引用的代码文件必须存在）
+    print("== 7. 论文-代码对应 ==")
     if paper:
         try:
             paper_text = read_text(paper)

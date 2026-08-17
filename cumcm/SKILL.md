@@ -40,11 +40,15 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
    - `budget.remaining_hours` → 剩余时间
    - `decisions` → 已做决策及理由
    - 如果 `remaining_hours <= 6h`：**立即进入锁定模式**（见下方）
-2. **检测资料库模式**：检查 `D:\全国大学生数学建模竞赛资料` 是否存在
+2. **读取记忆层**（如有）：
+   - `memory/working_context.md` → 核心记忆（当前状态、关键结果、假设、风险）
+   - `memory/decisions_log.md` → 回忆记忆（最近决策时间线）
+   - 用于恢复跨会话上下文（详见 `references/20-memory-architecture.md`）
+3. **检测资料库模式**：检查 `D:\全国大学生数学建模竞赛资料` 是否存在
    - 存在 → **正常模式**：按 `references/04`/`07` 的指针复用本地代码与数据
    - 不存在 → **自包含模式**：AI 用自身知识从零写代码，按 `07` 联网取数据
-3. 若用户刚开赛，先运行 `scripts/scaffold.ps1`（或 .sh）创建工作区（含 decision_log.json），再读题。
-4. 与用户确认当前阶段，再按对应 Phase 工作。
+4. 若用户刚开赛，先运行 `scripts/scaffold.ps1`（或 .sh）创建工作区（含 decision_log.json + memory/），再读题。
+5. 与用户确认当前阶段，再按对应 Phase 工作。
 
 ## 时间预算与锁定模式
 
@@ -65,7 +69,7 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 每阶段结束时**必须**：① 更新 `decision_log.json` ② 生成 `hand_off.md`
 
 ### Phase 0 读题选题（0-5h）
-1. 用 scaffold 创建工作区（含 decision_log.json + stage 目录）
+1. 用 scaffold 创建工作区（含 decision_log.json + memory/ + stage 目录）
 2. 读取赛题 PDF，提取四层结构：背景 / 问题 1-N / 数据说明 / 结果要求
 3. 判断题型 A-E，对照 `references/03-model-catalog.md` 给出候选模型方向
 4. 与用户确认选题，记录到 `decision_log.json` 的 `decisions` 数组
@@ -83,17 +87,19 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 
 - 模型选择：查 `references/03-model-catalog.md`，简单优先，先做基线再升级
 - 代码实现：查 `references/04-code-library.md` 复用本地代码；**禁用 bug 版本**
+- **SymPy 工具接地验证**（见 `references/21-tool-grounded-verification.md`）：每个关键方程用 SymPy 验证量纲一致/边界行为/守恒律；验证失败→反馈 LLM 修复→重试（最多 3 轮）
 - **配对验证**（见 `references/17-paired-verification.md`）：每个求解脚本配套 `verify_*.py`，全部 `✓ PASS` 后结果才能写入论文；按模型类型执行验证项（优化 V-OPT / 回归 V-REG / ODE V-ODE / 图 V-GRF / 时序 V-TS / 统计 V-STAT）
 - **并行子问题**（见 `references/18-parallel-subagents.md`，仅 AP 模式）：子问题数据独立+模型独立时，可同时启动多个子 Agent 并行 build+verify；主 Agent 做跨问题一致性检查
-- 每个模型必做：误差分析 + 灵敏度/稳定性分析（±5% ±10% 扰动）
+- 每个模型必做：误差分析 + 灵敏度/稳定性分析（**五步法**，见 `references/05-abstract-and-writing.md` §5）
 - 结果保存为可复现文件，数值直接从运行日志取，不手改
 - 绘图套用 `assets/plot-style.py` 模板：`# 数据来源:` + `# 对象数: N`
 - **L2-A 回溯检查**（建模完成后）：检查子问题覆盖、模型选择理由、数据处理记录
+- **反思银行**（见 `references/19-reflection-bank.md`）：每完成一个问题，对照检查已知错误模式
 - **写 hand_off.md** → 进入 Phase 3
 
 ### Phase 3 论文写作（41-61h）
-1. **摘要优先**：五要素齐全，每个问题出现具体数值（900-1200 字）
-2. 七章结构：问题重述 / 问题分析(配总体思路图) / 模型假设 / 符号说明 /
+1. **摘要最后写**（见 `references/05-abstract-and-writing.md` §1.5-1.7）：先完成全部正文，再提取关键数字写摘要（900-1200 字）。五要素齐全，每个问题出现具体数值。摘要至少 3 轮润色
+2. 七章结构：问题重述 / 问题分析(配总体思路图) / 模型假设(编号闭环) / 符号说明 /
    模型建立与求解 / 模型评价改进推广 / 参考文献
 3. 排版：Word 用 `assets/paper-template.md`，LaTeX 用 `assets/paper-template.tex`
 4. 图表规范：编号+题注+正文引用+图后结论；三线表
@@ -163,10 +169,33 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 3. **图表必须源自数据**：柱/线/点数量 = 数据对象数；图例取自数据列名
 4. **数值一致**：论文数值 = 代码输出，禁止手改；摘要数值必须有出处
 5. **不编造参考文献**：只列真读过的文献
-6. **灵敏度必做**：每个模型都要检验/稳定性分析
+6. **灵敏度必做**：每个模型都要用五步法检验（龙卷风图+边界行为+结论翻转）
 7. **不贴错代码**：GBK 代码与 bug 版本不得进论文
 8. **不超时**：Phase 3 最迟第 41h 开始；锁定模式必须遵守
 9. **hand_off 必写**：每阶段结束必须生成 hand_off.md，否则不得进入下一阶段
+10. **假设闭环**：假设必须有编号（A1/A2/...），正文引用假设编号，敏感度检验假设影响
+
+## 信心分级介入（HITL）
+
+详见 `references/20-memory-architecture.md`。AP 模式下按信心分级决定自主度：
+
+| 信心 | 条件 | 行为 |
+|---|---|---|
+| 高 (>0.95) | 数据契约存在、代码运行无错、数值在合理范围、SymPy 验证通过 | 自主推进 |
+| 中 (0.85-0.95) | 模型选择有争议、数值边界情况、SymPy 验证有警告 | 推进但通知用户 |
+| 低 (<0.85) | 代码运行报错、数值异常、时间不足、SymPy 验证失败 | 暂停等用户确认 |
+
+**触发条件：**
+
+| 条件 | 信心 | 行为 |
+|---|---|---|
+| 代码运行成功 + 结果合理 + SymPy 通过 | 高 | 自主写入论文 |
+| 代码运行成功但结果边界 / SymPy 有警告 | 中 | 通知用户确认 |
+| 代码运行失败 / 数值超出物理范围 / SymPy 失败 | 低 | 暂停等用户 |
+| 模型选择无先例 | 中 | 通知用户 |
+| 剩余时间 ≤ 6h | 低（锁定） | 锁定模式 |
+
+Manual 模式下所有决策都等用户，不受信心分级影响。
 
 ## 参考资料索引（按需加载，不要一次全读）
 
@@ -176,7 +205,7 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 | 评委打分/获奖论文长什么样 | `references/02-scoring-and-award.md` |
 | 选模型、查题型映射、查算法清单 | `references/03-model-catalog.md` |
 | 找现成 MATLAB/Python 代码、修复版 | `references/04-code-library.md` |
-| 写摘要、写七章、做图表 | `references/05-abstract-and-writing.md` |
+| 写摘要、写七章、做图表、敏感度五步法、假设闭环 | `references/05-abstract-and-writing.md` |
 | 交卷前检查 | `references/06-checklists.md` |
 | 找本地书籍/数据/网站/软件 | `references/07-local-resources.md` |
 | 自查常见坑 | `references/08-faq-and-pitfalls.md` |
@@ -190,6 +219,9 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 | 竞赛路由（CUMCM/MCM/电工杯） | `references/16-competition-routing.md` |
 | 配对验证脚本规范 | `references/17-paired-verification.md` |
 | 多 Agent 并行子问题 | `references/18-parallel-subagents.md` |
+| 反思银行（常见错误+修复方案） | `references/19-reflection-bank.md` |
+| 三层记忆架构 | `references/20-memory-architecture.md` |
+| 工具接地验证（SymPy 验证方程） | `references/21-tool-grounded-verification.md` |
 | 图表/表格排版样例 | `assets/result-table-samples.md` |
 | 绘图规范模板（必用） | `assets/plot-style.py` |
 | 论文模板（Word） | `assets/paper-template.md` |

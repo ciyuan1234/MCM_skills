@@ -1,0 +1,38 @@
+{
+  "problem_id": "2023_C",
+  "expected_results": {
+    "Q1": {
+      "category_count": 6,
+      "sku_count": 93,
+      "high_corr_pairs": "花叶-茄类 r≈-0.84",
+      "key_finding": "品类间存在显著相关关系，花叶类与茄类销量显著负相关"
+    },
+    "Q2": {
+      "elasticity_range": [-0.89, -0.31],
+      "most_elastic": "茄类 (-0.89)",
+      "least_elastic": "花菜类 (-0.31)",
+      "profit_improvement_pct": "8-15%",
+      "key_finding": "各品类价格弹性差异显著，可据此差异化定价"
+    },
+    "Q3": {
+      "optimal_restock_leafy_kg_per_day": 139.685,
+      "top_category": "花叶类",
+      "daily_profit_leafy_yuan": 177.4,
+      "key_finding": "花叶类以量取胜，补货量最大"
+    },
+    "Q4": {
+      "key_suggestion": "采集单品级损耗率与保质期数据",
+      "key_finding": "当前数据缺少损耗率和保质期信息，限制了补货模型精度"
+    }
+  },
+  "verification_metrics": {
+    "Q2_model_R2_min": 0.70,
+    "Q2_MAPE_max_pct": 15,
+    "Q3_optimization_converged": true
+  },
+  "page_range": {
+    "body_min": 20,
+    "body_max": 30,
+    "appendix_min": 5
+  }
+}

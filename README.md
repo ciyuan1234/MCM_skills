@@ -219,6 +219,7 @@ winget install MiKTeX.MiKTeX
 
 ## Changelog
 
+- **v1.9.0**（2026-08-17）：研究驱动升级。摘要写作升级（90秒规则+few-shot模板+最后写原则）；敏感度分析五步法（龙卷风图+边界行为+结论翻转替代±10%仪式）；假设闭环协议（编号A1/A2+正文引用+敏感度检验）；反思银行（30+常见错误+修复方案知识库）；黄金测试集（2023C 9项检查点）；信心分级介入（HITL三级自主度）；三层记忆架构（working/decisions/knowledge）；工具接地验证（SymPy验证方程数学正确性）。新增 references/19-21、evaluation/golden_problems/、SKILL.md 全面升级。
 - **v1.8.0**（2026-08-17）：扩展能力。竞赛路由（CUMCM/MCM/电工杯三模式）；配对验证脚本规范（verify_*.py 按模型类型：V-OPT/V-REG/V-ODE/V-GRF/V-TS/V-STAT）；多 Agent 并行子问题（数据独立+模型独立时可并行 build+verify）。新增 competitions/ 目录、references/16-18、scripts/verify_template.py。
 - **v1.7.0**（2026-08-17）：架构升级。结构化决策日志（`decision_log.json` schema v1.0）替代进度日志.md；时间感知 + 锁定模式（72h 计时器，<6h 自动切换）；阶段交接协议（`hand_off.md` 三段式）；L2 跨阶段回溯检查（3 个检查点）；Fresh-eyes 审查流程；AP/Manual 双模式。verify.py 增加 check 7（decision_log 集成），checks.py 增加 L2 回溯检查，scaffold 初始化 decision_log.json + stage 目录。
 - **v1.6.0**（2026-08-17）：图表质量提升。统一 4 个绘图脚本配色/字号/DPI；新增 plot_appendix.py 生成 4 张附录图；verify.py 表格检查按列分组消除误报；正文精简至 26 页，附录扩充至 10 页（算法伪代码+补充图表+数据质量+复现指南）。

@@ -136,3 +136,19 @@
 | 配对验证 | `references/17-paired-verification.md`：6 类模型验证项（V-OPT 优化/V-REG 回归/V-ODE 动力学/V-GRF 图/V-TS 时序/V-STAT 统计）；`scripts/verify_template.py` 模板（机器可解析 PASS/FAIL 报告） |
 | 并行子问题 | `references/18-parallel-subagents.md`：启用条件（数据独立+模型独立+AP模式+剩余>24h）；主 Agent 分析依赖→启动子 Agent→等待→跨问题一致性检查→统一敏感度 |
 | SKILL.md 更新 | 新增竞赛路由/配对验证/并行子问题章节；references 索引 15→18；本地脚本增加 verify_template.py；新增竞赛规则文件列表 |
+
+### v1.9.0 研究驱动升级：写作质量 + 反思银行 + 记忆架构 + 工具验证
+
+> 基于 Stanford/Google/Anthropic 2025-2026 研究成果，吸收获奖论文分析（59篇一等奖）、Reflexion/RBB-LLM 反思框架、O-Forge 工具接地验证、Mem0/H-Mem 三层记忆架构。10 项改进（P0×3 + P1×3 + P2×4）。
+
+| 项目 | 内容 |
+|---|---|
+| P0-1 摘要写作升级 | §1.5 90秒规则（评委视角四步法）；§1.6 最后写原则（Phase 3 先完成正文再写摘要）；§1.7 Few-shot获奖模板（CUMCM中文+MCM英文）；摘要五要素检查清单 |
+| P0-2 敏感度分析升级 | §5 五步法替代±10%（参数排名→边界行为→响应曲面→结论翻转→交互检测）；龙卷风图代码模板；常见错误表（评委扣分点） |
+| P0-3 假设闭环协议 | §6 假设编号规则（A1/A2/...）+闭环流程（声明→引用→回溯→检验）+质量检查清单+撰写模板 |
+| P1-4 反思银行 | `references/19-reflection-bank.md`：5类30+条目（数据处理/模型选择/论文写作/代码实现/时间管理）；JSON Schema；维护规则（赛后必追加） |
+| P1-5 黄金测试集 | `evaluation/golden_problems/2023_C/`：problem.json + expected_results.json + check_points.json（9项）+ reference_paper.md（获奖摘要参考） |
+| P1-6 信心分级介入 | SKILL.md 新增 HITL 章节：三级自主度（高>0.95/中0.85-0.95/低<0.85）；触发条件表；Manual模式不受影响 |
+| P2-7 三层记忆架构 | `references/20-memory-architecture.md`：核心记忆(working_context.md ≤5000tok) + 回忆记忆(decisions_log.md) + 归档记忆(knowledge_base.md)；与decision_log.json互补 |
+| P2-8 工具接地验证 | `references/21-tool-grounded-verification.md`：5类验证（量纲/边界/守恒/已知解/约束）；SymPy验证模板；与verify.py/配对验证三层互补 |
+| SKILL.md 升级 | 223→280行；Phase 2 新增 SymPy 验证+反思银行+五步法；Phase 3 改为"摘要最后写"；新增信心分级介入章节+红线第10条；启动协议增加记忆层读取；references索引 18→21 |

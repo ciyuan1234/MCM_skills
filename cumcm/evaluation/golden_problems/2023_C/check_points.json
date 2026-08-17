@@ -1,0 +1,72 @@
+{
+  "problem_id": "2023_C",
+  "check_points": [
+    {
+      "id": "CP-01",
+      "description": "数据预处理完成",
+      "type": "file_exists",
+      "path": "1_数据/data_contract.json",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-02",
+      "description": "6个品类的描述统计",
+      "type": "output_exists",
+      "path": "2_代码/**/results_q1_cat.csv",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-03",
+      "description": "品类相关矩阵",
+      "type": "output_exists",
+      "path": "2_代码/**/results_q1_corr.csv",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-04",
+      "description": "价格弹性回归结果",
+      "type": "output_exists",
+      "path": "2_代码/**/results_q2_elasticity.csv",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-05",
+      "description": "弹性系数在合理范围 [-2, 0]",
+      "type": "value_range",
+      "file": "2_代码/**/results_q2_elasticity.csv",
+      "column": "elasticity",
+      "min": -2.0,
+      "max": 0.0,
+      "severity": "critical"
+    },
+    {
+      "id": "CP-06",
+      "description": "未来一周补货计划",
+      "type": "output_exists",
+      "path": "2_代码/**/results_q2_week.csv",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-07",
+      "description": "单品补货计划 TOP10",
+      "type": "output_exists",
+      "path": "2_代码/**/results_q3_plan.csv",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-08",
+      "description": "论文存在",
+      "type": "file_exists",
+      "path": "4_论文/paper.md",
+      "severity": "critical"
+    },
+    {
+      "id": "CP-09",
+      "description": "图表文件存在（≥8张）",
+      "type": "file_count_min",
+      "path": "3_图表/*.png",
+      "min_count": 8,
+      "severity": "warning"
+    }
+  ]
+}

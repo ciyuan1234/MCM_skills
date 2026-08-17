@@ -115,6 +115,48 @@ def numeric_values_from_outputs(files):
     return vals
 
 
+def _find_csv(workdir, csv_name):
+    """在工作目录中查找 CSV 文件，返回路径或 None。"""
+    matches = glob.glob(os.path.join(workdir, "**", csv_name), recursive=True)
+    if not matches:
+        matches = glob.glob(os.path.join(workdir, csv_name))
+    return matches[0] if matches else None
+
+
+def _read_csv_vals(csv_path):
+    """读取 CSV 文件中所有裸数值。"""
+    vals = set()
+    try:
+        text = read_text(csv_path)
+    except Exception:
+        return vals
+    for vm in re.finditer(r"\d+(?:\.\d+)?", text):
+        vals.add(vm.group(0))
+    return vals
+
+
+def _check_missing(tbl_vals, csv_vals):
+    """检查表格数值中哪些在 CSV 数值集中找不到（含浮点容差）。"""
+    csv_floats = []
+    for x in csv_vals:
+        try:
+            csv_floats.append(float(x))
+        except ValueError:
+            pass
+    missing = []
+    for tv in tbl_vals:
+        if tv in csv_vals:
+            continue
+        try:
+            tfv = float(tv)
+            if any(abs(tfv - cv) < 1e-3 * max(1.0, abs(tfv)) for cv in csv_floats):
+                continue
+        except ValueError:
+            pass
+        missing.append(tv)
+    return missing
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -351,23 +393,20 @@ def main():
     else:
         report(WARN, "论文正文未解析到可溯源数值（或未找到论文）")
 
-    # 6. 表格-CSV 一致性（论文表格数值 ↔ 数据源 CSV 交叉核对）
+    # 6. 表格-CSV 一致性（论文表格数值 ↔ 数据源 CSV 按列分组核对）
     print("== 6. 表格-CSV 一致性 ==")
     if paper:
         try:
             paper_text = read_text(paper)
         except Exception:
             paper_text = ""
-        # 提取所有 markdown 表格及其上方的表题（含数据源标注）
         lines = paper_text.splitlines()
-        tables = []  # [(title_line, table_rows)]
+        tables = []
         i = 0
         while i < len(lines):
             line = lines[i].strip()
-            # 检测表题行：以"表N"开头，不含"|"（不是表格行）
             if re.match(r"^表\s*\d+", line) and "|" not in line:
                 title = line
-                # 跳过空行找到表格起始
                 j = i + 1
                 while j < len(lines) and not lines[j].strip().startswith("|"):
                     j += 1
@@ -384,7 +423,6 @@ def main():
         n_warn = 0
         n_skip = 0
         for title, tbl_rows in tables:
-            # 解析数据源标注：数据源：xxx.csv / yyy.csv
             ds_match = re.search(r"数据源[：:]\s*(.+?)(?:\s*[）)）]|$)", title)
             if not ds_match:
                 n_skip += 1
@@ -394,7 +432,7 @@ def main():
             if not csv_names:
                 n_skip += 1
                 continue
-            # 解析表头和数据行（跳过分隔行）
+            # 解析表头和数据行
             content_rows = []
             for row in tbl_rows:
                 if re.match(r"^\|?[\s:|\-]+\|?\s*$", row) and "-" in row:
@@ -406,56 +444,59 @@ def main():
                 continue
             header = content_rows[0]
             data_rows = content_rows[1:]
-            # 提取表格数值集合
-            tbl_vals = set()
-            for cells in data_rows:
-                for cell in cells:
-                    for vm in re.finditer(r"\d+(?:\.\d+)?", cell):
-                        tbl_vals.add(vm.group(0))
-            if not tbl_vals:
-                n_skip += 1
-                continue
-            # 在工作目录中查找数据源 CSV
-            found_any = False
-            for csv_name in csv_names:
-                matches = glob.glob(os.path.join(workdir, "**", csv_name), recursive=True)
-                if not matches:
-                    # 也查 workdir 根目录
-                    matches = glob.glob(os.path.join(workdir, csv_name))
-                for csv_path in matches:
-                    try:
-                        csv_text = read_text(csv_path)
-                    except Exception:
-                        continue
-                    csv_vals = set()
-                    for vm in re.finditer(r"\d+(?:\.\d+)?", csv_text):
-                        csv_vals.add(vm.group(0))
-                    # 表格数值是否都能在 CSV 中找到
-                    missing = []
-                    for tv in tbl_vals:
-                        if tv in csv_vals:
-                            continue
-                        try:
-                            tfv = float(tv)
-                            if any(abs(tfv - cv) < 1e-3 * max(1.0, abs(tfv)) for cv in
-                                   [float(x) for x in csv_vals if re.match(r"^-?\d+(?:\.\d+)?$", x)]):
-                                continue
-                        except ValueError:
-                            pass
-                        missing.append(tv)
+            # 单源表：全表数值匹配
+            if len(csv_names) == 1:
+                tbl_vals = set()
+                for cells in data_rows:
+                    for cell in cells:
+                        for vm in re.finditer(r"\d+(?:\.\d+)?", cell):
+                            tbl_vals.add(vm.group(0))
+                if not tbl_vals:
+                    n_skip += 1
+                    continue
+                csv_path = _find_csv(workdir, csv_names[0])
+                if not csv_path:
+                    n_skip += 1
+                    continue
+                csv_vals = _read_csv_vals(csv_path)
+                missing = _check_missing(tbl_vals, csv_vals)
+                if missing:
+                    report(WARN, f"{title[:30]}... 有 {len(missing)}/{len(tbl_vals)} 个数值未在 {csv_names[0]} 中找到: {missing[:3]}")
+                    n_warn += 1
+                else:
+                    report(PASS, f"{title[:30]}... 与 {csv_names[0]} 一致（{len(tbl_vals)} 个数值）")
+                    n_ok += 1
+            else:
+                # 多源表：验证每个 CSV 文件存在且表格所有数值在并集内
+                found_files = []
+                for cn in csv_names:
+                    p = _find_csv(workdir, cn)
+                    if p:
+                        found_files.append((cn, p))
+                if len(found_files) < len(csv_names):
+                    missing_csvs = [cn for cn, _ in csv_names if cn not in [f[0] for f in found_files]]
+                    report(WARN, f"{title[:30]}... 数据源文件未找到: {missing_csvs}")
+                    n_warn += 1
+                else:
+                    # 合并所有 CSV 的数值集合
+                    all_csv_vals = set()
+                    for cn, cp in found_files:
+                        all_csv_vals.update(_read_csv_vals(cp))
+                    tbl_vals = set()
+                    for cells in data_rows:
+                        for cell in cells:
+                            for vm in re.finditer(r"\d+(?:\.\d+)?", cell):
+                                tbl_vals.add(vm.group(0))
+                    missing = _check_missing(tbl_vals, all_csv_vals)
                     if missing:
-                        report(WARN, f"{title[:30]}... 有 {len(missing)}/{len(tbl_vals)} 个数值未在 {csv_name} 中找到: {missing[:3]}")
+                        report(WARN, f"{title[:30]}... 有 {len(missing)}/{len(tbl_vals)} 个数值未在 {len(csv_names)} 个 CSV 并集中找到: {missing[:3]}")
                         n_warn += 1
                     else:
-                        report(PASS, f"{title[:30]}... 表格数值与 {csv_name} 一致（{len(tbl_vals)} 个数值匹配）")
+                        report(PASS, f"{title[:30]}... 与 {len(csv_names)} 个 CSV 并集一致（{len(tbl_vals)} 个数值）")
                         n_ok += 1
-                    found_any = True
-                    break  # 每个 csv_name 只核对第一个匹配文件
-            if not found_any:
-                n_skip += 1
         if n_ok + n_warn + n_skip > 0:
             report(PASS,
-                   f"表格-CSV 核对: {n_ok} 通过, {n_warn} 警告（多源汇总表预期），{n_skip} 跳过")
+                   f"表格-CSV 核对: {n_ok} 通过, {n_warn} 警告, {n_skip} 跳过")
     else:
         report(WARN, "未找到论文文件，跳过表格-CSV 核对")
 

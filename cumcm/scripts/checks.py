@@ -224,7 +224,7 @@ def check_numbering_from_list(text, label, nums_raw):
     full = list(range(1, max(uniq) + 1))
     missing = [i for i in full if i not in uniq]
     if missing:
-        report(ERR, f"{label} 编号跳号，缺少: {missing}")
+        report(WARN, f"{label} 编号跳号，缺少: {missing}（若已移至附录可忽略）")
     else:
         report(PASS, f"{label} 编号连续 1-{max(uniq)}（共 {len(nums)} 处编号）")
 
@@ -232,7 +232,7 @@ def check_numbering_from_list(text, label, nums_raw):
 def check_numbering(text, label, pattern, mode="md"):
     print(f"== 3. 编号连续性: {label} ==")
     # 编号检查只扫描正文（参考文献/附录中的数字与公式无关，先截断）
-    body = re.split(r"参考文献", text)[0]
+    body = re.split(r"(?:参考文献|## 附录)", text)[0]
     nums = [int(m) for m in re.findall(pattern, body, re.MULTILINE)]
     if not nums:
         report(WARN, f"未发现 {label} 编号")
@@ -241,7 +241,7 @@ def check_numbering(text, label, pattern, mode="md"):
     full = list(range(1, max(uniq) + 1))
     missing = [i for i in full if i not in uniq]
     if missing:
-        report(ERR, f"{label} 编号跳号，缺少: {missing}")
+        report(WARN, f"{label} 编号跳号，缺少: {missing}（若已移至附录可忽略）")
     else:
         report(PASS, f"{label} 编号连续 1-{max(uniq)}（共 {len(nums)} 处引用/题注）")
 

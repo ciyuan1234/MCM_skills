@@ -34,7 +34,7 @@
       "description": "弹性系数在合理范围 [-2, 0]",
       "type": "value_range",
       "file": "2_代码/**/results_q2_elasticity.csv",
-      "column": "elasticity",
+      "column": "弹性系数",
       "min": -2.0,
       "max": 0.0,
       "severity": "critical"

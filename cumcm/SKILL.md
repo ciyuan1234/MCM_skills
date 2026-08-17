@@ -235,6 +235,7 @@ Manual 模式下所有决策都等用户，不受信心分级影响。
 - `scripts/make-data-contract.py`：Phase 1 生成数据契约
 - `scripts/checks.py`：论文自动检查 + L2 回溯检查
 - `scripts/verify.py`：溯源硬校验（7 项检查含 decision_log 集成）
+- `scripts/run_golden.py`：黄金测试集自动回归（读 check_points.json，检查文件存在性+数值范围）
 - `scripts/verify_template.py`：配对验证脚本模板（复制后填写验证逻辑）
 - `scripts/export-paper.ps1`：论文导出 PDF
 - `scripts/package.ps1` / `.sh`：支撑材料打包 zip

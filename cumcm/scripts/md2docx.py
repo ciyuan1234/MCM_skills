@@ -105,6 +105,9 @@ def convert(md_path, out_path):
     style.font.name = "Times New Roman"
     style.font.size = Pt(12)
     style.element.rPr.rFonts.set(qn("w:eastAsia"), "宋体")
+    style.paragraph_format.line_spacing = 1.5
+    style.paragraph_format.space_after = Pt(7.5)
+    style.paragraph_format.space_before = Pt(0)
     setup_page(doc)
 
     i = 0

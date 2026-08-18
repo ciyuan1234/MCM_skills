@@ -147,6 +147,37 @@ def check_identity(paras_text):
         report(PASS, "未检测到学校/队号/手机号/邮箱等身份信息")
 
 
+def check_line_spacing(wd):
+    print("== 9. 行距/段距检查 ==")
+    tex_files = glob.glob(os.path.join(wd, "4_论文", "*.tex"))
+    # 优先检查 paper.tex（生成文件），跳过 paper-template.tex
+    tex_files = [f for f in tex_files if not os.path.basename(f).startswith("paper-template")]
+    if not tex_files:
+        tex_files = glob.glob(os.path.join(wd, "4_论文", "*.tex"))
+    for tf in tex_files:
+        try:
+            content = open(tf, encoding="utf-8", errors="ignore").read()
+        except Exception:
+            continue
+        m = re.search(r"\\linespread\{([\d.]+)\}", content)
+        if m:
+            val = float(m.group(1))
+            if abs(val - 1.5) < 0.01:
+                report(PASS, f"行距 \\linespread={val}（符合 1.5 倍标准）")
+            else:
+                report(WARN, f"行距 \\linespread={val}，建议 1.5 倍（\\linespread{{1.5}}）")
+            return
+        m2 = re.search(r"\\setlength\{\\parskip\}\{([\d.]+)em\}", content)
+        if m2:
+            pval = float(m2.group(1))
+            if pval >= 0.4:
+                report(PASS, f"段距 \\parskip={pval}em（合理）")
+            else:
+                report(WARN, f"段距 \\parskip={pval}em 偏小，建议 ≥0.4em")
+            return
+    report(WARN, "未找到 .tex 文件，跳过行距检查")
+
+
 def table_border_info(tbl):
     """返回 dict: top/bottom/left/right/insideH/insideV 是否有边框。"""
     ns = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
@@ -344,6 +375,7 @@ def main():
             # 这里只做 PDF 层检查（大小/首页摘要/正文页数/身份泄漏）
             print("== LaTeX 路线（无 docx）: 版面级检查由模板保证 ==")
             report(PASS, "LaTeX 模板保证版面（页边距 2.5cm/页脚页码/题注字号），跳过 docx 级检查")
+            check_line_spacing(wd)
             pdf_path = find_pdf(wd)
             n_pages = -1
             if not pdf_path:
@@ -401,6 +433,8 @@ def main():
             for cell in row.cells:
                 all_text += "\n" + cell.text
     check_identity(all_text)
+
+    check_line_spacing(wd)
 
     pdf_path = find_pdf(wd)
     n_pages = -1

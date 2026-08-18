@@ -91,13 +91,18 @@ def convert(md_path, tex_path):
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{xcolor}
+\usepackage{setspace}
 \graphicspath{{./}{../}}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \linespread{1.5}
-\setlength{\parskip}{0.2em}
+\setlength{\parskip}{0.5em}
+\ctexset{
+  section = {beforeskip=1.0em, afterskip=0.8em},
+  subsection = {beforeskip=0.6em, afterskip=0.5em}
+}
 
 \begin{document}
 """

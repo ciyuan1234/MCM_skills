@@ -62,13 +62,14 @@ The installer copies `cumcm/` into:
 | OpenAI Codex | `~/.codex/skills/cumcm` |
 | AGENTS standard | `~/.agents/skills/cumcm` |
 | opencode | `~/.config/opencode/skills/cumcm` |
+| Grok | `~/.grok/skills/cumcm` |
 
 ## What It Does
 
 | Phase | Capability | Output |
 |---|---|---|
 | Phase 0 | Read the problem, classify topic type, plan solution routes | Problem structure, model roadmap |
-| Phase 1 | Profile datasets, check missing values and anomalies | Data quality report, `data_contract.json` |
+| Phase 1 | Profile samples, or build a unit dictionary for PDE/mechanism problems | Data contract, `units.md` (A-type) |
 | Phase 2 | Select models, write code, solve and validate | Reproducible scripts, result tables, plots |
 | Phase 3 | Write abstract, body, figures, tables, references | `paper.md`, `paper.tex`, `paper.docx` |
 | Phase 4 | Check format, traceability, and consistency | Verification reports, final PDF |

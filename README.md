@@ -21,12 +21,13 @@
 - **覆盖国赛真实流程**：读题选题、数据契约、模型选择、代码求解、论文七章结构、交卷检查全部串起来。
 - **反 AI 幻觉**：论文数值必须能从数据文件和运行结果溯源，图表必须由代码生成，文献不得编造。
 - **有工程化验收**：`checks.py`、`verify.py`、`format-check.py`、`auto-score.py`、`run_golden.py` 用来判断一次优化是变好还是变坏。
-- **适配主流 Agent**：支持 Claude Code、OpenAI Codex、opencode 的 skill 目录结构。
+- **适配主流 Agent**：支持 Claude Code、OpenAI Codex、opencode、Grok 的 skill 目录结构。
 - **时间感知 + 自动降级**：72h 计时器，<6h 自动锁定模式，确保按时交卷。
 - **跨阶段一致性**：L2 回溯检查 + Fresh-eyes 审查，消除假设漂移和作者盲区。
 - **多竞赛支持**：同一框架支持 CUMCM 国赛、MCM/ICM 美赛、电工杯，切换参数即可。
 - **配对验证**：每个模型配套独立验证脚本，按模型类型自动选择验证项。
-- **并行子问题**：独立子问题可并行 build+verify，缩短建模时间。
+- **A 类机理/PDE**：2026 烘干实战回灌。SI 内核、守恒与网格收敛、效应分解；递进小问禁止并行。
+- **并行子问题**：仅数据独立且模型独立的子问题可并行；机理递进题走串行。
 - **写作质量升级**：摘要 90 秒规则、敏感度五步法、假设闭环协议，基于 59 篇一等奖论文分析。
 - **反思银行**：30+ 常见错误+修复方案知识库，防止重蹈覆辙。
 - **工具接地验证**：SymPy 验证方程数学正确性，LLM 提出 → CAS 验证 → 修复循环。
@@ -34,23 +35,21 @@
 
 ## 30 秒看懂
 
-你对 AI 说：
+**数据分析题（C 类）：**
 
 ```text
 我拿到 2026 国赛 C 题了。请按 cumcm skill 建立工作区，读题，判断题型，给出每问建模路线。
 ```
 
-AI 应该输出：
+应得到：题型 C → 数据契约 → 相关/预测/优化 → 灵敏度。完整风格见 [examples/2023C-workflow-demo.md](examples/2023C-workflow-demo.md)。
+
+**机理/PDE 题（A 类，2026 烘干实战）：**
 
 ```text
-题目四层结构：背景 / 问题1-N / 数据说明 / 结果要求
-题型判断：C 题，数据分析 + 预测 + 优化
-技术路线：数据侧写 -> 相关性分析 -> 预测模型 -> 优化模型 -> 灵敏度分析
-工作区：已创建 0_赛题、1_数据、2_代码、3_图表、4_论文、5_支撑材料
-下一步：读取附件并生成 1_数据/data_contract.json
+我拿到 2026 国赛 A 题了。请按 cumcm skill 建立工作区，读题，按 22-mechanism-pde 给出每问建模路线。
 ```
 
-完整输出风格见：[examples/2023C-workflow-demo.md](examples/2023C-workflow-demo.md)。
+应得到：题型 A → 加载 `references/22-mechanism-pde.md` → 单位字典、附件只读、每问先写 model.md → 验证走 V-PDE（初值/零驱动/守恒/网格+时间步）。参考实现：[MCM_2026](https://github.com/ciyuan1234/MCM_2026)。
 
 ## 快速开始
 
@@ -88,13 +87,14 @@ chmod +x install.sh
 | OpenAI Codex | `~/.codex/skills/cumcm` |
 | AGENTS 标准 | `~/.agents/skills/cumcm` |
 | opencode | `~/.config/opencode/skills/cumcm` |
+| Grok | `~/.grok/skills/cumcm` |
 
 ## 核心能力
 
 | 阶段 | 能力 | 产物 |
 |---|---|---|
 | Phase 0 | 读题、拆解任务、判断 A-E 题型 | 题目结构、技术路线、选题建议 |
-| Phase 1 | 数据侧写、缺失/异常/重复检查 | 数据质量报告、`data_contract.json` |
+| Phase 1 | 样本型：缺失/异常侧写；机理型：单位字典、附件只读 | 数据契约、`units.md`（A 类） |
 | Phase 2 | 模型选择、代码求解、结果检验 | 可运行代码、结果表、图表 |
 | Phase 3 | 摘要最后写、正文、图表、参考文献 | `paper.md` / `paper.tex` / `paper.docx` |
 | Phase 4 | 格式检查、溯源检查、Fresh-eyes 审查、导出 PDF | 检查报告、论文 PDF |

@@ -16,11 +16,13 @@ if (-not (Test-Path -LiteralPath (Join-Path $Source 'SKILL.md'))) {
     exit 1
 }
 
+$GrokHome = if ($env:GROK_HOME) { $env:GROK_HOME } else { Join-Path $env:USERPROFILE '.grok' }
 $Targets = [ordered]@{
     'Claude Code' = Join-Path $env:USERPROFILE ".claude\skills\$SkillName"
     'Codex (v1)'  = Join-Path $env:USERPROFILE ".codex\skills\$SkillName"
     'Codex/AGENTS'= Join-Path $env:USERPROFILE ".agents\skills\$SkillName"
     'opencode'    = Join-Path $env:USERPROFILE ".config\opencode\skills\$SkillName"
+    'Grok'        = Join-Path $GrokHome "skills\$SkillName"
 }
 
 if ($Uninstall) {

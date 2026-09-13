@@ -12,11 +12,14 @@ if [[ ! -f "$SOURCE/SKILL.md" ]]; then
   exit 1
 fi
 
+GROK_HOME="${GROK_HOME:-$HOME/.grok}"
+
 declare -A TARGETS=(
   ["Claude Code"]="$HOME/.claude/skills/$SKILL_NAME"
   ["Codex (v1)"]="$HOME/.codex/skills/$SKILL_NAME"
   ["Codex/AGENTS"]="$HOME/.agents/skills/$SKILL_NAME"
   ["opencode"]="$HOME/.config/opencode/skills/$SKILL_NAME"
+  ["Grok"]="$GROK_HOME/skills/$SKILL_NAME"
 )
 
 if [[ "$UNINSTALL" == "--uninstall" ]]; then

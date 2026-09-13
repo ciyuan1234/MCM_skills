@@ -22,6 +22,7 @@
 - SKILL.md：Phase 0/1/2 按附件角色分流；红线 11；递进小问禁止并行
 - `18-parallel-subagents.md` 增加实验隔离协议
 - `03`/`04`/`06`/`08`/`10` 增加指向 22 的入口，不重复正文
+- README 增加 A 类 30 秒示例；`install.sh` / `install.ps1` 安装到 Grok (`~/.grok/skills/cumcm`)
 
 ## [v2.0.0] - 2026-08-17
 

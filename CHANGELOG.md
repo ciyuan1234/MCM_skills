@@ -7,6 +7,21 @@
 ### TODO
 - 重新运行反幻觉基准测试（run-benchmark.ps1，9 工作区含 3 陷阱）
 
+## [v2.2.0] - 2026-09-14
+
+让 A 类机理题不只写在手册里，而是工作区一创建就能走通。
+
+### Added
+- `assets/units-template.md`、`assets/model-template.md`；scaffold 预置各问 `model.md`、`verify_qN.py`、`1_数据/units.md`
+- `verify.py` 第 8 项：配对验证脚本；存在 `units.md` 时硬检查 `model.md` / `run_manifest`
+- A 类论文结构：`05` §1.8 + SKILL Phase 3 分流
+- `examples/2026A-workflow-demo.md`
+
+### Changed
+- GitHub README 改成项目介绍（题型分流、安装、工作区、命令）
+- L2-A 增加 A-07～A-10（单位字典、模型说明、verify、run_manifest）
+- `load_workbook` 计入数据读取，避免 openpyxl 求解脚本被判硬编码
+
 ## [v2.1.0] - 2026-09-13
 
 把 2026 国赛 A（药材烘干）实战经验收进 skill，补上 A 类机理/PDE 这条一直偏弱的腿。

@@ -1,145 +1,43 @@
-# CUMCM Skill Pack: AI Workflow for Mathematical Modeling Contest
+<p align="center">
+  <img src="https://img.shields.io/badge/CUMCM-Mathematical%20Modeling-1f6feb?style=flat-square" alt="CUMCM">
+  <img src="https://img.shields.io/badge/skills-v2.2-2ea44f?style=flat-square" alt="v2.2">
+  <img src="https://img.shields.io/github/stars/ciyuan1234/MCM_skills?style=flat-square&color=e8c872" alt="Stars">
+</p>
 
-[![CUMCM](https://img.shields.io/badge/CUMCM-Mathematical%20Modeling-blue)](#)
-[![AI Skill](https://img.shields.io/badge/AI-Skill-green)](#)
-[![Codex](https://img.shields.io/badge/OpenAI-Codex-black)](#)
-[![Claude Code](https://img.shields.io/badge/Claude-Code-orange)](#)
-[![opencode](https://img.shields.io/badge/opencode-supported-purple)](#)
-[![Platform](https://img.shields.io/badge/Windows%20%7C%20macOS%20%7C%20Linux-supported-lightgrey)](#)
+# CUMCM Skill Pack
 
-This repository provides an installable AI skill pack for the **China Undergraduate Mathematical Contest in Modeling (CUMCM)**.
+An installable AI skill for the **China Undergraduate Mathematical Contest in Modeling**: read the problem, model, verify, write the paper, check, and package. Not a prompt dump — templates, scripts, and golden problems included.
 
-It turns the 72-hour contest workflow into a repeatable AI-assisted process: problem reading, data profiling, model selection, coding, paper writing, format checking, result verification, and final packaging.
+[中文](README.md) · [2023C demo](examples/2023C-workflow-demo.md) · [2026A demo](examples/2026A-workflow-demo.md)
 
-This is not just a prompt collection. It includes templates, scripts, checkers, scoring rubrics, anti-hallucination constraints, and reusable modeling references.
+Worked solver for 2026 Problem A: [ciyuan1234/MCM_2026](https://github.com/ciyuan1234/MCM_2026)
 
-[![workflow](cumcm/assets/workflow-overview.svg)](examples/2023C-workflow-demo.md)
-
-[中文 README](README.md) · [2023C Demo](examples/2023C-workflow-demo.md) · [Evaluation Framework](EVALUATION.md) · [Share Kit](PROMOTION.md)
-
-## Why Star This Repo
-
-- **Ready for contest day**: scaffold a complete workspace with folders for problem statements, data, code, figures, paper, and supporting materials.
-- **End-to-end CUMCM workflow**: from reading the problem to exporting the final PDF.
-- **Anti-hallucination by design**: paper numbers must be traceable to data files and code outputs.
-- **A-type PDE playbook** (from CUMCM 2026 Problem A): SI kernel, conservation checks, grid/time-step convergence, competing-mechanism decomposition.
-- **Built-in evaluation**: scripts and rubrics help determine whether a change improves or regresses the workflow.
-- **Agent-friendly**: supports Claude Code, OpenAI Codex, and opencode skill directories.
-
-## Quick Start
-
-Clone the repository:
-
-```powershell
-git clone https://github.com/ciyuan1234/MCM_skills.git
-cd MCM_skills
-```
-
-Install on Windows:
-
-```powershell
-.\install.ps1
-```
-
-Install on macOS / Linux:
+## Install
 
 ```bash
-chmod +x install.sh
-./install.sh
+git clone https://github.com/ciyuan1234/MCM_skills.git
+cd MCM_skills
+chmod +x install.sh && ./install.sh
 ```
 
-Restart your AI coding agent, then ask:
+Windows: `.\install.ps1`
+
+Copies `cumcm/` into Claude Code, Codex, opencode, and Grok (`~/.grok/skills/cumcm`). Then ask:
 
 ```text
-Create a CUMCM contest workspace and start the six-phase modeling workflow.
+Create a CUMCM workspace, read the problem, classify A–E, and propose a route per question.
 ```
 
-The installer copies `cumcm/` into:
+A-type (PDE / heat–mass) loads `references/22-mechanism-pde.md`. C-type starts from `data_contract.json`.
 
-| Tool | Skill directory |
-|---|---|
-| Claude Code | `~/.claude/skills/cumcm` |
-| OpenAI Codex | `~/.codex/skills/cumcm` |
-| AGENTS standard | `~/.agents/skills/cumcm` |
-| opencode | `~/.config/opencode/skills/cumcm` |
-| Grok | `~/.grok/skills/cumcm` |
+## What you get
 
-## What It Does
+| Type | Path |
+| --- | --- |
+| Data (C/E) | data contract → regression / optimization → V-REG / V-OPT |
+| Mechanism (A) | unit dictionary, conservation, grid/time-step checks, V-PDE |
+| Scheduling (B) | feasible baseline first, then V-OPT |
 
-| Phase | Capability | Output |
-|---|---|---|
-| Phase 0 | Read the problem, classify topic type, plan solution routes | Problem structure, model roadmap |
-| Phase 1 | Profile samples, or build a unit dictionary for PDE/mechanism problems | Data contract, `units.md` (A-type) |
-| Phase 2 | Select models, write code, solve and validate | Reproducible scripts, result tables, plots |
-| Phase 3 | Write abstract, body, figures, tables, references | `paper.md`, `paper.tex`, `paper.docx` |
-| Phase 4 | Check format, traceability, and consistency | Verification reports, final PDF |
-| Phase 5 | Package supporting materials | Submission archive |
+Scaffold pre-creates `1_数据/units.md`, `2_代码/0N/model.md`, and `verify_qN.py`. `verify.py` now checks those artifacts.
 
-Worked example (CUMCM 2026 Problem A, herb drying): [ciyuan1234/MCM_2026](https://github.com/ciyuan1234/MCM_2026)
-
-## Repository Layout
-
-```text
-MCM_skills/
-├── install.ps1 / install.sh       # one-click installer
-├── README.md / README_EN.md       # Chinese and English entry points
-├── EVALUATION.md                  # quality evaluation framework
-├── examples/                      # demo outputs
-├── evaluation/                    # benchmark prompts, rubrics, prior-paper notes
-└── cumcm/
-    ├── SKILL.md                   # orchestration instructions
-    ├── references/                # contest rules, model catalog, writing guides
-    ├── scripts/                   # scaffold, checks, verification, export, packaging
-    └── assets/                    # paper templates, plotting style, progress log
-```
-
-## Common Commands
-
-Create a contest workspace:
-
-```powershell
-.\cumcm\scripts\scaffold.ps1 -WorkDir .\workspace
-```
-
-Generate a data contract:
-
-```powershell
-python .\cumcm\scripts\make-data-contract.py .\workspace\1_数据 -o .\workspace\1_数据\data_contract.json
-```
-
-Check the paper and traceability:
-
-```powershell
-python .\cumcm\scripts\checks.py .\workspace\4_论文\paper.md .\workspace
-python .\cumcm\scripts\verify.py .\workspace
-python .\cumcm\scripts\format-check.py .\workspace
-```
-
-Export and package:
-
-```powershell
-.\cumcm\scripts\export-paper.ps1 -WorkDir .\workspace -Force
-.\cumcm\scripts\package.ps1 -WorkDir .\workspace
-```
-
-## Anti-Hallucination Rules
-
-- Data must come from real files.
-- Phase 1 must generate `1_数据/data_contract.json`.
-- Code must explicitly read source data files.
-- Every important number in the paper must be traceable to code output or the data contract.
-- Figures and tables must be generated from data, not manually fabricated.
-- References must be real and actually used.
-- Each model should include error analysis, stability checks, or sensitivity analysis.
-
-## Suggested GitHub Topics
-
-`cumcm` `mathematical-modeling` `ai-agent` `codex` `claude-code` `opencode` `skills` `latex` `python`
-
-## Roadmap
-
-- Add screenshots or a GIF for the full workflow.
-- Add GitHub Actions for script checks and Tier 1 smoke tests.
-- Add a license and contribution guide.
-- Publish more end-to-end demos for past CUMCM problems.
-- Split local Chinese resource indexes into optional extension packs.
+Full index: [`cumcm/SKILL.md`](cumcm/SKILL.md). Changelog: [`CHANGELOG.md`](CHANGELOG.md).

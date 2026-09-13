@@ -29,6 +29,10 @@ L2 回溯检查是**跨阶段一致性验证机制**。在关键阶段转换点�
 | A-04 | 基线模型存在 | stages.2.artifacts | 至少一个基线模型代码+结果 | critical |
 | A-05 | 验证通过 | verify.py 输出 | verify.py exit code = 0 | critical |
 | A-06 | 时间预算 | budget.remaining_hours | 剩余时间 >= 20h（否则建议降级） | warning |
+| A-07 | 机理单位字典 | `1_数据/units.md` | A 类必须存在且填了内核单位 | critical（仅 A 类） |
+| A-08 | 每问模型说明 | `2_代码/0N_问题N/model.md` | 有求解脚本的问必须有 | critical（仅 A 类） |
+| A-09 | 配对验证脚本 | `verify_qN.py` | 有求解脚本的问必须有 | warning |
+| A-10 | 运行清单 | `run_manifest.json` | 已出结果的问必须有网格/步长/哈希 | warning（仅 A 类） |
 
 ### 判定规则
 

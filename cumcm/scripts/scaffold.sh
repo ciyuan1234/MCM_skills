@@ -47,5 +47,22 @@ if [[ -f "$ASSETS_DIR/plot-style.py" ]]; then
   echo "[复制] plot-style.py -> 3_图表"
 fi
 
+mkdir -p "$DEST/4_论文/materials"
+if [[ -f "$ASSETS_DIR/units-template.md" ]]; then
+  cp "$ASSETS_DIR/units-template.md" "$DEST/1_数据/units-template.md"
+  echo "[复制] units-template.md -> 1_数据（A 类再复制为 units.md）"
+fi
+VERIFY_SRC="$SCRIPT_DIR/verify_template.py"
+for i in 1 2 3 4; do
+  qdir="$DEST/2_代码/0${i}_问题${i}"
+  if [[ -f "$ASSETS_DIR/model-template.md" ]]; then
+    sed "s/问题 N/问题 ${i}/g" "$ASSETS_DIR/model-template.md" > "$qdir/model.md"
+  fi
+  if [[ -f "$VERIFY_SRC" ]]; then
+    cp "$VERIFY_SRC" "$qdir/verify_q${i}.py"
+  fi
+done
+echo "[复制] 各问 model.md + verify_qN.py"
+
 echo ""
 echo "工作区已就绪: $DEST"

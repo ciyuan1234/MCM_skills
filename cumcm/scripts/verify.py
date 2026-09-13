@@ -17,6 +17,7 @@
   5. 数值溯源     论文摘要中的关键数值 是否能在 代码输出文件 / 数据契约 stats 中找到出处
   6. 论文-代码对应 附录/支撑材料提到的代码文件 是否真实存在
   7. 决策日志    decision_log.json 是否存在、格式正确、hand_off.md 齐全、时间预算合理
+  8. 配对验证    各问 verify_qN.py；若存在 units.md 则按机理题检查 model.md / run_manifest
 
 约定（skill 红线，必须遵守）:
   - 绘图代码第一行必须有注释:  # 数据来源: <data_contract 路径>  或  % 数据来源: <...>
@@ -58,6 +59,7 @@ READ_STMTS = [
     # Python
     "read_csv", "read_excel", "read_table", "pd.read", "open(", "loadtxt",
     "genfromtxt", "np.load", "loadmat", "json.load", "read_fwf",
+    "load_workbook", "openpyxl",
     # MATLAB
     "readtable", "readmatrix", "xlsread", "csvread", "load(", "importdata",
     "fopen", "textscan", "readcell",
@@ -93,6 +95,8 @@ def find_output_files(workdir):
         os.path.join(workdir, "2_代码", "**", "运行日志*.*"),
         os.path.join(workdir, "2_代码", "**", "*log*.txt"),
         os.path.join(workdir, "2_代码", "**", "*.csv"),
+        os.path.join(workdir, "2_代码", "**", "run_manifest*.json"),
+        os.path.join(workdir, "2_代码", "**", "results*.xlsx"),
         os.path.join(workdir, "3_图表", "**", "*data*.txt"),
     ]
     files = []
@@ -151,10 +155,15 @@ def main():
     if os.path.isdir(code_dir):
         for ext in ("*.py", "*.m", "*.r"):
             scripts.extend(glob.glob(os.path.join(code_dir, "**", ext), recursive=True))
-    if not scripts:
-        report(WARN, "2_代码 下没有 .py/.m 脚本")
+    def _skip_helper(path):
+        name = os.path.basename(path).lower()
+        return name.startswith("verify") or name in ("plot-style.py",)
+
+    code_scripts = [s for s in scripts if not _skip_helper(s)]
+    if not code_scripts:
+        report(WARN, "2_代码 下没有求解脚本（已忽略 verify_*.py 模板）")
     suspect = []
-    for s in scripts:
+    for s in code_scripts:
         try:
             text = read_text(s)
         except Exception:
@@ -165,7 +174,9 @@ def main():
             numeric_count = len(re.findall(r"\b\d+(?:\.\d+)?\b", text))
             if writes_output and numeric_count >= 4:
                 suspect.append(os.path.basename(s))
-    if suspect:
+    if not code_scripts:
+        pass
+    elif suspect:
         report(WARN, f"{len(suspect)} 个脚本疑似未读取数据文件（含较多数字字面量，可能是硬编码）: {', '.join(suspect[:5])}")
     else:
         report(PASS, "所有脚本均包含读取数据文件的语句（或数值字面量少，视为纯算法函数）")
@@ -194,7 +205,12 @@ def main():
     else:
         report(WARN, "论文中未识别到 图N 引用（或未找到论文文件）")
     # 绘图代码必须声明数据来源
-    plot_scripts = [s for s in scripts if s.endswith((".py", ".m")) and re.search(r"(savefig|print\(|figure|plot|bar\(|imshow|scatter)", read_text(s)) if os.path.isfile(s)]
+    plot_scripts = [
+        s for s in code_scripts
+        if s.endswith((".py", ".m"))
+        and os.path.isfile(s)
+        and re.search(r"(savefig|figure|plot|bar\(|imshow|scatter)", read_text(s))
+    ]
     no_src = []
     for s in plot_scripts:
         try:
@@ -345,6 +361,49 @@ def main():
             report(ERR, f"decision_log.json 解析失败: {e}")
     else:
         report(WARN, "未找到 decision_log.json（建议运行 scaffold 创建工作区）")
+
+    # 8. 配对验证脚本 + 机理题产物（units.md 存在才按 A 类硬检查）
+    print("== 8. 配对验证与机理产物 ==")
+    units_path = os.path.join(workdir, "1_数据", "units.md")
+    is_mechanism = os.path.isfile(units_path)
+    if is_mechanism:
+        report(PASS, "检测到 1_数据/units.md，按机理/PDE 题检查（见 22）")
+    solved = 0
+    for n in (1, 2, 3, 4):
+        qdir = os.path.join(code_dir, f"0{n}_问题{n}")
+        if not os.path.isdir(qdir):
+            continue
+        solvers = [
+            p for p in glob.glob(os.path.join(qdir, "*"))
+            if os.path.isfile(p)
+            and p.lower().endswith((".py", ".m", ".r"))
+            and not os.path.basename(p).startswith("verify")
+            and os.path.basename(p) not in ("plot-style.py",)
+        ]
+        if not solvers:
+            continue
+        solved += 1
+        verifies = glob.glob(os.path.join(qdir, f"verify_q{n}.*"))
+        if verifies:
+            report(PASS, f"问题 {n} 已有配对验证 {os.path.basename(verifies[0])}")
+        else:
+            report(WARN, f"问题 {n} 有求解脚本但缺少 verify_q{n}.py（见 references/17）")
+        if is_mechanism:
+            model_md = os.path.join(qdir, "model.md")
+            if os.path.isfile(model_md):
+                report(PASS, f"问题 {n} model.md 存在")
+            else:
+                report(ERR, f"问题 {n} 缺 model.md —— 机理题编码前必须先交模型说明")
+            manifests = glob.glob(os.path.join(qdir, "run_manifest*.json"))
+            result_files = glob.glob(os.path.join(qdir, "result*.*")) + glob.glob(
+                os.path.join(qdir, "results*.*")
+            )
+            if result_files and not manifests:
+                report(WARN, f"问题 {n} 已有结果文件但缺少 run_manifest.json")
+            elif manifests:
+                report(PASS, f"问题 {n} run_manifest 已记录")
+    if solved == 0:
+        report(WARN, "尚未发现各问求解脚本，跳过配对验证检查")
 
     print()
     if ERROR_COUNT:

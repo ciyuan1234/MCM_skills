@@ -307,6 +307,19 @@ def check_l2_backcheck(workdir):
     if not dlog.get("decisions"):
         issues.append("decisions 数组为空（建议记录关键决策）")
 
+    units_md = os.path.join(workdir, "1_数据", "units.md") if workdir else os.path.join("1_数据", "units.md")
+    if os.path.isfile(units_md):
+        for n in (1, 2, 3, 4):
+            qdir = os.path.join(workdir, "2_代码", f"0{n}_问题{n}") if workdir else os.path.join("2_代码", f"0{n}_问题{n}")
+            if not os.path.isdir(qdir):
+                continue
+            has_solver = any(
+                f.endswith((".py", ".m", ".r")) and not f.startswith("verify")
+                for f in os.listdir(qdir)
+            )
+            if has_solver and not os.path.isfile(os.path.join(qdir, "model.md")):
+                issues.append(f"L2-A: 问题 {n} 有求解脚本但缺少 model.md")
+
     if issues:
         for iss in issues:
             report(WARN, f"L2: {iss}")

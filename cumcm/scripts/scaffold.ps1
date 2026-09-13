@@ -66,6 +66,26 @@ if (Test-Path -LiteralPath $plotstyle) {
     Write-Host "[复制] plot-style.py -> 3_图表"
 }
 
+New-Item -ItemType Directory -Path (Join-Path $Dest '4_论文\materials') -Force | Out-Null
+$units = Join-Path $AssetsDir 'units-template.md'
+if (Test-Path -LiteralPath $units) {
+    Copy-Item -LiteralPath $units -Destination (Join-Path $Dest '1_数据\units-template.md') -Force
+    Write-Host "[复制] units-template.md -> 1_数据（A 类再复制为 units.md）"
+}
+$verifySrc = Join-Path $ScriptDir 'verify_template.py'
+$modelTpl = Join-Path $AssetsDir 'model-template.md'
+foreach ($i in 1..4) {
+    $qdir = Join-Path $Dest "2_代码\0$i`_问题$i"
+    if (Test-Path -LiteralPath $modelTpl) {
+        (Get-Content -LiteralPath $modelTpl -Raw -Encoding UTF8) -replace '问题 N', "问题 $i" |
+            Set-Content -LiteralPath (Join-Path $qdir 'model.md') -Encoding UTF8
+    }
+    if (Test-Path -LiteralPath $verifySrc) {
+        Copy-Item -LiteralPath $verifySrc -Destination (Join-Path $qdir "verify_q$i.py") -Force
+    }
+}
+Write-Host "[复制] 各问 model.md + verify_qN.py"
+
 Write-Host ""
 Write-Host "工作区已就绪: $Dest"
 Write-Host "下一步: 把赛题 PDF 和附件放进 0_赛题/，开始比赛吧。"

@@ -79,7 +79,7 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 1. 解压附件到 1_数据，逐个读取，建立字段含义表
 2. 先判断附件角色：**观测样本**（C/E 常见）还是 **边界驱动/物性/几何**（A 类常见）
    - 样本型：缺失值/异常值/重复值侧写，处理并记录
-   - 驱动/物性型：写 `1_数据/units.md`；附件只读；**默认不平滑、不删点、不改值**（见 `22`）
+   - 驱动/物性型：把 `1_数据/units-template.md` 复制为 `units.md` 并填内核单位；附件只读；**默认不平滑、不删点、不改值**（见 `22`）
 3. 处理并记录方法，写入 `decision_log.json` 的 `stages.1.results`
 4. **强制生成数据契约**：`python scripts/make-data-contract.py 1_数据 -o 1_数据/data_contract.json`
 5. **写 hand_off.md** → 进入 Phase 2
@@ -102,8 +102,9 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 
 ### Phase 3 论文写作（41-61h）
 1. **摘要最后写**（见 `references/05-abstract-and-writing.md` §1.5-1.7）：先完成全部正文，再提取关键数字写摘要（900-1200 字）。五要素齐全，每个问题出现具体数值。摘要至少 3 轮润色
-2. 七章结构：问题重述 / 问题分析(配总体思路图) / 模型假设(编号闭环) / 符号说明 /
-   模型建立与求解 / 模型评价改进推广 / 参考文献
+2. 正文结构：
+   - **C/E 数据题**：七章（问题重述 / 问题分析 / 模型假设 / 符号说明 / 模型建立与求解 / 评价推广 / 参考文献）
+   - **A 类机理/PDE**：问题重述 → 数据与单位 → 问题 1～N（每问：分析→建模→求解→结果）→ 检验与局限 → 结论。不要套用「回归 + 聚类」章节。见 `05` A 类小节与 `22`
 3. 排版：Word 用 `assets/paper-template.md`，LaTeX 用 `assets/paper-template.tex`
 4. 图表规范：编号+题注+正文引用+图后结论；三线表
 5. 参考文献 GB/T 7714，只列真文献
@@ -236,10 +237,10 @@ Manual 模式下所有决策都等用户，不受信心分级影响。
 
 ## 本地脚本工具
 
-- `scripts/scaffold.ps1` / `.sh`：创建工作区（含 decision_log.json + memory/ + stage 目录）
+- `scripts/scaffold.ps1` / `.sh`：创建工作区（decision_log、units.md、各问 model.md 与 verify_qN.py）
 - `scripts/make-data-contract.py`：Phase 1 生成数据契约
 - `scripts/checks.py`：论文自动检查 + L2 回溯检查
-- `scripts/verify.py`：溯源硬校验（7 项检查含 decision_log 集成）
+- `scripts/verify.py`：溯源硬校验（8 项：契约、读写、图表、溯源、决策日志、配对验证/机理产物）
 - `scripts/run_golden.py`：黄金测试集自动回归（读 check_points.json，检查文件存在性+数值范围）
 - `scripts/verify_template.py`：配对验证脚本模板（复制后填写验证逻辑）
 - `scripts/export-paper.ps1`：论文导出 PDF

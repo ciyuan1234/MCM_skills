@@ -14,6 +14,7 @@
     V-OPT-N  优化模型
     V-REG-N  回归/ML 模型
     V-ODE-N  ODE/动力学模型
+    V-PDE-N  PDE/有限体积/传热传质
     V-GRF-N  图/网络模型
     V-TS-N   时序预测模型
     V-STAT-N 统计分析模型
@@ -52,6 +53,15 @@ def main():
     #         f"Shapiro-Wilk p={p:.4f} ({'>' if passed else '≤'} 0.05)"))
     # except Exception as e:
     #     checks.append(("V-REG-1", False, f"检查异常: {e}"))
+
+    # 示例：PDE — 零驱动不变（V-PDE-2）
+    # try:
+    #     import numpy as np
+    #     # result = solve(... boundary == initial ...)
+    #     passed = np.allclose(result.moisture[-1], result.moisture[0], atol=1e-9)
+    #     checks.append(("V-PDE-2", passed, "零驱动下场保持初值" if passed else "零驱动下状态自发变化"))
+    # except Exception as e:
+    #     checks.append(("V-PDE-2", False, f"检查异常: {e}"))
 
     # 示例：时序模型 — 残差白噪声
     # try:

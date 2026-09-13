@@ -117,8 +117,9 @@ chmod +x install.sh
 
 **验证体系：**
 - SymPy 工具接地验证：LLM 提出方程 → CAS 验证 → 修复循环
-- 配对验证：6 类模型验证项（V-OPT/V-REG/V-ODE/V-GRF/V-TS/V-STAT）
-- 黄金测试集：3 年（2021C/2022C/2023C）结构化检查点，自动回归
+- 配对验证：7 类模型验证项（V-OPT/V-REG/V-ODE/**V-PDE**/V-GRF/V-TS/V-STAT）
+- 黄金测试集：2021C/2022C/2023C + **2026A（机理/PDE）**
+- **A 类机理题作战手册**（2026 烘干实战）：SI 内核、守恒与网格收敛、效应分解、附件只读
 
 ## 目录结构
 
@@ -130,19 +131,19 @@ MCM_skills/
 ├── EVALUATION.md                  # 质量评估框架
 ├── examples/                      # Demo 输出样例
 ├── evaluation/                    # benchmark、评分表、黄金测试集
-│   ├── golden_problems/           # 结构化测试数据（2021C/2022C/2023C）
+│   ├── golden_problems/           # 结构化测试数据（2021C/2022C/2023C/2026A）
 │   ├── runs/                      # Tier1/Tier2 运行结果
 │   ├── auto-score.py              # 自动评分（90分制）
 │   ├── run-tier1.ps1              # Tier1 回归
 │   ├── run-tier2.ps1              # Tier2 盲测
 │   └── run-benchmark.ps1          # 反幻觉基准（9 工作区含 3 陷阱）
 └── cumcm/
-    ├── SKILL.md                   # skill 编排层（v2.0.0: 记忆/验证/HITL/布局说明）
+    ├── SKILL.md                   # skill 编排层（v2.1.0: 机理/PDE + 记忆/验证/HITL）
     ├── competitions/              # 竞赛规则（CUMCM/MCM/电工杯）
-    ├── references/                # 参考文档（21 个）
+    ├── references/                # 参考文档（22 个）
     │   ├── 01-10 基础参考          # 格式/评分/模型/代码/写作/检查/资源/FAQ/时间/约束
     │   ├── 11-18 扩展能力          # 决策日志/时间预算/交接/L2/Fresh-eyes/路由/验证/并行
-    │   └── 19-21 研究驱动          # 反思银行/记忆架构/工具接地验证
+    │   └── 19-22 研究驱动          # 反思银行/记忆/工具接地/机理PDE
     ├── scripts/                   # 工具脚本（9 个）
     └── assets/                    # 模板（论文/绘图/decision_log/hand_off）
 ```
@@ -228,6 +229,8 @@ winget install MiKTeX.MiKTeX
 - 想把 AI Agent 用到严肃建模任务的人
 - 想研究"AI + 可验证工作流"的开发者
 
+配套实战仓库（2026 国赛 A 四问可复现）：[ciyuan1234/MCM_2026](https://github.com/ciyuan1234/MCM_2026)
+
 ## 推荐 GitHub Topics
 
 如果你 fork 或二次开发，建议添加这些 topics，方便更多人搜到：
@@ -238,6 +241,7 @@ winget install MiKTeX.MiKTeX
 
 - [x] 增加工作流视觉入口：README 首屏已嵌入 workflow overview
 - [x] 黄金测试集自动回归：`run_golden.py` 覆盖 2021C/2022C/2023C
+- [x] A 类机理/PDE 作战手册：`22-mechanism-pde.md` + V-PDE + 2026A golden
 - [x] 结构化版本记录：`CHANGELOG.md`
 - [ ] 增加 GitHub Actions：脚本语法检查和 Tier 1 冒烟测试
 - [ ] 增加 `LICENSE` 和贡献指南
@@ -252,6 +256,7 @@ winget install MiKTeX.MiKTeX
 
 详见 [CHANGELOG.md](CHANGELOG.md)。主要版本：
 
+- **v2.1.0**（2026-09-13）：2026 国赛 A 实战回灌。新增 `22-mechanism-pde.md`、V-PDE 12 项、RB-P 12 条、黄金测试集 2026A、灰阶绘图栈。
 - **v2.0.1**（2026-08-17）：`run_golden.py` 黄金测试集自动回归脚本，支持 3 年题目自动检查，全部通过。
 - **v2.0.0**（2026-08-17）：结构性缺口修复。Golden problems 从 1 年扩展至 3 年（2021C+2022C+2023C）；CHANGELOG.md 统一版本记录；SKILL.md evaluation 目录布局说明。
 - **v1.9.0**（2026-08-17）：研究驱动升级。摘要写作升级（90秒规则+few-shot模板+最后写原则）；敏感度五步法；假设闭环协议；反思银行（30+错误库）；黄金测试集；信心分级介入；三层记忆架构；工具接地验证（SymPy）。

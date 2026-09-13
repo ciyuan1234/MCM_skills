@@ -1,0 +1,40 @@
+{
+  "problem_id": "2026_A",
+  "source": "https://github.com/ciyuan1234/MCM_2026 docs/overview.md",
+  "expected_results": {
+    "Q1": {
+      "horizon_s": 1800,
+      "center_temperature_C": 33.5765,
+      "surface_temperature_C": 36.7863,
+      "center_moisture_kgkg": 2.55,
+      "surface_moisture_kgkg": 1.5103,
+      "key_finding": "表面先升温先失水，圆心 30 min 内含水率几乎不变"
+    },
+    "Q2": {
+      "horizon_h": 3,
+      "center_temperature_C": 49.8494,
+      "center_moisture_kgkg": 1.7662,
+      "radial_dT_C": 0.117,
+      "key_finding": "传热已完成，传质远未达标"
+    },
+    "Q3": {
+      "t_f_h": 57.2667,
+      "t_f_interp_h": 57.2506,
+      "long_term_boundary_uncertainty_h": 0.36,
+      "key_finding": "固定半径下圆心达标约 57.27 h"
+    },
+    "Q4": {
+      "t_f_h": 50.85,
+      "radius_cm_start": 2.0,
+      "radius_cm_end": 1.198,
+      "net_speedup_pct": 11.2,
+      "property_effect_h": 71.8775,
+      "geometry_effect_h": -78.2942,
+      "key_finding": "物性减速与几何加速几乎抵消，净加速约 11.2%"
+    }
+  },
+  "verification_metrics": {
+    "moisture_balance_relative_error_max": 1e-13,
+    "claim_empirical_accuracy": false
+  }
+}

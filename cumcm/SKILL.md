@@ -1,6 +1,6 @@
 ---
 name: cumcm
-description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手。覆盖 72 小时赛程的读题选题、数据探索、模型选择与求解、论文写作、格式检查、支撑材料打包。Use when 用户参加数学建模竞赛/国赛、拿到赛题需要分析建模、需要选模型写代码、需要按国赛规范写建模论文/摘要、需要检查论文格式或准备提交。与美赛无关的普通代码任务不要触发。
+description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手。覆盖 72 小时赛程的读题选题、数据探索、模型选择与求解、论文写作、格式检查、支撑材料打包；A 类机理/PDE/传热传质题按 22-mechanism-pde 走单位字典、守恒与网格收敛。Use when 用户参加数学建模竞赛/国赛、拿到赛题需要分析建模、需要选模型写代码、需要按国赛规范写建模论文/摘要、需要检查论文格式或准备提交、做烘干/炉温/传热传质/有限体积。与美赛无关的普通代码任务不要触发。
 ---
 
 # 全国大学生数学建模竞赛（CUMCM）参赛助手
@@ -71,13 +71,15 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 ### Phase 0 读题选题（0-5h）
 1. 用 scaffold 创建工作区（含 decision_log.json + memory/ + stage 目录）
 2. 读取赛题 PDF，提取四层结构：背景 / 问题 1-N / 数据说明 / 结果要求
-3. 判断题型 A-E，对照 `references/03-model-catalog.md` 给出候选模型方向
+3. 判断题型 A-E，对照 `references/03-model-catalog.md` 给出候选模型方向。**A 类物理/连续（方程、物性、炉温/烘干/传热传质）立即加载 `references/22-mechanism-pde.md`**
 4. 与用户确认选题，记录到 `decision_log.json` 的 `decisions` 数组
 5. **写 hand_off.md** → 进入 Phase 1
 
 ### Phase 1 数据探索（5-11h）
 1. 解压附件到 1_数据，逐个读取，建立字段含义表
-2. 数据侧写：缺失值/异常值/重复值统计、描述统计、时序/分布图
+2. 先判断附件角色：**观测样本**（C/E 常见）还是 **边界驱动/物性/几何**（A 类常见）
+   - 样本型：缺失值/异常值/重复值侧写，处理并记录
+   - 驱动/物性型：写 `1_数据/units.md`；附件只读；**默认不平滑、不删点、不改值**（见 `22`）
 3. 处理并记录方法，写入 `decision_log.json` 的 `stages.1.results`
 4. **强制生成数据契约**：`python scripts/make-data-contract.py 1_数据 -o 1_数据/data_contract.json`
 5. **写 hand_off.md** → 进入 Phase 2
@@ -86,10 +88,11 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 每个问题按固定流程：**问题分析 → 模型选择 → 建立 → 求解 → 结果分析 → 检验**
 
 - 模型选择：查 `references/03-model-catalog.md`，简单优先，先做基线再升级
+- **机理/PDE 题**：按 `references/22-mechanism-pde.md` 执行。编码前先交 `model.md`；内核 SI 单位；每问一条入口 + `run_manifest.json`；递进小问禁止并行
 - 代码实现：查 `references/04-code-library.md` 复用本地代码；**禁用 bug 版本**
 - **SymPy 工具接地验证**（见 `references/21-tool-grounded-verification.md`）：每个关键方程用 SymPy 验证量纲一致/边界行为/守恒律；验证失败→反馈 LLM 修复→重试（最多 3 轮）
-- **配对验证**（见 `references/17-paired-verification.md`）：每个求解脚本配套 `verify_*.py`，全部 `✓ PASS` 后结果才能写入论文；按模型类型执行验证项（优化 V-OPT / 回归 V-REG / ODE V-ODE / 图 V-GRF / 时序 V-TS / 统计 V-STAT）
-- **并行子问题**（见 `references/18-parallel-subagents.md`，仅 AP 模式）：子问题数据独立+模型独立时，可同时启动多个子 Agent 并行 build+verify；主 Agent 做跨问题一致性检查
+- **配对验证**（见 `references/17-paired-verification.md`）：每个求解脚本配套 `verify_*.py`，全部 `✓ PASS` 后结果才能写入论文；按模型类型执行验证项（优化 V-OPT / 回归 V-REG / ODE V-ODE / **PDE V-PDE** / 图 V-GRF / 时序 V-TS / 统计 V-STAT）
+- **并行子问题**（见 `references/18-parallel-subagents.md`，仅 AP 模式）：仅当子问题数据独立且模型独立时并行。**Q1⊂Q2⊂Q3 的机理递进题禁止并行**；实验用独立 worktree，不要和子问题并行混用
 - 每个模型必做：误差分析 + 灵敏度/稳定性分析（**五步法**，见 `references/05-abstract-and-writing.md` §5）
 - 结果保存为可复现文件，数值直接从运行日志取，不手改
 - 绘图套用 `assets/plot-style.py` 模板：`# 数据来源:` + `# 对象数: N`
@@ -174,6 +177,7 @@ description: 全国大学生数学建模竞赛（CUMCM）全流程参赛助手�
 8. **不超时**：Phase 3 最迟第 41h 开始；锁定模式必须遵守
 9. **hand_off 必写**：每阶段结束必须生成 hand_off.md，否则不得进入下一阶段
 10. **假设闭环**：假设必须有编号（A1/A2/...），正文引用假设编号，敏感度检验假设影响
+11. **机理题不编造物理**：内核用 SI；附件只读；阿伦尼乌斯用 K；题目没给的潜热等参数不得虚构；头条数字必须能从结果文件和 `verify_*.py` 追溯
 
 ## 信心分级介入（HITL）
 
@@ -222,6 +226,7 @@ Manual 模式下所有决策都等用户，不受信心分级影响。
 | 反思银行（常见错误+修复方案） | `references/19-reflection-bank.md` |
 | 三层记忆架构 | `references/20-memory-architecture.md` |
 | 工具接地验证（SymPy 验证方程） | `references/21-tool-grounded-verification.md` |
+| A 类机理/PDE/传热传质（单位、守恒、网格、交付） | `references/22-mechanism-pde.md` |
 | 图表/表格排版样例 | `assets/result-table-samples.md` |
 | 绘图规范模板（必用） | `assets/plot-style.py` |
 | 论文模板（Word） | `assets/paper-template.md` |
@@ -255,7 +260,8 @@ MCM_skills/
 ├── cumcm/evaluation/golden_problems/    # 结构化测试数据（skill 包内）
 │   ├── 2021_C/   # problem.json + expected_results.json + check_points.json + reference_paper.md
 │   ├── 2022_C/   # 同上
-│   └── 2023_C/   # 同上
+│   ├── 2023_C/   # 同上
+│   └── 2026_A/   # 机理/PDE 黄金题（药材烘干）
 └── evaluation/                           # 回归测试工具（顶层）
     ├── golden_problems/ → 符号链接或复制 cumcm/evaluation/golden_problems/
     ├── runs/               # Tier1/Tier2 实际运行结果

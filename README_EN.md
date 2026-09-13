@@ -22,6 +22,7 @@ This is not just a prompt collection. It includes templates, scripts, checkers, 
 - **Ready for contest day**: scaffold a complete workspace with folders for problem statements, data, code, figures, paper, and supporting materials.
 - **End-to-end CUMCM workflow**: from reading the problem to exporting the final PDF.
 - **Anti-hallucination by design**: paper numbers must be traceable to data files and code outputs.
+- **A-type PDE playbook** (from CUMCM 2026 Problem A): SI kernel, conservation checks, grid/time-step convergence, competing-mechanism decomposition.
 - **Built-in evaluation**: scripts and rubrics help determine whether a change improves or regresses the workflow.
 - **Agent-friendly**: supports Claude Code, OpenAI Codex, and opencode skill directories.
 
@@ -72,6 +73,8 @@ The installer copies `cumcm/` into:
 | Phase 3 | Write abstract, body, figures, tables, references | `paper.md`, `paper.tex`, `paper.docx` |
 | Phase 4 | Check format, traceability, and consistency | Verification reports, final PDF |
 | Phase 5 | Package supporting materials | Submission archive |
+
+Worked example (CUMCM 2026 Problem A, herb drying): [ciyuan1234/MCM_2026](https://github.com/ciyuan1234/MCM_2026)
 
 ## Repository Layout
 

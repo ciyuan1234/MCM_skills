@@ -1,0 +1,19 @@
+{
+  "problem_id": "2026_A",
+  "title": "药材的烘干问题",
+  "year": 2026,
+  "letter": "A",
+  "competition": "cumcm",
+  "problem_type": "A_物理连续",
+  "sub_problems": 4,
+  "data_files": ["附件1.xlsx", "附件2.xlsx", "附件3/"],
+  "description": "圆柱形湿药材热风烘干。热量由外向内、水分由内向外。Q1 预热 30 min 常数物性；Q2 变物性 3 h；Q3 全周期圆心含水率降至 0.15 kg/kg；Q4 半径收缩后重新确定烘干时间。",
+  "expected_model_types": {
+    "Q1": "一维径向传热—水分扩散（常数物性）+ 隐式有限体积",
+    "Q2": "附录 3 变物性径向模型",
+    "Q3": "变物性 + 长期边界 + 圆心达标终止",
+    "Q4": "材料坐标收缩圆柱 + 附录 4 物性 + 效应分解"
+  },
+  "skill_playbook": "references/22-mechanism-pde.md",
+  "reference_repo": "https://github.com/ciyuan1234/MCM_2026"
+}

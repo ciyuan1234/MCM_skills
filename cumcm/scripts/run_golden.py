@@ -163,6 +163,8 @@ def auto_detect_problem(workdir):
                 return "2022_C"
             if any("2021" in fn or "供应商" in fn for fn in filenames):
                 return "2021_C"
+            if any("烘干" in fn or "药材" in fn or "2026" in fn for fn in filenames):
+                return "2026_A"
         except Exception:
             pass
 
@@ -174,6 +176,8 @@ def auto_detect_problem(workdir):
         return "2022_C"
     if "2021" in basename:
         return "2021_C"
+    if "2026" in basename or "烘干" in basename:
+        return "2026_A"
 
     return None
 

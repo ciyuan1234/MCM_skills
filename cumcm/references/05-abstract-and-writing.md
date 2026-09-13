@@ -171,6 +171,7 @@ Sensitivity analysis reveals [key finding]; the model generalizes to [scope].
 - 图：编号 + 题注（"图1 xxx"），正文引用（"如图1所示"），图后带结论
 - 表：三线表，编号 + 题注（"表1 xxx"），正文引用（"由表1可知"）
 - 结果保留 4 位小数
+- 评委按黑白打印：曲线靠线型+标记+灰阶区分，不要只靠颜色（`assets/plot-style.py`）
 - 详细示例见 `assets/result-table-samples.md`
 
 ## 5. 敏感度分析五步法

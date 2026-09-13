@@ -24,6 +24,11 @@ plt.rcParams["figure.dpi"] = 120
 plt.rcParams["savefig.dpi"] = 300            # 论文图至少 300dpi
 plt.rcParams["figure.figsize"] = (8, 5)
 
+# 国赛评委按黑白打印。默认用灰阶 + 线型 + 标记区分曲线，不要只靠颜色。
+CUMCM_GRAYS = ["#000000", "#595959", "#8C8C8C", "#BFBFBF"]
+CUMCM_LINESTYLES = ["-", "--", "-.", ":"]
+CUMCM_MARKERS = ["o", "s", "^", "D"]
+
 # ---- 读取真实数据（禁止硬编码）----
 df = pd.read_csv("1_数据/示例数据.csv", encoding="utf-8")
 
@@ -32,7 +37,7 @@ df = pd.read_csv("1_数据/示例数据.csv", encoding="utf-8")
 fig, ax = plt.subplots()
 categories = ["花叶类", "水生根茎类", "茄类"]           # 数据分组
 values = [df["销量"].mean(), 100.0, 50.0]               # 必须来自 df 计算
-ax.bar(categories, values, color=["#4C72B0", "#DD8452", "#55A868"])
+ax.bar(categories, values, color=CUMCM_GRAYS[:3])
 ax.set_xlabel("品类")
 ax.set_ylabel("平均销量 (kg)")
 ax.set_title("各品类平均销量")

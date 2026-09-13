@@ -30,6 +30,7 @@
 | BP 神经网络 | 现代直接用 `sklearn.neural_network.MLPRegressor`（勿用 MATLAB newff 旧范式） | sklearn |
 | 元胞自动机 | 网格状态+规则（生命游戏 S/B；NaSch 交通流：加速/减速/随机慢化/运动） | numpy |
 | SVM（SMO） | 直接 `sklearn.svm.SVC`（手写 SMO 的 KKT 判断极易出错，见 1.4 ②） | sklearn |
+| 径向传热—水分扩散（FVM） | 守恒型有限体积；`r=0` 对称边界；物性与边界在输入层转换到 SI；隐式 + Picard；移动边界用材料坐标 `ξ=r/R(t)` 避免对流项。完整规则见 `22` | numpy, scipy |
 
 ## 1. MATLAB 现成代码（目录 7：`7.数学建模常用MATLAB代码大全`）
 
